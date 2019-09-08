@@ -32,7 +32,7 @@ const Navbar: React.FC<NavBarProps> = props => {
           <Typography variant='h5'>
             {props.title}
           </Typography>
-          <IconButton size='medium'>
+          <IconButton>
             <Icon>menu</Icon>
           </IconButton>
         </Toolbar>
