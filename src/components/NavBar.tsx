@@ -5,9 +5,9 @@ import {
   IconButton,
   Icon,
   Typography,
-  makeStyles
+  makeStyles,
 } from '@material-ui/core'
-
+import Drawer from './Drawer';
 
 const useStyles = makeStyles(theme => ({
   appbar: {
@@ -20,11 +20,20 @@ const useStyles = makeStyles(theme => ({
 }))
 
 interface NavBarProps {
-  title?: string
+  title: string
+  children: JSX.Element[] | JSX.Element
 }
 
+
+
 const Navbar: React.FC<NavBarProps> = props => {
+  const [open, setOpen] = React.useState(false)
   const classes = useStyles()
+
+  const toggle = () => {
+    setOpen(!open)
+  }
+
   return (
     <div>
       <AppBar color='inherit' className={classes.appbar}>
@@ -32,17 +41,14 @@ const Navbar: React.FC<NavBarProps> = props => {
           <Typography variant='h5'>
             {props.title}
           </Typography>
-          <IconButton>
+          <IconButton onClick={toggle}>
             <Icon>menu</Icon>
           </IconButton>
         </Toolbar>
       </AppBar>
+      <Drawer open={open} toggle={toggle}/>
     </div>
   )
-}
-
-Navbar.defaultProps = {
-  title: 'NATA Danus'
 }
 
 export default Navbar
