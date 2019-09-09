@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Navbar from './components/NavBar';
 import About from './pages/About';
 import Register from './pages/Register';
+import Login from './pages/Login';
 
 interface PageRouterProps {
   
@@ -18,6 +19,7 @@ const PageRouter: React.FC<PageRouterProps> = () => {
           <Route path='/' exact component={Home}/>
           <Route path='/about' component={About}/>
           <Route path='/register' component={Register}/>
+          <Route path='/login' component={Login}/>
         </Switch>
       </Router>      
     </>

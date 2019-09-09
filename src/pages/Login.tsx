@@ -20,13 +20,11 @@ interface Props {
   
 }
 
-const Register: React.FC<Props> = () => {
+const Login: React.FC<Props> = () => {
   const classes = useStyles()
   const [state, setState] = React.useState({
     email: '',
-    name: '',
     password: '',
-    confirmPassword: ''
   })
 
   const handleChange = (name: string) => (event: any) => {
@@ -39,12 +37,10 @@ const Register: React.FC<Props> = () => {
 
         <Grid item xs={3}>
           <Grid container justify='center'>
-            <Typography variant='body1' className={classes.text} display='block'>Register your email here to get our best offer</Typography>
+            <Typography variant='body1' className={classes.text} display='block'>Log In to Your Account</Typography>
             <Input fullWidth label='email' value={state.email} onChange={handleChange('email')}/>
-            <Input fullWidth label='name' value={state.name} onChange={handleChange('name')}/>
             <Input fullWidth label='password' value={state.password} onChange={handleChange('password')}/>
-            <Input fullWidth label='confirm password' value={state.confirmPassword} onChange={handleChange('confirmPassword')}/>
-            <Button fullWidth variant='contained' color='inherit'>Register</Button>
+            <Button fullWidth variant='contained' color='inherit'>Login</Button>
           </Grid>
         </Grid>
 
@@ -53,4 +49,4 @@ const Register: React.FC<Props> = () => {
   )
 }
 
-export default Register
+export default Login
