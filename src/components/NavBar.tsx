@@ -21,10 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 interface NavBarProps {
   title: string
-  children: JSX.Element[] | JSX.Element
 }
-
-
 
 const Navbar: React.FC<NavBarProps> = props => {
   const [open, setOpen] = React.useState(false)
