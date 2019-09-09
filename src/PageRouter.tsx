@@ -12,8 +12,8 @@ interface PageRouterProps {
 const PageRouter: React.FC<PageRouterProps> = () => {
   return (
     <>
-      <Navbar title='NATA Danus' />
       <Router>
+        <Navbar title='NATA Danus' />
         <Switch>
           <Route path='/' exact component={Home}/>
           <Route path='/about' component={About}/>

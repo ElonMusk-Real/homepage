@@ -17,17 +17,22 @@ const useStyles = makeStyles({
 
 interface Props {
   label: string
+  fullWidth: boolean
+  value: string
+  onChange: any
 }
 
 const Input: React.FC<Props> = (props) => {
-  const {label, ...transferProps} = props
+  const {label,value,onChange, ...transferProps} = props
   const classes = useStyles()
 
   return (
     <TextField
       variant='filled'
       label={label}
-      value=''
+      value={value}
+      onChange={onChange}
+      fullWidth={props.fullWidth}
       InputProps={{
         classes: {
           input: classes.inputClasses,
