@@ -39,7 +39,7 @@ const Drawer: React.FC<DrawerProps> = props => {
       <Link to={props.url} style={{ textDecoration: "none", color: 'inherit' }}>
         <div className={classes.list}>
           <List>
-            <ListItem button>
+            <ListItem button onClick={props.onClose}>
               <ListItemIcon>
                 <Icon>{props.icon}</Icon>
               </ListItemIcon>
@@ -55,7 +55,7 @@ const Drawer: React.FC<DrawerProps> = props => {
     <div>
       <DrawerMUI anchor="left" open={props.open} onClose={props.toggle}>
         {menus.map((menu, index) => {
-          return <ListMenu key={index} icon={menu.icon} text={menu.text} url={menu.url}/>;
+          return <ListMenu key={index} icon={menu.icon} text={menu.text} url={menu.url} onClose={props.toggle}/>;
         })}
       </DrawerMUI>
     </div>
