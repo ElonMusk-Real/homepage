@@ -1,10 +1,8 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from './pages/Home';
 import Navbar from './components/NavBar';
-import About from './pages/About';
-import Register from './pages/Register';
-import Login from './pages/Login';
+
+import {Home, About, Register, Login, Profile } from './pages'
 
 interface PageRouterProps {
   
@@ -20,6 +18,7 @@ const PageRouter: React.FC<PageRouterProps> = () => {
           <Route path='/about' component={About}/>
           <Route path='/register' component={Register}/>
           <Route path='/login' component={Login}/>
+          <Route path='/profile' component={Profile}/>
         </Switch>
       </Router>      
     </>

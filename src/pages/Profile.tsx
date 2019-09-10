@@ -1,6 +1,7 @@
 import React from 'react'
-import { Typography, Grid, makeStyles, Button } from '@material-ui/core';
+import { Typography, Grid, makeStyles, Button, ButtonGroup, Avatar, Divider } from '@material-ui/core';
 import Input from '../components/Input';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   container: {
@@ -13,6 +14,14 @@ const useStyles = makeStyles({
   },
   text: {
     padding: 48
+  },
+  avatar: {
+    margin: 10,
+    width: 60,
+    height: 60,
+  },
+  avatarContainer: {
+    padding: 20
   }
 })
 
@@ -20,7 +29,7 @@ interface Props {
   
 }
 
-const Register: React.FC<Props> = () => {
+const Profile: React.FC<Props> = () => {
   const classes = useStyles()
   const [state, setState] = React.useState({
     email: '',
@@ -39,12 +48,18 @@ const Register: React.FC<Props> = () => {
 
         <Grid item xs={11} md={6}>
           <Grid container justify='center'>
-            <Typography variant='body1' className={classes.text} display='block'>Register your email here to get our best offer</Typography>
+            <div className={classes.avatarContainer}>
+              <Avatar className={classes.avatar}>DH</Avatar>
+            </div>
             <Input fullWidth label='email' value={state.email} onChange={handleChange('email')}/>
             <Input fullWidth label='name' value={state.name} onChange={handleChange('name')}/>
             <Input fullWidth label='password' value={state.password} onChange={handleChange('password')}/>
-            <Input fullWidth label='confirm password' value={state.confirmPassword} onChange={handleChange('confirmPassword')}/>
-            <Button fullWidth variant='contained' color='inherit'>Register</Button>
+            <Input fullWidth label='new password' value={state.confirmPassword} onChange={handleChange('confirmPassword')}/>
+            <Input fullWidth label='confirm new password' value={state.confirmPassword} onChange={handleChange('confirmPassword')}/>
+            <ButtonGroup fullWidth variant='contained'>
+              <Button onClick={() => window.history.back()}>Cancel</Button>
+              <Button color='primary'>Save</Button>
+            </ButtonGroup>
           </Grid>
         </Grid>
 
@@ -53,4 +68,4 @@ const Register: React.FC<Props> = () => {
   )
 }
 
-export default Register
+export default Profile

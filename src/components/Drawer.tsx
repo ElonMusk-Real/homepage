@@ -22,7 +22,8 @@ const menus = [
   { icon: "home", text: "Merchant", url: "/" },
   { icon: "home", text: "About", url: "/" },
   { icon: "home", text: "Register", url: "/register" },
-  { icon: "home", text: "Login", url: "/login" }
+  { icon: "arrow_right_alt", text: "Login", url: "/login" },
+  { icon: "person", text: "profile", url: "/profile" }
 ];
 
 const useStyles = makeStyles({

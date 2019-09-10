@@ -35,7 +35,7 @@ const Login: React.FC<Props> = () => {
     <div className={classes.container}>
       <Grid container justify='center'>
 
-        <Grid item xs={3}>
+        <Grid item xs={11} md={6}>
           <Grid container justify='center'>
             <Typography variant='body1' className={classes.text} display='block'>Log In to Your Account</Typography>
             <Input fullWidth label='email' value={state.email} onChange={handleChange('email')}/>
