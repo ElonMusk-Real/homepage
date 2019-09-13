@@ -23,7 +23,7 @@ interface Props {
   className?: string;
 }
 
-const Input: React.FC<Props> = props => {
+const Input: React.FC<Props> = (props) => {
   const { label, value, onChange, className, ...transferProps } = props;
   const classes = useStyles();
 

@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Grid,
-  makeStyles,
-  Button,
-  ButtonGroup,
-  Avatar
-} from "@material-ui/core";
+import { Grid, makeStyles, Button, ButtonGroup, Avatar } from "@material-ui/core";
 import Input from "../components/Input";
 
 const useStyles = makeStyles({
@@ -96,11 +90,7 @@ const Profile: React.FC<Props> = () => {
               value={state.confirmPassword}
               onChange={handleChange("confirmPassword")}
             />
-            <ButtonGroup
-              className={classes.marginv}
-              fullWidth
-              variant="contained"
-            >
+            <ButtonGroup className={classes.marginv} fullWidth variant="contained">
               <Button onClick={() => window.history.back()}>Cancel</Button>
               <Button color="primary">Save</Button>
             </ButtonGroup>

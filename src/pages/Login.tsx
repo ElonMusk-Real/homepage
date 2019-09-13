@@ -42,11 +42,7 @@ const Login: React.FC<Props> = () => {
       <Grid container justify="center">
         <Grid item xs={11} md={6}>
           <Grid container justify="center">
-            <Typography
-              variant="body1"
-              className={classes.text}
-              display="block"
-            >
+            <Typography variant="body1" className={classes.text} display="block">
               Log In to Your Account
             </Typography>
             <Input
@@ -63,12 +59,7 @@ const Login: React.FC<Props> = () => {
               value={state.password}
               onChange={handleChange("password")}
             />
-            <Button
-              className={classes.marginv}
-              fullWidth
-              variant="contained"
-              color="inherit"
-            >
+            <Button className={classes.marginv} fullWidth variant="contained" color="inherit">
               Login
             </Button>
           </Grid>

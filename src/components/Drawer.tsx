@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import {
   Drawer as DrawerMUI,
   List,
@@ -8,6 +9,9 @@ import {
   Icon,
   makeStyles
 } from "@material-ui/core";
+=======
+import { Drawer as DrawerMUI, List, ListItem, ListItemIcon, ListItemText, Icon, makeStyles } from "@material-ui/core";
+>>>>>>> e62f51742f7138d66425fdb9e933bbf184965262
 import { Link } from "react-router-dom";
 
 interface DrawerProps {
@@ -33,7 +37,7 @@ const useStyles = makeStyles({
   }
 });
 
-const Drawer: React.FC<DrawerProps> = props => {
+const Drawer: React.FC<DrawerProps> = (props) => {
   const classes = useStyles();
 
   const ListMenu = (props: any) => {

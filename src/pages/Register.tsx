@@ -44,11 +44,7 @@ const Register: React.FC<Props> = () => {
       <Grid container justify="center">
         <Grid item xs={11} md={6}>
           <Grid container justify="center">
-            <Typography
-              variant="body1"
-              className={classes.text}
-              display="block"
-            >
+            <Typography variant="body1" className={classes.text} display="block">
               Register your email here to get our best offer
             </Typography>
             <Input
@@ -79,12 +75,7 @@ const Register: React.FC<Props> = () => {
               value={state.confirmPassword}
               onChange={handleChange("confirmPassword")}
             />
-            <Button
-              className={classes.marginv}
-              fullWidth
-              variant="contained"
-              color="inherit"
-            >
+            <Button className={classes.marginv} fullWidth variant="contained" color="inherit">
               Register
             </Button>
           </Grid>

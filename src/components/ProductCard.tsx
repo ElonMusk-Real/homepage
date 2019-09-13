@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  CardActionArea
-} from "@material-ui/core";
+import { Card, CardMedia, CardContent, Typography, CardActionArea } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles({
@@ -33,11 +27,7 @@ const ProductCard: React.FC<Props> = () => {
   return (
     <div>
       <Card className={classes.container}>
-        <CardMedia
-          className={classes.media}
-          component="img"
-          image="https://via.placeholder.com/640x480"
-        />
+        <CardMedia className={classes.media} component="img" image="https://via.placeholder.com/640x480" />
         <CardActionArea>
           <CardContent>
             <Typography gutterBottom>Kue Danus</Typography>

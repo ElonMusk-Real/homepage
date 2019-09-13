@@ -1,0 +1,5 @@
+{
+  "prettier.arrowParens": "always",
+  "editor.formatOnSave": true,
+  "prettier.printWidth": 120
+}

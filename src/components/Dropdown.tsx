@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  makeStyles,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormControl
-} from "@material-ui/core";
+import { makeStyles, InputLabel, Select, MenuItem, FormControl } from "@material-ui/core";
 
 const useStyles = makeStyles({
   container: {
@@ -37,7 +31,7 @@ interface Props {
   onChange: any;
 }
 
-const Dropdown: React.FC<Props> = props => {
+const Dropdown: React.FC<Props> = (props) => {
   const classes = useStyles();
   return (
     <div>

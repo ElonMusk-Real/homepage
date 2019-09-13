@@ -47,11 +47,7 @@ const ProductList: React.FC<Props> = () => {
         <Grid item xs={12}>
           <Grid container justify="center" className={classes.padding}>
             <Grid item className={classes.paddingDropdown}>
-              <Dropdown
-                listMenu={[{ null: null }]}
-                label="Category"
-                onChange={null}
-              />
+              <Dropdown listMenu={[{ null: null }]} label="Category" onChange={null} />
             </Grid>
             <Grid item className={classes.padding}>
               <Button variant="contained" color="primary">
