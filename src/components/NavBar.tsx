@@ -1,51 +1,49 @@
-import React from 'react'
+import React from "react";
 import {
   AppBar,
   Toolbar,
   IconButton,
   Icon,
   Typography,
-  makeStyles,
-} from '@material-ui/core'
-import Drawer from './Drawer';
+  makeStyles
+} from "@material-ui/core";
+import Drawer from "./Drawer";
 
 const useStyles = makeStyles(theme => ({
   appbar: {
-    background: 'transparent'
+    background: "transparent"
   },
   toolbar: {
-    display: 'flex',
-    justifyContent: 'space-between'
+    display: "flex",
+    justifyContent: "space-between"
   }
-}))
+}));
 
 interface NavBarProps {
-  title: string
+  title: string;
 }
 
 const Navbar: React.FC<NavBarProps> = props => {
-  const [open, setOpen] = React.useState(false)
-  const classes = useStyles()
+  const [open, setOpen] = React.useState(false);
+  const classes = useStyles();
 
   const toggle = () => {
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
   return (
     <div>
-      <AppBar color='inherit' className={classes.appbar}>
+      <AppBar color="inherit" className={classes.appbar}>
         <Toolbar className={classes.toolbar}>
-          <Typography variant='h5'>
-            {props.title}
-          </Typography>
+          <Typography variant="h5">{props.title}</Typography>
           <IconButton onClick={toggle}>
             <Icon>menu</Icon>
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Drawer open={open} toggle={toggle}/>
+      <Drawer open={open} toggle={toggle} />
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

@@ -1,6 +1,12 @@
-import React from 'react'
-import { Card, CardHeader, CardMedia, CardContent, Typography, Grid, Button, CardActions, CardActionArea } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles';
+import React from "react";
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  CardActionArea
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles({
   container: {
@@ -10,22 +16,18 @@ const useStyles = makeStyles({
     height: 180,
     width: 320
   },
-  placeText: {
-
-  },
+  placeText: {},
   perBox: {
     fontSize: 18,
-    color: 'black',
-    display: 'block'
+    color: "black",
+    display: "block"
   }
-})
+});
 
-interface Props {
-
-}
+interface Props {}
 
 const ProductCard: React.FC<Props> = () => {
-  const classes = useStyles()
+  const classes = useStyles();
   const address = "Komplek BIG Kavling A no 12 Limo, Grogol, Depok";
   console.log(address.length);
   return (
@@ -39,7 +41,7 @@ const ProductCard: React.FC<Props> = () => {
         <CardActionArea>
           <CardContent>
             <Typography gutterBottom>Kue Danus</Typography>
-            <Typography color="primary" variant='h6'>
+            <Typography color="primary" variant="h6">
               <b>Rp 30.000</b>
               <span className={classes.perBox}>per box</span>
             </Typography>
@@ -51,6 +53,6 @@ const ProductCard: React.FC<Props> = () => {
       </Card>
     </div>
   );
-}
+};
 
-export default ProductCard
+export default ProductCard;

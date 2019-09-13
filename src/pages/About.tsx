@@ -1,15 +1,9 @@
-import React from 'react'
+import React from "react";
 
-interface Props {
-  
-}
+interface Props {}
 
 const About: React.FC<Props> = () => {
-  return (
-    <div>
-      About Page
-    </div>
-  )
-}
+  return <div>About Page</div>;
+};
 
-export default About
+export default About;

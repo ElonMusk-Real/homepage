@@ -1,25 +1,17 @@
-import React from 'react'
-import { makeStyles, CardContent, Typography, CardHeader, CardMedia } from '@material-ui/core';
-import ProductCard from '../components/ProductCard';
+import React from "react";
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   container: {
     paddingTop: 64
   }
-})
+});
 
-interface Props {
-  
-}
+interface Props {}
 
 const Home: React.FC<Props> = () => {
-  const classes = useStyles()
-  return (
-    <div className={classes.container}>
-      Home Page
-      <ProductCard />
-    </div>
-  )
-}
+  const classes = useStyles();
+  return <div className={classes.container}>Home Page</div>;
+};
 
-export default Home
+export default Home;

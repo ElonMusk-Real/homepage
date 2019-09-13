@@ -6,7 +6,7 @@ import {
   ListItemIcon,
   ListItemText,
   Icon,
-  makeStyles,
+  makeStyles
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
@@ -17,13 +17,14 @@ interface DrawerProps {
 
 const menus = [
   { icon: "home", text: "Home", url: "/" },
-  { icon: "home", text: "Order", url: "/" },
-  { icon: "home", text: "Filter Snack", url: "/" },
-  { icon: "home", text: "Merchant", url: "/" },
-  { icon: "home", text: "About", url: "/" },
-  { icon: "home", text: "Register", url: "/register" },
-  { icon: "arrow_right_alt", text: "Login", url: "/login" },
-  { icon: "person", text: "profile", url: "/profile" }
+  { icon: "library_books", text: "Order", url: "/" },
+  { icon: "filter_list", text: "Filter Snack", url: "/" },
+  { icon: "storefront", text: "Merchant", url: "/" },
+  { icon: "info", text: "About", url: "/" },
+  { icon: "add_circle", text: "Register", url: "/register" },
+  { icon: "double_arrow", text: "Login", url: "/login" },
+  { icon: "person", text: "Profile", url: "/profile" },
+  { icon: "view_module", text: "Product List", url: "/productlist" }
 ];
 
 const useStyles = makeStyles({
@@ -37,7 +38,7 @@ const Drawer: React.FC<DrawerProps> = props => {
 
   const ListMenu = (props: any) => {
     return (
-      <Link to={props.url} style={{ textDecoration: "none", color: 'inherit' }}>
+      <Link to={props.url} style={{ textDecoration: "none", color: "inherit" }}>
         <div className={classes.list}>
           <List>
             <ListItem button onClick={props.onClose}>
@@ -56,7 +57,15 @@ const Drawer: React.FC<DrawerProps> = props => {
     <div>
       <DrawerMUI anchor="left" open={props.open} onClose={props.toggle}>
         {menus.map((menu, index) => {
-          return <ListMenu key={index} icon={menu.icon} text={menu.text} url={menu.url} onClose={props.toggle}/>;
+          return (
+            <ListMenu
+              key={index}
+              icon={menu.icon}
+              text={menu.text}
+              url={menu.url}
+              onClose={props.toggle}
+            />
+          );
         })}
       </DrawerMUI>
     </div>
