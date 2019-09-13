@@ -4,14 +4,14 @@ import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
   container: {
-    maxWidth: 320
+    maxWidth: 240
   },
   media: {
-    height: 240,
+    height: 180,
     width: 320
   },
   placeText: {
-    
+
   },
   perBox: {
     fontSize: 18,
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-  
+
 }
 
 const ProductCard: React.FC<Props> = () => {
