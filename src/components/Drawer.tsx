@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Drawer as DrawerMUI,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Icon,
-  makeStyles,
-} from "@material-ui/core";
+import { Drawer as DrawerMUI, List, ListItem, ListItemIcon, ListItemText, Icon, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 interface DrawerProps {
@@ -32,12 +24,12 @@ const useStyles = makeStyles({
   }
 });
 
-const Drawer: React.FC<DrawerProps> = props => {
+const Drawer: React.FC<DrawerProps> = (props) => {
   const classes = useStyles();
 
   const ListMenu = (props: any) => {
     return (
-      <Link to={props.url} style={{ textDecoration: "none", color: 'inherit' }}>
+      <Link to={props.url} style={{ textDecoration: "none", color: "inherit" }}>
         <div className={classes.list}>
           <List>
             <ListItem button onClick={props.onClose}>
@@ -56,7 +48,7 @@ const Drawer: React.FC<DrawerProps> = props => {
     <div>
       <DrawerMUI anchor="left" open={props.open} onClose={props.toggle}>
         {menus.map((menu, index) => {
-          return <ListMenu key={index} icon={menu.icon} text={menu.text} url={menu.url} onClose={props.toggle}/>;
+          return <ListMenu key={index} icon={menu.icon} text={menu.text} url={menu.url} onClose={props.toggle} />;
         })}
       </DrawerMUI>
     </div>
