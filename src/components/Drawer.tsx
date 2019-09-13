@@ -1,17 +1,5 @@
 import React from "react";
-<<<<<<< HEAD
-import {
-  Drawer as DrawerMUI,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Icon,
-  makeStyles
-} from "@material-ui/core";
-=======
 import { Drawer as DrawerMUI, List, ListItem, ListItemIcon, ListItemText, Icon, makeStyles } from "@material-ui/core";
->>>>>>> e62f51742f7138d66425fdb9e933bbf184965262
 import { Link } from "react-router-dom";
 
 interface DrawerProps {
@@ -61,15 +49,7 @@ const Drawer: React.FC<DrawerProps> = (props) => {
     <div>
       <DrawerMUI anchor="left" open={props.open} onClose={props.toggle}>
         {menus.map((menu, index) => {
-          return (
-            <ListMenu
-              key={index}
-              icon={menu.icon}
-              text={menu.text}
-              url={menu.url}
-              onClose={props.toggle}
-            />
-          );
+          return <ListMenu key={index} icon={menu.icon} text={menu.text} url={menu.url} onClose={props.toggle} />;
         })}
       </DrawerMUI>
     </div>
