@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, Grid, makeStyles, Button, ButtonGroup, Avatar, Divider } from '@material-ui/core';
+import { Typography, Grid, makeStyles, Button, ButtonGroup, Avatar } from '@material-ui/core';
 import Input from '../components/Input';
 import { Link } from 'react-router-dom';
 

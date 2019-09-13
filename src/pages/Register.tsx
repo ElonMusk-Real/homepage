@@ -47,7 +47,6 @@ const Register: React.FC<Props> = () => {
             <Button fullWidth variant='contained' color='inherit'>Register</Button>
           </Grid>
         </Grid>
-
       </Grid>
     </div>
   )
