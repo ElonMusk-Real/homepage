@@ -11,7 +11,7 @@ deployment:
     - apt-get install -y -qq sshpass
     - yarn
   script:
-    - yarn build
+    - CI=false yarn build
     - cd build
-    - export SSHPASS=$USER_PASS 
+    - export SSHPASS=$USER_PASS
     - sshpass -e scp -o stricthostkeychecking=no -P 64000 -r . natadanu@172.104.56.166:~/public_html
