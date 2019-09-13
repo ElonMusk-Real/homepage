@@ -1,11 +1,14 @@
 import React from "react"
-import { makeStyles, Grid, Button, Card } from "@material-ui/core"
+import { makeStyles, Grid, Button, Card, Input, FormControl, Select, InputLabel, MenuItem, FormHelperText, Divider } from "@material-ui/core"
+import ProductCard from "../components/ProductCard"
+import Dropdown from "../components/Dropdown"
 
 const useStyles = makeStyles({
     container: {
         backgroundColor: '#F8EAEA',
         minHeight: '100vh',
-        paddingTop: 64
+        paddingTop: 64,
+        maxWidth: '100%'
     },
     debug: {
         border: '1px solid black',
@@ -13,11 +16,15 @@ const useStyles = makeStyles({
     text: {
         padding: 48
     },
-    testCard: {
-        width: "200px",
-        height: "200px",
-        margin: '5px 5px 5px 5px',
+    separator: {
+        height: 24,
     },
+    formControl: {
+        minWidth: 120,
+    },
+    padding: {
+        padding: 12,
+    }
 
 })
 
@@ -25,14 +32,7 @@ interface Props {
 
 }
 
-export const TestCard: React.FC<Props> = () => {
-    const classes = useStyles()
-    return (
-        <Card className={classes.testCard}>
-            HAI
-        </Card>
-    )
-}
+
 
 
 const ProductList: React.FC<Props> = () => {
@@ -48,22 +48,29 @@ const ProductList: React.FC<Props> = () => {
 
     return (
         <div className={classes.container}>
+            <div className={classes.separator}></div>
             <Grid container justify="center">
-                <Grid item>
-                    <Button variant="contained" color="primary" >Search</Button>
+                <Grid item xs={12} className={classes.padding}>
+                    <Grid container justify="center">
+                        <Dropdown listMenu={[{ null: null }]} label="Category" onChange={null} />
+                        <Button variant="contained" color="primary" >Search</Button>
+                    </Grid>
                 </Grid>
-                <Grid container direction="row" justify="center">
-                    {list.map((value, index) => {
-                        return (
-                            <Grid item>
-                                <TestCard />
-                            </Grid>
-                        )
-                    })}
+                <Grid item xs={10}>
+                    <Grid container justify="center" spacing={4}>
+                        {list.map((value, index) => {
+                            return (
+                                <Grid item>
+                                    <ProductCard />
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
                 </Grid>
             </Grid>
-
+            <div className={classes.separator}></div>
         </div>
+
     )
 }
 export default ProductList
