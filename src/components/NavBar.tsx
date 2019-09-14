@@ -2,15 +2,17 @@ import React from "react";
 import { AppBar, Toolbar, IconButton, Icon, Typography, makeStyles } from "@material-ui/core";
 import Drawer from "./Drawer";
 
-const useStyles = makeStyles((theme) => ({
-  appbar: {
-    background: "transparent"
-  },
-  toolbar: {
-    display: "flex",
-    justifyContent: "space-between"
-  }
-}));
+const useStyles = makeStyles((theme) => {
+  return {
+    appbar: {
+      background: "transparent"
+    },
+    toolbar: {
+      display: "flex",
+      justifyContent: "space-between"
+    }
+  };
+});
 
 interface NavBarProps {
   title: string;

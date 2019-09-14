@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 });
 
 interface Props {
-  listMenu: Array<Record<string, any>>;
+  listMenu: Record<string, any>[];
   label: string;
   onChange: any;
 }

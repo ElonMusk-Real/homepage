@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/NavBar";
 
 import { Home, About, Register, Login, Profile, ProductList } from "./pages";
+import Toast from "./components/Toast";
 
 interface PageRouterProps {}
 
@@ -19,6 +20,7 @@ const PageRouter: React.FC<PageRouterProps> = () => {
           <Route path="/profile" component={Profile} />
           <Route path="/productlist" component={ProductList} />
         </Switch>
+        <Toast />
       </Router>
     </>
   );
