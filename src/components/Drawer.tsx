@@ -9,14 +9,12 @@ interface DrawerProps {
 
 const menus = [
   { icon: "home", text: "Home", url: "/" },
+  { icon: "view_module", text: "Product List", url: "/productlist" },
   { icon: "library_books", text: "Order", url: "/" },
-  { icon: "filter_list", text: "Filter Snack", url: "/" },
-  { icon: "storefront", text: "Merchant", url: "/" },
-  { icon: "info", text: "About", url: "/" },
-  { icon: "add_circle", text: "Register", url: "/register" },
-  { icon: "double_arrow", text: "Login", url: "/login" },
   { icon: "person", text: "Profile", url: "/profile" },
-  { icon: "view_module", text: "Product List", url: "/productlist" }
+  { icon: "double_arrow", text: "Login", url: "/login" },
+  { icon: "add_circle", text: "Register", url: "/register" },
+  { icon: "info", text: "About", url: "/" }
 ];
 
 const useStyles = makeStyles({
