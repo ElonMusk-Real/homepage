@@ -68,7 +68,7 @@ export async function put(url: string, token?: string, body?: any): Promise<any>
 
 export async function postMultipart(url: string, token: string, parts: { [key: string]: any }): Promise<any> {
   const body = new FormData();
-  Object.keys(parts).forEach(part => body.append(part, parts[part]));
+  Object.keys(parts).forEach((part) => body.append(part, parts[part]));
 
   return request("POST", url, token, {}, body);
 }

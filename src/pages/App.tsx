@@ -31,7 +31,7 @@ const App = () => {
     <>
       <Navbar title="NATA Danus" menus={menus} />
       <Switch>
-        {menus.map(menu => (
+        {menus.map((menu) => (
           <Route path={menu.url} exact={!!menu.exact} component={menu.component} />
         ))}
       </Switch>
