@@ -1,5 +1,6 @@
 import { showToast } from "../../toast/toastActions";
 import { BASE_API, Message, post } from "../http";
+import { push } from "connected-react-router";
 
 export interface UserRegistrationForm {
   email: string;
@@ -13,4 +14,5 @@ export const registerUser = (userRegistrationForm: UserRegistrationForm) => asyn
   const url = `${BASE_API}/users/register`;
   const response: Message = await post(url, undefined, userRegistrationForm);
   dispatch(showToast(response.message));
+  dispatch(push("/login"));
 };

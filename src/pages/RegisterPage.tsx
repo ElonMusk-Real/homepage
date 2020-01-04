@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import InputText from "../components/forms/InputText";
 import { registerUser, UserRegistrationForm } from "../modules/api/user/registerAPI";
 import { minLength, maxLength, isEmail } from "../modules/validation";
+import Dropdown from "../components/forms/Dropdown";
 
 const useStyles = makeStyles({
   container: {
@@ -58,7 +59,7 @@ const RegisterPage = (props: RegisterPageProps) => {
               fullWidth
               label="email"
               form={form}
-              validators={[minLength(3), maxLength(10), isEmail]}
+              validators={[minLength(5), maxLength(50), isEmail]}
             />
             <InputText
               name="name"
@@ -66,7 +67,7 @@ const RegisterPage = (props: RegisterPageProps) => {
               fullWidth
               label="name"
               form={form}
-              validators={[minLength(3), maxLength(10)]}
+              validators={[minLength(3), maxLength(30)]}
             />
             <InputText
               name="password"
@@ -75,7 +76,34 @@ const RegisterPage = (props: RegisterPageProps) => {
               label="password"
               password
               form={form}
-              validators={[minLength(3), maxLength(10)]}
+              validators={[minLength(8), maxLength(16)]}
+            />
+            <Dropdown
+              name="university"
+              listMenu={{ "Universitas Indonesia": "Universitas Indonesia" }}
+              label="University"
+              form={form}
+            />
+            <Dropdown
+              name="faculty"
+              listMenu={{
+                "Fakultas Kedokteran": "Fakultas Kedokteran",
+                "Fakultas Kedokteran Gigi": "Fakultas Kedokteran Gigi",
+                "Fakultas Farmasi": "Fakultas Farmasi",
+                "Fakultas Kesehatan Masyarakat": "Fakultas Kesehatan Masyarakat",
+                "Fakultas Ilmu Keperawatan": "Fakultas Ilmu Keperawatan",
+                "Fakultas Matematika dan Ilmu Pengetahuan Alam": "Fakultas Matematika dan Ilmu Pengetahuan Alam",
+                "Fakultas Teknik": "Fakultas Teknik",
+                "Fakultas Ilmu Komputer": "Fakultas Ilmu Komputer",
+                "Fakultas Hukum": "Fakultas Hukum",
+                "Fakultas Ekonomi dan Bisnis": "Fakultas Ekonomi dan Bisnis",
+                "Fakultas Ilmu Pengetahuan Budaya": "Fakultas Ilmu Pengetahuan Budaya",
+                "Fakultas Psikologi": "Fakultas Psikologi",
+                "Fakultas Ilmu Sosial dan Ilmu Politik": "Fakultas Ilmu Sosial dan Ilmu Politik",
+                "Fakultas Ilmu Administrasi": "Fakultas Ilmu Administrasi"
+              }}
+              label="Faculty"
+              form={form}
             />
             <Button
               onClick={handleSubmit(handleRegister)}

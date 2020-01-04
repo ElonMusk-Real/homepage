@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles, Grid, Button } from "@material-ui/core";
 import ProductCard from "../components/ProductCard";
-import Dropdown from "../components/Dropdown";
 
 const useStyles = makeStyles({
   container: {
@@ -46,9 +45,6 @@ const ProductList: React.FC<Props> = () => {
       <Grid container justify="center">
         <Grid item xs={12}>
           <Grid container justify="center" className={classes.padding}>
-            <Grid item className={classes.paddingDropdown}>
-              <Dropdown listMenu={[{ null: null }]} label="Category" onChange={null} />
-            </Grid>
             <Grid item className={classes.padding}>
               <Button variant="contained" color="primary">
                 Search

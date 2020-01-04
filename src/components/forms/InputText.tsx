@@ -23,7 +23,7 @@ interface InputTextProps {
   password?: boolean;
   className?: string;
   form: any;
-  validators: Validator[];
+  validators?: Validator[];
 }
 
 const InputText = (props: InputTextProps) => {
@@ -43,7 +43,7 @@ const InputText = (props: InputTextProps) => {
         type={password ? "password" : "text"}
         inputRef={form.register({
           required: true,
-          validate: combineValidator(validators)
+          validate: combineValidator(validators || [])
         })}
         InputProps={{
           classes: {

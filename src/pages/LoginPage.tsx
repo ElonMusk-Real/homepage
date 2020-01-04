@@ -4,6 +4,7 @@ import { Typography, Grid, makeStyles, Button } from "@material-ui/core";
 import InputText from "../components/forms/InputText";
 import { loginUser } from "../modules/api/user/loginAPI";
 import { connect } from "react-redux";
+import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles({
   container: {
@@ -33,18 +34,10 @@ interface LoginPageProps {
 
 const LoginPage = (props: LoginPageProps) => {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    email: "",
-    password: ""
-  });
+  const { handleSubmit, ...form } = useForm();
 
-  const handleChange = (name: string) => (event: any) => {
-    const { value } = event.target;
-    setState({ ...state, [name]: value });
-  };
-
-  const handleLogin = () => {
-    const { email, password } = state;
+  const handleLogin = (data) => {
+    const { email, password } = data;
     props.loginUser(email, password);
   };
 
@@ -57,21 +50,15 @@ const LoginPage = (props: LoginPageProps) => {
               Log In to Your Account
             </Typography>
             <form>
-              {/* <InputText
-                className={classes.paddingv}
+              <InputText className={classes.paddingv} fullWidth name="email" label="email" form={form} />
+              <InputText className={classes.paddingv} fullWidth name="password" password label="password" form={form} />
+              <Button
+                className={classes.marginv}
                 fullWidth
-                label="email"
-                value={state.email}
-                onChange={handleChange("email")}
-              />
-              <InputText
-                className={classes.paddingv}
-                fullWidth
-                label="password"
-                value={state.password}
-                onChange={handleChange("password")}
-              /> */}
-              <Button className={classes.marginv} fullWidth variant="contained" color="inherit" onClick={handleLogin}>
+                variant="contained"
+                color="inherit"
+                onClick={handleSubmit(handleLogin)}
+              >
                 Login
               </Button>
             </form>
