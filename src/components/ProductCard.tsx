@@ -18,12 +18,10 @@ const useStyles = makeStyles({
   }
 });
 
-interface Props {}
-
-const ProductCard: React.FC<Props> = () => {
+const ProductCard = () => {
   const classes = useStyles();
   const address = "Komplek BIG Kavling A no 12 Limo, Grogol, Depok";
-  console.log(address.length);
+
   return (
     <div>
       <Card className={classes.container}>

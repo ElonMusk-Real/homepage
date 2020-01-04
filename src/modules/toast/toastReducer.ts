@@ -1,4 +1,9 @@
-import { ToastState, ToastActionTypes, SHOW_TOAST, ToastType, HIDE_TOAST } from "./toastActions";
+import { ToastActionTypes, SHOW_TOAST, ToastType, HIDE_TOAST } from "./toastActions";
+
+export interface ToastState {
+  message: string;
+  toastType: ToastType;
+}
 
 const initialState: ToastState = {
   message: "",

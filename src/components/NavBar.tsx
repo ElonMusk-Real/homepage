@@ -1,24 +1,22 @@
 import React from "react";
 import { AppBar, Toolbar, IconButton, Icon, Typography, makeStyles } from "@material-ui/core";
-import Drawer from "./Drawer";
+
+import Drawer, { Menu } from "./Drawer";
 
 const useStyles = makeStyles((theme) => {
   return {
-    appbar: {
-      background: "transparent"
-    },
-    toolbar: {
-      display: "flex",
-      justifyContent: "space-between"
+    title: {
+      flexGrow: 1
     }
   };
 });
 
 interface NavBarProps {
   title: string;
+  menus: Menu[];
 }
 
-const Navbar: React.FC<NavBarProps> = (props) => {
+const Navbar = (props: NavBarProps) => {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
 
@@ -28,15 +26,17 @@ const Navbar: React.FC<NavBarProps> = (props) => {
 
   return (
     <div>
-      <AppBar color="inherit" className={classes.appbar}>
-        <Toolbar className={classes.toolbar}>
-          <Typography variant="h5">{props.title}</Typography>
-          <IconButton onClick={toggle}>
+      <AppBar color="inherit">
+        <Toolbar>
+          <IconButton edge="start" onClick={toggle}>
             <Icon>menu</Icon>
           </IconButton>
+          <Typography variant="h5" className={classes.title}>
+            {props.title}
+          </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer open={open} toggle={toggle} />
+      <Drawer open={open} toggle={toggle} menus={props.menus} />
     </div>
   );
 };

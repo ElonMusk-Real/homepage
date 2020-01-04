@@ -2,11 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { Snackbar, Theme, SnackbarContent } from "@material-ui/core";
 import { CheckCircle as CheckCircleIcon, Error as ErrorIcon } from "@material-ui/icons";
-import { amber, green } from "@material-ui/core/colors";
+import { green } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 
-import { AppState } from "../modules/reducer";
+import { AppState } from "../modules/store";
 import { ToastType } from "../modules/toast/toastActions";
 import { hideToast } from "../modules/toast/toastAPI";
 
@@ -35,13 +35,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-interface Props {
+interface ToastProps {
   message: string;
   toastType: ToastType;
   hideToast: () => void;
 }
 
-const ToastComponent: React.FC<Props> = (props) => {
+const Toast = (props: ToastProps) => {
   const classes = useStyles();
   const Icon = variantIcon[props.toastType];
 
@@ -65,16 +65,11 @@ const ToastComponent: React.FC<Props> = (props) => {
   );
 };
 
-const mapStateToProps = (state: AppState, ownProps: any = {}) => ({
+const mapStateToProps = (state: AppState) => ({
   message: state.toast.message,
   toastType: state.toast.toastType
 });
 
 const mapDispatchToProps = { hideToast };
 
-const Toast = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ToastComponent);
-
-export default Toast;
+export default connect(mapStateToProps, mapDispatchToProps)(Toast);

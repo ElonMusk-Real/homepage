@@ -1,7 +1,5 @@
-import { Dispatch } from "react";
-
 import { hideToastAction } from "./toastActions";
 
-export const hideToast = () => async (dispatch: Dispatch<{}>) => {
+export const hideToast = () => async (dispatch) => {
   dispatch(hideToastAction());
 };

@@ -47,7 +47,7 @@ const Dropdown: React.FC<Props> = (props) => {
             <em>None</em>
           </MenuItem>
           {props.listMenu.map((value, index) => {
-            return <MenuItem>value</MenuItem>;
+            return <MenuItem>{value}</MenuItem>;
           })}
         </Select>
       </FormControl>

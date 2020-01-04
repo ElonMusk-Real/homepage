@@ -1,21 +1,9 @@
 import React from "react";
 import { Drawer as DrawerMUI, List, ListItem, ListItemIcon, ListItemText, Icon, makeStyles } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-interface DrawerProps {
-  open: boolean;
-  toggle: () => void;
-}
-
-const menus = [
-  { icon: "home", text: "Home", url: "/" },
-  { icon: "view_module", text: "Product List", url: "/productlist" },
-  { icon: "library_books", text: "Order", url: "/" },
-  { icon: "person", text: "Profile", url: "/profile" },
-  { icon: "double_arrow", text: "Login", url: "/login" },
-  { icon: "add_circle", text: "Register", url: "/register" },
-  { icon: "info", text: "About", url: "/" }
-];
+import { isLoggedIn } from "../modules/session/sessionSelectors";
 
 const useStyles = makeStyles({
   list: {
@@ -23,7 +11,22 @@ const useStyles = makeStyles({
   }
 });
 
-const Drawer: React.FC<DrawerProps> = (props) => {
+export interface Menu {
+  icon: string;
+  text: string;
+  url: string;
+  needLogin: boolean;
+  adminOnly: boolean;
+}
+
+export interface DrawerProps {
+  open: boolean;
+  toggle: () => void;
+  isLoggedIn: boolean;
+  menus: Menu[];
+}
+
+const Drawer = (props: DrawerProps) => {
   const classes = useStyles();
 
   const ListMenu = (props: any) => {
@@ -43,15 +46,27 @@ const Drawer: React.FC<DrawerProps> = (props) => {
     );
   };
 
+  const renderMenu = () => {
+    return props.menus
+      .filter((menu) => !menu.needLogin || props.isLoggedIn)
+      .map((menu, index) => (
+        <ListMenu key={index} icon={menu.icon} text={menu.text} url={menu.url} onClose={props.toggle} />
+      ));
+  };
+
   return (
     <div>
       <DrawerMUI anchor="left" open={props.open} onClose={props.toggle}>
-        {menus.map((menu, index) => {
-          return <ListMenu key={index} icon={menu.icon} text={menu.text} url={menu.url} onClose={props.toggle} />;
-        })}
+        {renderMenu()}
       </DrawerMUI>
     </div>
   );
 };
 
-export default Drawer;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: isLoggedIn(state)
+  };
+};
+
+export default connect(mapStateToProps)(Drawer);

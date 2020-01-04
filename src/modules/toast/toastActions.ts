@@ -18,11 +18,6 @@ interface HideToastAction {
   message: string;
 }
 
-export interface ToastState {
-  message: string;
-  toastType: ToastType;
-}
-
 export type ToastActionTypes = ShowToastAction | HideToastAction;
 
 export function showToast(message: string): ToastActionTypes {

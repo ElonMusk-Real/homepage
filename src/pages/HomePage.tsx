@@ -30,9 +30,7 @@ const useStyles = makeStyles({
 
 const bgImageClasses = ["hero", "bgImage"];
 
-interface Props {}
-
-const Home: React.FC<Props> = () => {
+const HomePage = () => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -76,4 +74,4 @@ const Home: React.FC<Props> = () => {
   );
 };
 
-export default Home;
+export default HomePage;

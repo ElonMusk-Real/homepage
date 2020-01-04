@@ -1,8 +1,5 @@
-import axios from "axios";
-import { Dispatch } from "react";
-
-import { showToast, errorToast } from "../../toast/toastActions";
-import { handleError, Response, BASE_API } from "../../http";
+import { showToast } from "../../toast/toastActions";
+import { BASE_API, Message, post } from "../http";
 
 export interface UserRegistrationForm {
   email: string;
@@ -12,12 +9,8 @@ export interface UserRegistrationForm {
   faculty: string;
 }
 
-export const registerUser = (userRegistrationForm: UserRegistrationForm) => async (dispatch: Dispatch<{}>) => {
-  try {
-    const url = `${BASE_API}/users/register`;
-    const response: Response = await axios.post(url, userRegistrationForm);
-    dispatch(showToast(response.data.message));
-  } catch (error) {
-    handleError(dispatch, error);
-  }
+export const registerUser = (userRegistrationForm: UserRegistrationForm) => async (dispatch) => {
+  const url = `${BASE_API}/users/register`;
+  const response: Message = await post(url, undefined, userRegistrationForm);
+  dispatch(showToast(response.message));
 };
