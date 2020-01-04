@@ -49,16 +49,10 @@ const LoginPage = (props: LoginPageProps) => {
             <Typography variant="body1" className={classes.text} display="block">
               Log In to Your Account
             </Typography>
-            <form>
+            <form onSubmit={handleSubmit(handleLogin)}>
               <InputText className={classes.paddingv} fullWidth name="email" label="email" form={form} />
               <InputText className={classes.paddingv} fullWidth name="password" password label="password" form={form} />
-              <Button
-                className={classes.marginv}
-                fullWidth
-                variant="contained"
-                color="inherit"
-                onClick={handleSubmit(handleLogin)}
-              >
+              <Button type="submit" className={classes.marginv} fullWidth variant="contained" color="inherit">
                 Login
               </Button>
             </form>

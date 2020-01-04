@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
-import Navbar from "../components/NavBar";
 
 import Toast from "../components/Toast";
 import HomePage from "./HomePage";
@@ -9,21 +8,20 @@ import Register from "./RegisterPage";
 import Login from "./LoginPage";
 import ProfilePage from "./ProfilePage";
 import ProductList from "./ProductList";
+import Navbar from "../components/NavBar";
 
 const menus = [
-  { icon: "home", text: "Home", url: "/", component: HomePage, needLogin: false, adminOnly: false, exact: true },
+  { icon: "home", text: "Home", url: "/", component: HomePage, exact: true },
   {
     icon: "view_module",
     text: "Product List",
     url: "/productlist",
-    component: ProductList,
-    needLogin: false,
-    adminOnly: false
+    component: ProductList
   },
-  { icon: "person", text: "Profile", url: "/profile", component: ProfilePage, needLogin: true, adminOnly: false },
-  { icon: "double_arrow", text: "Login", url: "/login", component: Login, needLogin: false, adminOnly: false },
-  { icon: "add_circle", text: "Register", url: "/register", component: Register, needLogin: false, adminOnly: false },
-  { icon: "info", text: "About", url: "/about", component: AboutPage, needLogin: false, adminOnly: false }
+  { icon: "person", text: "Profile", url: "/profile", component: ProfilePage, userOnly: true },
+  { icon: "double_arrow", text: "Login", url: "/login", component: Login, guestOnly: true },
+  { icon: "add_circle", text: "Register", url: "/register", component: Register, guestOnly: true },
+  { icon: "info", text: "About", url: "/about", component: AboutPage }
 ];
 
 const App = () => {

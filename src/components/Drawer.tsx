@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { isLoggedIn } from "../modules/session/sessionSelectors";
+import { logout } from "../modules/session/sessionAPI";
 
 const useStyles = makeStyles({
   list: {
@@ -15,14 +16,16 @@ export interface Menu {
   icon: string;
   text: string;
   url: string;
-  needLogin: boolean;
-  adminOnly: boolean;
+  userOnly?: boolean;
+  guestOnly?: boolean;
+  adminOnly?: boolean;
 }
 
 export interface DrawerProps {
+  isLoggedIn: boolean;
+  logout: () => void;
   open: boolean;
   toggle: () => void;
-  isLoggedIn: boolean;
   menus: Menu[];
 }
 
@@ -31,7 +34,7 @@ const Drawer = (props: DrawerProps) => {
 
   const ListMenu = (props: any) => {
     return (
-      <Link to={props.url} style={{ textDecoration: "none", color: "inherit" }}>
+      <Link to={props.url} onClick={props.onClick} style={{ textDecoration: "none", color: "inherit" }}>
         <div className={classes.list}>
           <List>
             <ListItem button onClick={props.onClose}>
@@ -48,7 +51,8 @@ const Drawer = (props: DrawerProps) => {
 
   const renderMenu = () => {
     return props.menus
-      .filter((menu) => !menu.needLogin || props.isLoggedIn)
+      .filter((menu) => !(menu.userOnly && !props.isLoggedIn))
+      .filter((menu) => !(menu.guestOnly && props.isLoggedIn))
       .map((menu, index) => (
         <ListMenu key={index} icon={menu.icon} text={menu.text} url={menu.url} onClose={props.toggle} />
       ));
@@ -58,6 +62,9 @@ const Drawer = (props: DrawerProps) => {
     <div>
       <DrawerMUI anchor="left" open={props.open} onClose={props.toggle}>
         {renderMenu()}
+        {props.isLoggedIn && (
+          <ListMenu icon={"exit_to_app"} text="Log out" onClick={props.logout} onClose={props.toggle} />
+        )}
       </DrawerMUI>
     </div>
   );
@@ -69,4 +76,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Drawer);
+const mapDispatchToProps = { logout };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Drawer);

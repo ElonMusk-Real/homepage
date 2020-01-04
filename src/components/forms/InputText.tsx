@@ -3,11 +3,11 @@ import { TextField, makeStyles } from "@material-ui/core";
 import { combineValidator, Validator } from "../../modules/validation";
 
 const useStyles = makeStyles({
-  inputClasses: {
+  inputClasses: ({ readOnly }) => ({
     paddingTop: 16,
     paddingBottom: 16,
-    background: "white"
-  },
+    background: readOnly ? "transparent" : "white"
+  }),
   labelClasses: {
     top: -6
   },
@@ -24,15 +24,19 @@ interface InputTextProps {
   className?: string;
   form: any;
   validators?: Validator[];
+  defaultValue?: string;
+  readOnly?: boolean;
+  required?: boolean;
 }
 
 const InputText = (props: InputTextProps) => {
-  const { label, className, name, form, password, validators } = props;
-  const classes = useStyles();
+  const { label, className, name, form, password, validators, defaultValue, readOnly, required } = props;
+  const classes = useStyles({ readOnly });
 
   return (
     <>
       <TextField
+        defaultValue={defaultValue}
         name={name}
         className={className}
         variant="filled"
@@ -42,13 +46,14 @@ const InputText = (props: InputTextProps) => {
         fullWidth={props.fullWidth}
         type={password ? "password" : "text"}
         inputRef={form.register({
-          required: true,
+          required: required === undefined ? true : required,
           validate: combineValidator(validators || [])
         })}
         InputProps={{
           classes: {
             input: classes.inputClasses
-          }
+          },
+          readOnly: !!readOnly
         }}
         InputLabelProps={{
           classes: {

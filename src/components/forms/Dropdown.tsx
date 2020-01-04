@@ -30,11 +30,13 @@ interface DropdownProps {
   label: string;
   name: string;
   form: any;
+  defaultValue?: string;
+  readOnly?: boolean;
 }
 
 const Dropdown = (props: DropdownProps) => {
   const classes = useStyles();
-  const { listMenu, label, form, name } = props;
+  const { listMenu, label, form, name, defaultValue, readOnly } = props;
 
   useEffect(() => {
     form.register(
@@ -58,12 +60,12 @@ const Dropdown = (props: DropdownProps) => {
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="age-helper">{label}</InputLabel>
         <Select
+          defaultValue={defaultValue}
           error={!!form.errors[name]}
           autoWidth={true}
           name={name}
           inputProps={{
-            name: "age",
-            id: "age-helper"
+            readOnly: !!readOnly
           }}
           value={values[name]}
           onChange={(e) => {
