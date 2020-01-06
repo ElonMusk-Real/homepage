@@ -76,7 +76,10 @@ const ProfilePage = (props: ProfilePageProps) => {
   const onSave = (data) => {
     const { email, name, university, faculty, lineId, phoneNumber } = data;
     const profile: UserUpdateForm = { email, name, university, faculty, lineId, phoneNumber };
-    props.updateProfile(profile).then(() => setEditMode(false));
+    props.updateProfile(profile).then(() => {
+      setInitial(getInitial(name));
+      setEditMode(false);
+    });
   };
 
   useEffect(() => {
