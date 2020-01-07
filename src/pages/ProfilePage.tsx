@@ -3,7 +3,6 @@ import { Grid, makeStyles, Avatar, Button } from "@material-ui/core";
 import { connect } from "react-redux";
 
 import { getMyProfile, Profile } from "../modules/api/user/myProfileAPI";
-import { logout } from "../modules/session/sessionAPI";
 import { useForm } from "react-hook-form";
 import InputText from "../components/forms/InputText";
 import { minLength, maxLength, isEmail } from "../modules/validation";
@@ -13,7 +12,6 @@ import { updateProfile, UserUpdateForm } from "../modules/api/user/updateProfile
 
 const useStyles = makeStyles({
   container: {
-    backgroundColor: "#F8EAEA",
     minHeight: "100vh",
     paddingTop: 64
   },

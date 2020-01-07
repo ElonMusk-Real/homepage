@@ -9,6 +9,8 @@ import Login from "./LoginPage";
 import ProfilePage from "./ProfilePage";
 import ProductList from "./ProductList";
 import Navbar from "../components/NavBar";
+import SellerListPage from "./SellerListPage";
+import withTitle from "../modules/withTitle";
 
 const menus = [
   { icon: "home", text: "Home", url: "/", component: HomePage, exact: true },
@@ -18,6 +20,7 @@ const menus = [
     url: "/productlist",
     component: ProductList
   },
+  { icon: "person", text: "Seller List", url: "/sellers", component: SellerListPage, adminOnly: true },
   { icon: "person", text: "Profile", url: "/profile", component: ProfilePage, userOnly: true },
   { icon: "double_arrow", text: "Login", url: "/login", component: Login, guestOnly: true },
   { icon: "add_circle", text: "Register", url: "/register", component: Register, guestOnly: true },
@@ -30,7 +33,11 @@ const App = () => {
       <Navbar title="NATA Danus" menus={menus} />
       <Switch>
         {menus.map((menu) => (
-          <Route path={menu.url} exact={!!menu.exact} component={menu.component} />
+          <Route
+            path={menu.url}
+            exact={!!menu.exact}
+            component={withTitle({ component: menu.component, title: menu.text })}
+          />
         ))}
       </Switch>
       <Toast />

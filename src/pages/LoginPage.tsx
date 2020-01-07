@@ -8,7 +8,6 @@ import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles({
   container: {
-    backgroundColor: "#F8EAEA",
     minHeight: "100vh",
     paddingTop: 64
   },

@@ -3,7 +3,7 @@ import { Drawer as DrawerMUI, List, ListItem, ListItemIcon, ListItemText, Icon, 
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { isLoggedIn } from "../modules/session/sessionSelectors";
+import { isLoggedIn, isAdmin } from "../modules/session/sessionSelectors";
 import { logout } from "../modules/session/sessionAPI";
 
 const useStyles = makeStyles({
@@ -23,6 +23,7 @@ export interface Menu {
 
 export interface DrawerProps {
   isLoggedIn: boolean;
+  isAdmin: boolean;
   logout: () => void;
   open: boolean;
   toggle: () => void;
@@ -53,6 +54,7 @@ const Drawer = (props: DrawerProps) => {
     return props.menus
       .filter((menu) => !(menu.userOnly && !props.isLoggedIn))
       .filter((menu) => !(menu.guestOnly && props.isLoggedIn))
+      .filter((menu) => !(menu.adminOnly && !props.isAdmin))
       .map((menu, index) => (
         <ListMenu key={index} icon={menu.icon} text={menu.text} url={menu.url} onClose={props.toggle} />
       ));
@@ -72,7 +74,8 @@ const Drawer = (props: DrawerProps) => {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: isLoggedIn(state)
+    isLoggedIn: isLoggedIn(state),
+    isAdmin: isAdmin(state)
   };
 };
 

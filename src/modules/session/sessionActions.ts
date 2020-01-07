@@ -10,6 +10,7 @@ export enum SessionType {
 interface SetSessionAction {
   type: typeof SET_SESSION;
   token: string;
+  isAdmin: boolean;
 }
 
 interface RemoveSessionAction {
@@ -18,13 +19,15 @@ interface RemoveSessionAction {
 
 export interface SessionState {
   token: string | null;
+  isAdmin: boolean;
 }
 
 export type SessionActionTypes = SetSessionAction | RemoveSessionAction;
 
-export function setSession(token: string): SetSessionAction {
+export function setSession(token: string, isAdmin: boolean): SetSessionAction {
   return {
     type: SET_SESSION,
+    isAdmin,
     token
   };
 }

@@ -18,8 +18,8 @@ export const loginUser = (email: string, password: string) => async (dispatch) =
   const url = `${BASE_API}/users/login`;
   const loginForm: LoginForm = { email, password };
   const credential: Credential = await post(url, undefined, loginForm);
-  const { token } = credential;
-  dispatch(setSession(token));
+  const { token, isAdmin } = credential;
+  dispatch(setSession(token, isAdmin));
   dispatch(push("/profile"));
   dispatch(showToast("Login Success"));
 };

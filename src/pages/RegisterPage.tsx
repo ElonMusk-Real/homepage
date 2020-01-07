@@ -10,7 +10,6 @@ import Dropdown from "../components/forms/Dropdown";
 
 const useStyles = makeStyles({
   container: {
-    backgroundColor: "#F8EAEA",
     minHeight: "100vh",
     paddingTop: 64
   },
