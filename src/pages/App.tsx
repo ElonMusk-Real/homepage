@@ -11,6 +11,7 @@ import ProductList from "./ProductList";
 import Navbar from "../components/NavBar";
 import SellerListPage from "./SellerListPage";
 import withTitle from "../modules/withTitle";
+import AddSellerPage from "./AddSellerPage";
 
 const menus = [
   { icon: "home", text: "Home", url: "/", component: HomePage, exact: true },
@@ -20,7 +21,8 @@ const menus = [
     url: "/productlist",
     component: ProductList
   },
-  { icon: "person", text: "Seller List", url: "/sellers", component: SellerListPage, adminOnly: true },
+  { icon: "person", text: "Seller List", url: "/sellers", component: SellerListPage, adminOnly: true, exact: true },
+  { icon: "person", text: "Add new Seller", url: "/sellers/add", component: AddSellerPage, hideFromMenu: true },
   { icon: "person", text: "Profile", url: "/profile", component: ProfilePage, userOnly: true },
   { icon: "double_arrow", text: "Login", url: "/login", component: Login, guestOnly: true },
   { icon: "add_circle", text: "Register", url: "/register", component: Register, guestOnly: true },

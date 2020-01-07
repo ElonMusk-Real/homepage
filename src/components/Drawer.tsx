@@ -19,6 +19,7 @@ export interface Menu {
   userOnly?: boolean;
   guestOnly?: boolean;
   adminOnly?: boolean;
+  hideFromMenu?: boolean;
 }
 
 export interface DrawerProps {
@@ -55,6 +56,7 @@ const Drawer = (props: DrawerProps) => {
       .filter((menu) => !(menu.userOnly && !props.isLoggedIn))
       .filter((menu) => !(menu.guestOnly && props.isLoggedIn))
       .filter((menu) => !(menu.adminOnly && !props.isAdmin))
+      .filter((menu) => !menu.hideFromMenu)
       .map((menu, index) => (
         <ListMenu key={index} icon={menu.icon} text={menu.text} url={menu.url} onClose={props.toggle} />
       ));
