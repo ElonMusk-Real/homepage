@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, Grid, makeStyles, Button } from "@material-ui/core";
 
 import InputText from "../components/forms/InputText";
-import { loginUser } from "../modules/api/user/loginAPI";
+import { loginUser } from "../modules/api/usersAPI";
 import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
 

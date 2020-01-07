@@ -4,7 +4,7 @@ import { Typography, Grid, makeStyles, Button } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 
 import InputText from "../components/forms/InputText";
-import { registerUser, UserRegistrationForm } from "../modules/api/user/registerAPI";
+import { registerUser, UserRegistrationForm } from "../modules/api/usersAPI";
 import { minLength, maxLength, isEmail } from "../modules/validation";
 import Dropdown from "../components/forms/Dropdown";
 

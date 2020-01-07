@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Grid, makeStyles, Avatar, Button } from "@material-ui/core";
 import { connect } from "react-redux";
 
-import { getMyProfile, Profile } from "../modules/api/user/myProfileAPI";
+import { getMyProfile, Profile, updateProfile, UserUpdateForm } from "../modules/api/usersAPI";
 import { useForm } from "react-hook-form";
 import InputText from "../components/forms/InputText";
 import { minLength, maxLength, isEmail } from "../modules/validation";
 import Dropdown from "../components/forms/Dropdown";
 import { green } from "@material-ui/core/colors";
-import { updateProfile, UserUpdateForm } from "../modules/api/user/updateProfileAPI";
 
 const useStyles = makeStyles({
   container: {
