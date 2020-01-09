@@ -4,6 +4,7 @@ import { post, BASE_API, get, Message, put } from "./http";
 import { setSession } from "../session/sessionActions";
 import { showToast } from "../toast/toastActions";
 import { selectToken } from "../session/sessionSelectors";
+import { Pagination } from "./pagination";
 
 export interface LoginForm {
   email: string;
@@ -42,7 +43,7 @@ export interface UserUpdateForm {
   phoneNumber: string;
 }
 
-export const loginUser = (email: string, password: string) => async (dispatch) => {
+export const loginUser = (email: string, password: string) => async dispatch => {
   const url = `${BASE_API}/users/login`;
   const loginForm: LoginForm = { email, password };
   const credential: Credential = await post(url, undefined, loginForm);
@@ -60,7 +61,7 @@ export const getMyProfile = () => async (dispatch, getState) => {
   return profile;
 };
 
-export const registerUser = (userRegistrationForm: UserRegistrationForm) => async (dispatch) => {
+export const registerUser = (userRegistrationForm: UserRegistrationForm) => async dispatch => {
   const url = `${BASE_API}/users/register`;
   const response: Message = await post(url, undefined, userRegistrationForm);
   dispatch(showToast(response.message));
@@ -72,4 +73,12 @@ export const updateProfile = (userUpdateForm: UserUpdateForm) => async (dispatch
   const token = selectToken(getState());
   const response: Message = await put(url, token, userUpdateForm);
   dispatch(showToast(response.message));
+};
+
+export const fetchAllProfile = () => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  const url = `${BASE_API}/users`;
+  const profiles: Pagination<Profile> = await get(url, token);
+
+  return profiles;
 };
