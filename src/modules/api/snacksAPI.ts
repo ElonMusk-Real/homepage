@@ -1,6 +1,6 @@
 import { push } from "connected-react-router";
 
-import { BASE_API, get, Message, post } from "./http";
+import { BASE_API, get, Message, post, postMultipart } from "./http";
 import { selectToken } from "../session/sessionSelectors";
 import { showToast } from "../toast/toastActions";
 
@@ -10,7 +10,7 @@ export interface InsertSnackForm {
   price: number;
   quantity: number;
   sellingPrice: number;
-  image: string;
+  // image: null;
 }
 
 export interface Snack {
@@ -34,7 +34,7 @@ export const fetchSnacks = () => async (dispatch, getState) => {
 export const addSnack = (insertSnackForm: InsertSnackForm) => async (dispatch, getState) => {
   const token = selectToken(getState());
   const url = `${BASE_API}/snacks/`;
-  const body: Message = await post(url, token, insertSnackForm);
+  const body: Message = await postMultipart(url, token, insertSnackForm);
   dispatch(showToast(body.message));
   dispatch(push("/snacks"));
 };

@@ -39,7 +39,9 @@ const AddSnackPage = (props: AddSnackPageProps) => {
 
   const handleCreate = data => {
     const { sellerId, name, price, quantity, sellingPrice, image } = data;
-    const insertSnackForm: InsertSnackForm = { sellerId, name, price, quantity, sellingPrice, image };
+    const insertSnackForm: InsertSnackForm = { sellerId, name, price, quantity, sellingPrice };
+    console.log("Ini Datanya");
+    console.log(insertSnackForm);
     props.addSnack(insertSnackForm);
   };
 
