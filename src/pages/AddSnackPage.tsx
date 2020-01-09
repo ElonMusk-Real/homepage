@@ -42,22 +42,18 @@ const AddSnackPage = (props: AddSnackPageProps) => {
   const classes = useStyles();
 
   useEffect(() => {
-    fetchAllSellers().then(idtonames => {
-      console.log("Id to Names");
-      console.log(idtonames);
+    fetchAllSellers().then((idtonames) => {
       let tempIdtoNames = {};
-      idtonames.map(idtoname => {
+      idtonames.map((idtoname) => {
         tempIdtoNames[idtoname.id] = idtoname.name;
       });
       setAllMenu(tempIdtoNames);
     });
   }, []);
 
-  const handleCreate = data => {
+  const handleCreate = (data) => {
     const { sellerId, name, price, quantity, sellingPrice, image } = data;
     const insertSnackForm: InsertSnackForm = { sellerId, name, price, quantity, sellingPrice };
-    console.log("Ini Datanya");
-    console.log(insertSnackForm);
     props.addSnack(insertSnackForm);
   };
 

@@ -26,9 +26,7 @@ const ProfileListPage = (props: ProfileListPageProps) => {
   const classes = useStyles();
 
   useEffect(() => {
-    fetchAllProfile().then(pagedData => {
-      console.log("Ini datanya");
-      console.log(pagedData);
+    fetchAllProfile().then((pagedData) => {
       setData(pagedData.data);
     });
   }, []);
@@ -36,13 +34,6 @@ const ProfileListPage = (props: ProfileListPageProps) => {
   return (
     <Container>
       <Grid direction="column">
-        <Grid>
-          <Link to="">
-            <Button color="primary" variant="contained">
-              Add new User
-            </Button>
-          </Link>
-        </Grid>
         <Grid>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
@@ -62,6 +53,7 @@ const ProfileListPage = (props: ProfileListPageProps) => {
                 <TableRow key={i}>
                   <TableCell>{i + 1}</TableCell>
                   <TableCell>{row.id}</TableCell>
+                  <TableCell>{row.email}</TableCell>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.phoneNumber}</TableCell>
                   <TableCell>{row.lineId}</TableCell>
