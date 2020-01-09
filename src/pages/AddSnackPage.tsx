@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Typography, Grid, makeStyles, Button } from "@material-ui/core";
 import { useForm } from "react-hook-form";
@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import InputText from "../components/forms/InputText";
 import { minLength, maxLength, isEmail, isNumber } from "../modules/validation";
 import { addSnack, InsertSnackForm } from "../modules/api/snacksAPI";
+import { fetchAllSellers, IdToName } from "../modules/api/sellersAPI";
+import Dropdown from "../components/forms/Dropdown";
 
 const useStyles = makeStyles({
   container: {
@@ -30,12 +32,26 @@ const useStyles = makeStyles({
 
 interface AddSnackPageProps {
   addSnack: (insertSnackForm: InsertSnackForm) => Promise<void>;
+  fetchAllSellers: () => Promise<IdToName[]>;
 }
 
 const AddSnackPage = (props: AddSnackPageProps) => {
+  const { fetchAllSellers } = props;
   const { handleSubmit, ...form } = useForm();
-
+  const [allMenu, setAllMenu] = useState({});
   const classes = useStyles();
+
+  useEffect(() => {
+    fetchAllSellers().then(idtonames => {
+      console.log("Id to Names");
+      console.log(idtonames);
+      let tempIdtoNames = {};
+      idtonames.map(idtoname => {
+        tempIdtoNames[idtoname.id] = idtoname.name;
+      });
+      setAllMenu(tempIdtoNames);
+    });
+  }, []);
 
   const handleCreate = data => {
     const { sellerId, name, price, quantity, sellingPrice, image } = data;
@@ -54,14 +70,7 @@ const AddSnackPage = (props: AddSnackPageProps) => {
               Add new Snack
             </Typography>
             <form onSubmit={handleSubmit(handleCreate)}>
-              <InputText
-                name="sellerId"
-                className={classes.paddingv}
-                fullWidth
-                label="Seller Id"
-                form={form}
-                validators={[isNumber]}
-              />
+              <Dropdown name="sellerId" listMenu={allMenu} label="Seller Id" form={form} />
               <InputText
                 name="name"
                 className={classes.paddingv}
@@ -113,6 +122,6 @@ const AddSnackPage = (props: AddSnackPageProps) => {
   );
 };
 
-const mapDispatchToProps = { addSnack };
+const mapDispatchToProps = { addSnack, fetchAllSellers };
 
 export default connect(undefined, mapDispatchToProps)(AddSnackPage);

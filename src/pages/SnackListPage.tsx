@@ -27,8 +27,8 @@ const SnackListPage = (props: SnackListPageProps) => {
   const classes = useStyles();
 
   useEffect(() => {
-    fetchSnacks().then(pagedData => {
-      setData(pagedData);
+    fetchSnacks().then(snacks => {
+      setData(snacks);
     });
   }, []);
 
