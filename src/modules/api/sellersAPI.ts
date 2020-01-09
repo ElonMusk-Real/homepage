@@ -18,6 +18,11 @@ export interface Seller {
   address: string;
 }
 
+export interface IdToName {
+  id: number;
+  name: string;
+}
+
 export const fetchSellers = () => async (dispatch, getState) => {
   const token = selectToken(getState());
   const url = `${BASE_API}/sellers/`;
@@ -32,4 +37,12 @@ export const addSeller = (insertSellerForm: InsertSellerForm) => async (dispatch
   const body: Message = await post(url, token, insertSellerForm);
   dispatch(showToast(body.message));
   dispatch(push("/sellers"));
+};
+
+export const fetchAllSellers = () => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  const url = `${BASE_API}/sellers/all`;
+  const sellers: IdToName[] = await get(url, token);
+
+  return sellers;
 };
