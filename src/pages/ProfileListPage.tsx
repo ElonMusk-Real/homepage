@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { makeStyles, Table, TableHead, TableRow, TableCell, TableBody, Button, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-import { fetchSnacks, Snack } from "../modules/api/snacksAPI";
+import { fetchAllProfile, Profile } from "../modules/api/usersAPI";
 import Container from "../components/Container";
+import { Pagination } from "../modules/api/pagination";
 
 const useStyles = makeStyles({
   table: {
@@ -15,18 +16,20 @@ const useStyles = makeStyles({
   }
 });
 
-interface SnackListPageProps {
-  fetchSnacks: () => Promise<Snack[]>;
+interface ProfileListPageProps {
+  fetchAllProfile: () => Promise<Pagination<Profile>>;
 }
 
-const SnackListPage = (props: SnackListPageProps) => {
-  const { fetchSnacks } = props;
-  const [data, setData] = useState<Snack[]>([]);
+const ProfileListPage = (props: ProfileListPageProps) => {
+  const { fetchAllProfile } = props;
+  const [data, setData] = useState<Profile[]>([]);
   const classes = useStyles();
 
   useEffect(() => {
-    fetchSnacks().then(snacks => {
-      setData(snacks);
+    fetchAllProfile().then(pagedData => {
+      console.log("Ini datanya");
+      console.log(pagedData);
+      setData(pagedData.data);
     });
   }, []);
 
@@ -34,9 +37,9 @@ const SnackListPage = (props: SnackListPageProps) => {
     <Container>
       <Grid direction="column">
         <Grid>
-          <Link to="/snacks/add">
+          <Link to="">
             <Button color="primary" variant="contained">
-              Add new Snack
+              Add new User
             </Button>
           </Link>
         </Grid>
@@ -46,12 +49,12 @@ const SnackListPage = (props: SnackListPageProps) => {
               <TableRow>
                 <TableCell className={classes.numberCell}>Number</TableCell>
                 <TableCell>Id</TableCell>
-                <TableCell>Seller</TableCell>
+                <TableCell>Email</TableCell>
                 <TableCell>Name</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell>Quantity</TableCell>
-                <TableCell>Selling Price</TableCell>
-                <TableCell>Image</TableCell>
+                <TableCell>Phone Number</TableCell>
+                <TableCell>Line Id</TableCell>
+                <TableCell>University</TableCell>
+                <TableCell>Faculty</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -59,12 +62,11 @@ const SnackListPage = (props: SnackListPageProps) => {
                 <TableRow key={i}>
                   <TableCell>{i + 1}</TableCell>
                   <TableCell>{row.id}</TableCell>
-                  <TableCell>{row.seller}</TableCell>
                   <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.price}</TableCell>
-                  <TableCell>{row.quantity}</TableCell>
-                  <TableCell>{row.sellingPrice}</TableCell>
-                  <TableCell>{row.image}</TableCell>
+                  <TableCell>{row.phoneNumber}</TableCell>
+                  <TableCell>{row.lineId}</TableCell>
+                  <TableCell>{row.university}</TableCell>
+                  <TableCell>{row.faculty}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -75,6 +77,6 @@ const SnackListPage = (props: SnackListPageProps) => {
   );
 };
 
-const mapDispatchToProps = { fetchSnacks };
+const mapDispatchToProps = { fetchAllProfile };
 
-export default connect(undefined, mapDispatchToProps)(SnackListPage);
+export default connect(undefined, mapDispatchToProps)(ProfileListPage);

@@ -14,6 +14,7 @@ import withTitle from "../modules/withTitle";
 import AddSellerPage from "./AddSellerPage";
 import AddSnackPage from "./AddSnackPage";
 import ProductList from "./ProductList";
+import ProfileListPage from "./ProfileListPage";
 
 const menus = [
   { icon: "home", text: "Home", url: "/", component: HomePage, exact: true },
@@ -21,6 +22,7 @@ const menus = [
   { icon: "view_module", text: "Snack List", url: "/snacks", component: SnackListPage, adminOnly: true, exact: true },
   { icon: "view_module", text: "Add new Snack", url: "/snacks/add", component: AddSnackPage, hideFromMenu: true },
   { icon: "person", text: "Seller List", url: "/sellers", component: SellerListPage, adminOnly: true, exact: true },
+  { icon: "person", text: "Profile List", url: "/users", component: ProfileListPage, adminOnly: true },
   { icon: "person", text: "Add new Seller", url: "/sellers/add", component: AddSellerPage, hideFromMenu: true },
   { icon: "person", text: "Profile", url: "/profile", component: ProfilePage, userOnly: true },
   { icon: "double_arrow", text: "Login", url: "/login", component: Login, guestOnly: true },
