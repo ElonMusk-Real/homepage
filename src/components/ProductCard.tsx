@@ -18,9 +18,15 @@ const useStyles = makeStyles({
   }
 });
 
-const ProductCard = () => {
+interface ProductCardProps {
+  name: string;
+  price: number;
+  address: string;
+}
+
+const ProductCard = (props: ProductCardProps) => {
+  const { name, price, address } = props;
   const classes = useStyles();
-  const address = "Komplek BIG Kavling A no 12 Limo, Grogol, Depok";
 
   return (
     <div>
@@ -28,9 +34,9 @@ const ProductCard = () => {
         <CardMedia className={classes.media} component="img" image="https://via.placeholder.com/640x480" />
         <CardActionArea>
           <CardContent>
-            <Typography gutterBottom>Kue Danus</Typography>
+            <Typography gutterBottom>{name}</Typography>
             <Typography color="primary" variant="h6">
-              <b>Rp 30.000</b>
+              <b>Rp {price.toLocaleString()}</b>
               <span className={classes.perBox}>per box</span>
             </Typography>
             <Typography className={classes.placeText} variant="caption">

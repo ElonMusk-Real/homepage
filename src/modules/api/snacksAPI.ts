@@ -16,6 +16,7 @@ export interface InsertSnackForm {
 export interface Snack {
   id: number;
   seller: string;
+  address: string;
   name: string;
   price: number;
   quantity: number;
@@ -24,9 +25,8 @@ export interface Snack {
 }
 
 export const fetchSnacks = () => async (dispatch, getState) => {
-  const token = selectToken(getState());
   const url = `${BASE_API}/snacks/`;
-  const snacks: Snack[] = await get(url, token);
+  const snacks: Snack[] = await get(url, undefined);
 
   return snacks;
 };

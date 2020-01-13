@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { makeStyles, Grid, Button } from "@material-ui/core";
 import ProductCard from "../components/ProductCard";
 
+import { fetchSnacks, Snack } from "../modules/api/snacksAPI";
 const useStyles = makeStyles({
   container: {
     backgroundColor: "#F8EAEA",
@@ -28,16 +30,20 @@ const useStyles = makeStyles({
   }
 });
 
-interface Props {}
+interface ProductListProps {
+  fetchSnacks: () => Promise<Snack[]>;
+}
 
-const ProductList: React.FC<Props> = () => {
+const ProductList = (props: ProductListProps) => {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    category: "",
-    maxPrice: 0,
-    searchQuery: ""
-  });
-  const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+  const { fetchSnacks } = props;
+  const [snacks, setSnacks] = useState<Snack[]>([]);
+
+  useEffect(() => {
+    fetchSnacks().then(snacks => {
+      setSnacks(snacks);
+    });
+  }, []);
 
   return (
     <div className={classes.container}>
@@ -54,10 +60,10 @@ const ProductList: React.FC<Props> = () => {
         </Grid>
         <Grid item xs={10}>
           <Grid container justify="center" spacing={4}>
-            {list.map((value, index) => {
+            {snacks.map(snacks => {
               return (
                 <Grid item>
-                  <ProductCard />
+                  <ProductCard name={snacks.name} price={snacks.price} address={snacks.address} />
                 </Grid>
               );
             })}
@@ -68,4 +74,6 @@ const ProductList: React.FC<Props> = () => {
     </div>
   );
 };
-export default ProductList;
+const mapDispatchToProps = { fetchSnacks };
+
+export default connect(undefined, mapDispatchToProps)(ProductList);
