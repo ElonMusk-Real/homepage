@@ -47,6 +47,7 @@ const SnackListPage = (props: SnackListPageProps) => {
                 <TableCell className={classes.numberCell}>Number</TableCell>
                 <TableCell>Id</TableCell>
                 <TableCell>Seller</TableCell>
+                <TableCell>Address</TableCell>
                 <TableCell>Name</TableCell>
                 <TableCell>Price</TableCell>
                 <TableCell>Quantity</TableCell>
@@ -60,6 +61,7 @@ const SnackListPage = (props: SnackListPageProps) => {
                   <TableCell>{i + 1}</TableCell>
                   <TableCell>{row.id}</TableCell>
                   <TableCell>{row.seller}</TableCell>
+                  <TableCell>{row.address}</TableCell>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.price}</TableCell>
                   <TableCell>{row.quantity}</TableCell>
