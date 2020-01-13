@@ -1,8 +1,9 @@
 import { push } from "connected-react-router";
 
-import { BASE_API, get, Message, post, postMultipart } from "./http";
+import { BASE_API, get, Message, postMultipart } from "./http";
 import { selectToken } from "../session/sessionSelectors";
 import { showToast } from "../toast/toastActions";
+import { Pagination } from "./pagination";
 
 export interface InsertSnackForm {
   sellerId: number;
@@ -24,9 +25,10 @@ export interface Snack {
   image: string;
 }
 
-export const fetchSnacks = () => async (dispatch, getState) => {
-  const url = `${BASE_API}/snacks/`;
-  const snacks: Snack[] = await get(url, undefined);
+export const fetchSnacks = (rowsPerPage: number = 10, page: number = 0) => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  const url = `${BASE_API}/snacks/?skip=${rowsPerPage * page}&take=${rowsPerPage}`;
+  const snacks: Pagination<Snack> = await get(url, token);
 
   return snacks;
 };

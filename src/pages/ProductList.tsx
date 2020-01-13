@@ -4,6 +4,7 @@ import { makeStyles, Grid, Button } from "@material-ui/core";
 import ProductCard from "../components/ProductCard";
 
 import { fetchSnacks, Snack } from "../modules/api/snacksAPI";
+import { Pagination } from "../modules/api/pagination";
 
 const useStyles = makeStyles({
   text: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
 });
 
 interface ProductListProps {
-  fetchSnacks: () => Promise<Snack[]>;
+  fetchSnacks: (rowsPerPage?: number, page?: number) => Promise<Pagination<Snack>>;
 }
 
 const ProductList = (props: ProductListProps) => {
@@ -33,8 +34,8 @@ const ProductList = (props: ProductListProps) => {
   const [snacks, setSnacks] = useState<Snack[]>([]);
 
   useEffect(() => {
-    fetchSnacks().then((snacks) => {
-      setSnacks(snacks);
+    fetchSnacks().then((pagedData) => {
+      setSnacks(pagedData.data);
     });
   }, []);
 
