@@ -4,6 +4,7 @@ import { SocialIcon } from "react-social-icons";
 
 const useStyle = makeStyles({
   container: {
+    marginTop: 20,
     backgroundColor: "black",
     color: "white",
     width: "100%",

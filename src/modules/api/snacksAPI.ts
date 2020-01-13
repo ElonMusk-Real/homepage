@@ -1,6 +1,6 @@
 import { push } from "connected-react-router";
 
-import { BASE_API, get, Message, postMultipart } from "./http";
+import { BASE_API, get, Message, postMultipart, putMultipart } from "./http";
 import { selectToken } from "../session/sessionSelectors";
 import { showToast } from "../toast/toastActions";
 import { Pagination } from "./pagination";
@@ -11,13 +11,32 @@ export interface InsertSnackForm {
   price: number;
   quantity: number;
   sellingPrice: number;
-  // image: null;
+  image?: any;
+}
+
+export interface UpdateSnackForm {
+  sellerId: number;
+  name: string;
+  price: number;
+  quantity: number;
+  sellingPrice: number;
+  image?: any;
 }
 
 export interface Snack {
   id: number;
   seller: string;
   address: string;
+  name: string;
+  price: number;
+  quantity: number;
+  sellingPrice: number;
+  image: string;
+}
+
+export interface RawSnack {
+  id: number;
+  sellerId: number;
   name: string;
   price: number;
   quantity: number;
@@ -37,6 +56,24 @@ export const addSnack = (insertSnackForm: InsertSnackForm) => async (dispatch, g
   const token = selectToken(getState());
   const url = `${BASE_API}/snacks/`;
   const body: Message = await postMultipart(url, token, insertSnackForm);
+
+  dispatch(showToast(body.message));
+  dispatch(push("/snacks"));
+};
+
+export const getSnack = (id: number) => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  const url = `${BASE_API}/snacks/${id}`;
+  const snack: RawSnack = await get(url, token);
+
+  return snack;
+};
+
+export const updateSnack = (id: number, updateSnackForm: UpdateSnackForm) => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  const url = `${BASE_API}/snacks/${id}`;
+  const body: Message = await putMultipart(url, token, updateSnackForm);
+
   dispatch(showToast(body.message));
   dispatch(push("/snacks"));
 };

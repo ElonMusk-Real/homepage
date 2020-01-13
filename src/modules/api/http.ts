@@ -72,3 +72,10 @@ export async function postMultipart(url: string, token: string, parts: { [key: s
 
   return request("POST", url, token, {}, body);
 }
+
+export async function putMultipart(url: string, token: string, parts: { [key: string]: any }): Promise<any> {
+  const body = new FormData();
+  Object.keys(parts).forEach((part) => body.append(part, parts[part]));
+
+  return request("PUT", url, token, {}, body);
+}

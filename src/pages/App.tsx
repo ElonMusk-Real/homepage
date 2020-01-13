@@ -18,16 +18,18 @@ import ProductList from "./ProductList";
 import ProfileListPage from "./admin/ProfileListPage";
 import EditSellerPage from "./admin/EditSellerPage";
 import Footer from "../components/Footer";
+import EditSnackPage from "./admin/EditSnackPage";
 
 const menus = [
   { icon: "home", text: "Home", url: "/", component: HomePage, exact: true },
   { icon: "view_module", text: "Product List", url: "/productlist", component: ProductList },
   { icon: "view_module", text: "Snack List", url: "/snacks", component: SnackListPage, adminOnly: true, exact: true },
-  { icon: "view_module", text: "Add new Snack", url: "/snacks/add", component: AddSnackPage, hideFromMenu: true },
-  { icon: "view_module", text: "Edit Seller", url: "/sellers/edit/:id", component: EditSellerPage, hideFromMenu: true },
+  { icon: "", text: "Add new Snack", url: "/snacks/add", component: AddSnackPage, hideFromMenu: true },
+  { icon: "", text: "Edit Seller", url: "/sellers/edit/:id", component: EditSellerPage, hideFromMenu: true },
+  { icon: "", text: "Edit Snack", url: "/snacks/edit/:id", component: EditSnackPage, hideFromMenu: true },
   { icon: "person", text: "Seller List", url: "/sellers", component: SellerListPage, adminOnly: true, exact: true },
   { icon: "person", text: "Profile List", url: "/users", component: ProfileListPage, adminOnly: true },
-  { icon: "person", text: "Add new Seller", url: "/sellers/add", component: AddSellerPage, hideFromMenu: true },
+  { icon: "", text: "Add new Seller", url: "/sellers/add", component: AddSellerPage, hideFromMenu: true },
   { icon: "person", text: "Profile", url: "/profile", component: ProfilePage, userOnly: true },
   { icon: "double_arrow", text: "Login", url: "/login", component: Login, guestOnly: true },
   { icon: "add_circle", text: "Register", url: "/register", component: Register, guestOnly: true },

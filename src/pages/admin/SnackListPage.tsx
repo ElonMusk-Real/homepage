@@ -17,6 +17,7 @@ import TablePaginationActions from "@material-ui/core/TablePagination/TablePagin
 
 import { fetchSnacks, Snack } from "../../modules/api/snacksAPI";
 import { Pagination } from "../../modules/api/pagination";
+import { BASE_API } from "../../modules/api/http";
 
 const useStyles = makeStyles({
   table: {
@@ -78,6 +79,7 @@ const SnackListPage = (props: SnackListPageProps) => {
               <TableCell>Quantity</TableCell>
               <TableCell>Selling Price</TableCell>
               <TableCell>Image</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -89,7 +91,15 @@ const SnackListPage = (props: SnackListPageProps) => {
                 <TableCell>{row.price.toLocaleString()}</TableCell>
                 <TableCell>{row.quantity}</TableCell>
                 <TableCell>{row.sellingPrice.toLocaleString()}</TableCell>
-                <TableCell>{row.image}</TableCell>
+                <TableCell>
+                  {(row.image && <img height={40} src={`${BASE_API}/file/public/${row.image}`} />) || "-"}
+                </TableCell>
+
+                <TableCell>
+                  <Link to={`/snacks/edit/${row.id}`}>
+                    <Button>Edit</Button>
+                  </Link>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
