@@ -1,0 +1,17 @@
+stages:
+  - deployment
+
+deployment:
+  stage: deployment
+  image: node:10.15
+  only:
+    - master
+  before_script:
+    - apt-get update -qq
+    - apt-get install -y -qq sshpass
+    - yarn
+  script:
+    - CI=false yarn build
+    - cd build
+    - export SSHPASS=$USER_PASS
+    - sshpass -e scp -o stricthostkeychecking=no -P 64000 -r . natadanu@139.162.1.137:~/public_html
