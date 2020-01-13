@@ -4,7 +4,7 @@ export interface Message {
   message: string;
 }
 
-export const BASE_API = process.env.NODE_ENV === "production" ? "http://beta.natadanus.com" : "http://localhost:3001";
+export const BASE_API = process.env.NODE_ENV === "production" ? "https://api.natadanus.com" : "http://localhost:3001";
 
 async function call(url: string, init: RequestInit): Promise<any> {
   let response: Response;
