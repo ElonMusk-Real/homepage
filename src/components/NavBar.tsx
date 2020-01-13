@@ -1,21 +1,26 @@
 import React from "react";
-import { AppBar, Toolbar, IconButton, Icon, Typography, makeStyles } from "@material-ui/core";
+import { AppBar, Toolbar, IconButton, Icon, makeStyles, Grid } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 import Drawer, { Menu } from "./Drawer";
 
+import logogram from "./../assets/logogram.png";
+import logotype from "./../assets/logotype-white.png";
+
 const useStyles = makeStyles({
-  title: {
-    flexGrow: 1,
-    fontWeight: "bold",
-    textShadow: "-0.1px 0 red, 0 0.1px red, 0.1px 0 red, 0 -0.1px red;"
-  },
   appBar: {
     backgroundColor: "#E73361"
+  },
+  logotype: {
+    paddingLeft: 8,
+    marginBottom: 3
+  },
+  menuButton: {
+    color: "white"
   }
 });
 
 interface NavBarProps {
-  title: string;
   menus: Menu[];
 }
 
@@ -32,11 +37,12 @@ const Navbar = (props: NavBarProps) => {
       <AppBar color="inherit" className={classes.appBar}>
         <Toolbar>
           <IconButton edge="start" onClick={toggle}>
-            <Icon>menu</Icon>
+            <Icon className={classes.menuButton}>menu</Icon>
           </IconButton>
-          <Typography variant="h5" className={classes.title}>
-            {props.title}
-          </Typography>
+          <Link to="/">
+            <img src={logogram} height="32" />
+            <img src={logotype} height="26" className={classes.logotype} />
+          </Link>
         </Toolbar>
       </AppBar>
       <Drawer open={open} toggle={toggle} menus={props.menus} />

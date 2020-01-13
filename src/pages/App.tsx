@@ -45,7 +45,7 @@ const App = () => {
 
   return (
     <>
-      <Navbar title="NataDanus" menus={menus} />
+      <Navbar menus={menus} />
       <div className={classes.container}>
         <Grid container justify="center">
           <Switch>
