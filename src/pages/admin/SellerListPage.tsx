@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 import { fetchSellers, Seller } from "../../modules/api/sellersAPI";
 import { Pagination } from "../../modules/api/pagination";
-import Container from "../../components/Container";
 
 const useStyles = makeStyles({
   table: {
@@ -32,45 +31,43 @@ const SellerListPage = (props: SellerListPageProps) => {
   }, []);
 
   return (
-    <Container>
-      <Grid direction="column">
-        <Grid>
-          <Link to="/sellers/add">
-            <Button color="primary" variant="contained">
-              Add new Seller
-            </Button>
-          </Link>
-        </Grid>
-        <Grid>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell className={classes.numberCell}>Number</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Phone Number</TableCell>
-                <TableCell>Address</TableCell>
-                <TableCell>Action</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map((row, i) => (
-                <TableRow key={i}>
-                  <TableCell>{i + 1}</TableCell>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.phoneNumber}</TableCell>
-                  <TableCell>{row.address}</TableCell>
-                  <TableCell>
-                    <Link to={`/sellers/edit/${row.id}`}>
-                      <Button>Edit</Button>
-                    </Link>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Grid>
+    <Grid direction="column">
+      <Grid>
+        <Link to="/sellers/add">
+          <Button color="primary" variant="contained">
+            Add new Seller
+          </Button>
+        </Link>
       </Grid>
-    </Container>
+      <Grid>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell className={classes.numberCell}>Number</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Phone Number</TableCell>
+              <TableCell>Address</TableCell>
+              <TableCell>Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map((row, i) => (
+              <TableRow key={i}>
+                <TableCell>{i + 1}</TableCell>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.phoneNumber}</TableCell>
+                <TableCell>{row.address}</TableCell>
+                <TableCell>
+                  <Link to={`/sellers/edit/${row.id}`}>
+                    <Button>Edit</Button>
+                  </Link>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Grid>
+    </Grid>
   );
 };
 

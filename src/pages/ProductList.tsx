@@ -4,15 +4,8 @@ import { makeStyles, Grid, Button } from "@material-ui/core";
 import ProductCard from "../components/ProductCard";
 
 import { fetchSnacks, Snack } from "../modules/api/snacksAPI";
+
 const useStyles = makeStyles({
-  container: {
-    backgroundColor: "#F8EAEA",
-    minHeight: "100vh",
-    paddingTop: 64
-  },
-  debug: {
-    border: "1px solid black"
-  },
   text: {
     padding: 48
   },
@@ -40,13 +33,13 @@ const ProductList = (props: ProductListProps) => {
   const [snacks, setSnacks] = useState<Snack[]>([]);
 
   useEffect(() => {
-    fetchSnacks().then(snacks => {
+    fetchSnacks().then((snacks) => {
       setSnacks(snacks);
     });
   }, []);
 
   return (
-    <div className={classes.container}>
+    <>
       <div className={classes.separator}></div>
       <Grid container justify="center">
         <Grid item xs={12}>
@@ -60,7 +53,7 @@ const ProductList = (props: ProductListProps) => {
         </Grid>
         <Grid item xs={10}>
           <Grid container justify="center" spacing={4}>
-            {snacks.map(snacks => {
+            {snacks.map((snacks) => {
               return (
                 <Grid item>
                   <ProductCard name={snacks.name} price={snacks.price} address={snacks.address} />
@@ -71,7 +64,7 @@ const ProductList = (props: ProductListProps) => {
         </Grid>
       </Grid>
       <div className={classes.separator}></div>
-    </div>
+    </>
   );
 };
 const mapDispatchToProps = { fetchSnacks };

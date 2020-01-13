@@ -16,6 +16,7 @@ import AddSnackPage from "./admin/AddSnackPage";
 import ProductList from "./ProductList";
 import ProfileListPage from "./admin/ProfileListPage";
 import EditSellerPage from "./admin/EditSellerPage";
+import { makeStyles, Grid } from "@material-ui/core";
 
 const menus = [
   { icon: "home", text: "Home", url: "/", component: HomePage, exact: true },
@@ -32,19 +33,32 @@ const menus = [
   { icon: "info", text: "About", url: "/about", component: AboutPage }
 ];
 
+const useStyles = makeStyles({
+  container: {
+    minHeight: "100vh",
+    paddingTop: 72
+  }
+});
+
 const App = () => {
+  const classes = useStyles();
+
   return (
     <>
-      <Navbar title="NATA Danus" menus={menus} />
-      <Switch>
-        {menus.map((menu) => (
-          <Route
-            path={menu.url}
-            exact={!!menu.exact}
-            component={withTitle({ component: menu.component, title: menu.text })}
-          />
-        ))}
-      </Switch>
+      <Navbar title="NataDanus" menus={menus} />
+      <div className={classes.container}>
+        <Grid container justify="center">
+          <Switch>
+            {menus.map((menu) => (
+              <Route
+                path={menu.url}
+                exact={!!menu.exact}
+                component={withTitle({ component: menu.component, title: menu.text })}
+              />
+            ))}
+          </Switch>
+        </Grid>
+      </div>
       <Toast />
     </>
   );

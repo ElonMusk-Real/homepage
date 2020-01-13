@@ -9,13 +9,6 @@ import { minLength, maxLength, isEmail } from "../modules/validation";
 import Dropdown from "../components/forms/Dropdown";
 
 const useStyles = makeStyles({
-  container: {
-    minHeight: "100vh",
-    paddingTop: 64
-  },
-  debug: {
-    border: "1px solid black"
-  },
   text: {
     padding: 48
   },
@@ -45,74 +38,70 @@ const RegisterPage = (props: RegisterPageProps) => {
   };
 
   return (
-    <div className={classes.container}>
+    <Grid item xs={11} md={6}>
       <Grid container justify="center">
-        <Grid item xs={11} md={6}>
-          <Grid container justify="center">
-            <Typography variant="body1" className={classes.text} display="block">
-              Register your email here to get our best offer
-            </Typography>
-            <form onSubmit={handleSubmit(handleRegister)}>
-              <InputText
-                name="email"
-                className={classes.paddingv}
-                fullWidth
-                label="email"
-                form={form}
-                validators={[minLength(5), maxLength(50), isEmail]}
-              />
-              <InputText
-                name="name"
-                className={classes.paddingv}
-                fullWidth
-                label="name"
-                form={form}
-                validators={[minLength(3), maxLength(30)]}
-              />
-              <InputText
-                name="password"
-                className={classes.paddingv}
-                fullWidth
-                label="password"
-                password
-                form={form}
-                validators={[minLength(8), maxLength(16)]}
-              />
-              <Dropdown
-                name="university"
-                listMenu={{ "Universitas Indonesia": "Universitas Indonesia" }}
-                label="University"
-                form={form}
-              />
-              <Dropdown
-                name="faculty"
-                listMenu={{
-                  "Fakultas Kedokteran": "Fakultas Kedokteran",
-                  "Fakultas Kedokteran Gigi": "Fakultas Kedokteran Gigi",
-                  "Fakultas Farmasi": "Fakultas Farmasi",
-                  "Fakultas Kesehatan Masyarakat": "Fakultas Kesehatan Masyarakat",
-                  "Fakultas Ilmu Keperawatan": "Fakultas Ilmu Keperawatan",
-                  "Fakultas Matematika dan Ilmu Pengetahuan Alam": "Fakultas Matematika dan Ilmu Pengetahuan Alam",
-                  "Fakultas Teknik": "Fakultas Teknik",
-                  "Fakultas Ilmu Komputer": "Fakultas Ilmu Komputer",
-                  "Fakultas Hukum": "Fakultas Hukum",
-                  "Fakultas Ekonomi dan Bisnis": "Fakultas Ekonomi dan Bisnis",
-                  "Fakultas Ilmu Pengetahuan Budaya": "Fakultas Ilmu Pengetahuan Budaya",
-                  "Fakultas Psikologi": "Fakultas Psikologi",
-                  "Fakultas Ilmu Sosial dan Ilmu Politik": "Fakultas Ilmu Sosial dan Ilmu Politik",
-                  "Fakultas Ilmu Administrasi": "Fakultas Ilmu Administrasi"
-                }}
-                label="Faculty"
-                form={form}
-              />
-              <Button type="submit" className={classes.marginv} fullWidth variant="contained" color="inherit">
-                Register
-              </Button>
-            </form>
-          </Grid>
-        </Grid>
+        <Typography variant="body1" className={classes.text} display="block">
+          Register your email here to get our best offer
+        </Typography>
+        <form onSubmit={handleSubmit(handleRegister)}>
+          <InputText
+            name="email"
+            className={classes.paddingv}
+            fullWidth
+            label="email"
+            form={form}
+            validators={[minLength(5), maxLength(50), isEmail]}
+          />
+          <InputText
+            name="name"
+            className={classes.paddingv}
+            fullWidth
+            label="name"
+            form={form}
+            validators={[minLength(3), maxLength(30)]}
+          />
+          <InputText
+            name="password"
+            className={classes.paddingv}
+            fullWidth
+            label="password"
+            password
+            form={form}
+            validators={[minLength(8), maxLength(16)]}
+          />
+          <Dropdown
+            name="university"
+            listMenu={{ "Universitas Indonesia": "Universitas Indonesia" }}
+            label="University"
+            form={form}
+          />
+          <Dropdown
+            name="faculty"
+            listMenu={{
+              "Fakultas Kedokteran": "Fakultas Kedokteran",
+              "Fakultas Kedokteran Gigi": "Fakultas Kedokteran Gigi",
+              "Fakultas Farmasi": "Fakultas Farmasi",
+              "Fakultas Kesehatan Masyarakat": "Fakultas Kesehatan Masyarakat",
+              "Fakultas Ilmu Keperawatan": "Fakultas Ilmu Keperawatan",
+              "Fakultas Matematika dan Ilmu Pengetahuan Alam": "Fakultas Matematika dan Ilmu Pengetahuan Alam",
+              "Fakultas Teknik": "Fakultas Teknik",
+              "Fakultas Ilmu Komputer": "Fakultas Ilmu Komputer",
+              "Fakultas Hukum": "Fakultas Hukum",
+              "Fakultas Ekonomi dan Bisnis": "Fakultas Ekonomi dan Bisnis",
+              "Fakultas Ilmu Pengetahuan Budaya": "Fakultas Ilmu Pengetahuan Budaya",
+              "Fakultas Psikologi": "Fakultas Psikologi",
+              "Fakultas Ilmu Sosial dan Ilmu Politik": "Fakultas Ilmu Sosial dan Ilmu Politik",
+              "Fakultas Ilmu Administrasi": "Fakultas Ilmu Administrasi"
+            }}
+            label="Faculty"
+            form={form}
+          />
+          <Button type="submit" className={classes.marginv} fullWidth variant="contained" color="inherit">
+            Register
+          </Button>
+        </form>
       </Grid>
-    </div>
+    </Grid>
   );
 };
 

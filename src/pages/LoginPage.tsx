@@ -7,13 +7,6 @@ import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles({
-  container: {
-    minHeight: "100vh",
-    paddingTop: 64
-  },
-  debug: {
-    border: "1px solid black"
-  },
   text: {
     padding: 48
   },
@@ -41,24 +34,20 @@ const LoginPage = (props: LoginPageProps) => {
   };
 
   return (
-    <div className={classes.container}>
+    <Grid item xs={11} md={6}>
       <Grid container justify="center">
-        <Grid item xs={11} md={6}>
-          <Grid container justify="center">
-            <Typography variant="body1" className={classes.text} display="block">
-              Log In to Your Account
-            </Typography>
-            <form onSubmit={handleSubmit(handleLogin)}>
-              <InputText className={classes.paddingv} fullWidth name="email" label="email" form={form} />
-              <InputText className={classes.paddingv} fullWidth name="password" password label="password" form={form} />
-              <Button type="submit" className={classes.marginv} fullWidth variant="contained" color="inherit">
-                Login
-              </Button>
-            </form>
-          </Grid>
-        </Grid>
+        <Typography variant="body1" className={classes.text} display="block">
+          Log In to Your Account
+        </Typography>
+        <form onSubmit={handleSubmit(handleLogin)}>
+          <InputText className={classes.paddingv} fullWidth name="email" label="email" form={form} />
+          <InputText className={classes.paddingv} fullWidth name="password" password label="password" form={form} />
+          <Button type="submit" className={classes.marginv} fullWidth variant="contained" color="inherit">
+            Login
+          </Button>
+        </form>
       </Grid>
-    </div>
+    </Grid>
   );
 };
 

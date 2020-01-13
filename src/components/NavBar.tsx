@@ -3,12 +3,15 @@ import { AppBar, Toolbar, IconButton, Icon, Typography, makeStyles } from "@mate
 
 import Drawer, { Menu } from "./Drawer";
 
-const useStyles = makeStyles((theme) => {
-  return {
-    title: {
-      flexGrow: 1
-    }
-  };
+const useStyles = makeStyles({
+  title: {
+    flexGrow: 1,
+    fontWeight: "bold",
+    textShadow: "-0.1px 0 red, 0 0.1px red, 0.1px 0 red, 0 -0.1px red;"
+  },
+  appBar: {
+    backgroundColor: "#E73361"
+  }
 });
 
 interface NavBarProps {
@@ -26,7 +29,7 @@ const Navbar = (props: NavBarProps) => {
 
   return (
     <div>
-      <AppBar color="inherit">
+      <AppBar color="inherit" className={classes.appBar}>
         <Toolbar>
           <IconButton edge="start" onClick={toggle}>
             <Icon>menu</Icon>
