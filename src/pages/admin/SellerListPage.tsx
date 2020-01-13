@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { makeStyles, Table, TableHead, TableRow, TableCell, TableBody, Button, Grid } from "@material-ui/core";
+import {
+  makeStyles,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Button,
+  Grid,
+  TableFooter,
+  TablePagination
+} from "@material-ui/core";
+import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
 import { Link } from "react-router-dom";
 
 import { fetchSellers, Seller } from "../../modules/api/sellersAPI";
@@ -19,19 +31,33 @@ const useStyles = makeStyles({
 });
 
 interface SellerListPageProps {
-  fetchSellers: () => Promise<Pagination<Seller>>;
+  fetchSellers: (rowsPerPage?: number, page?: number) => Promise<Pagination<Seller>>;
 }
 
 const SellerListPage = (props: SellerListPageProps) => {
   const { fetchSellers } = props;
   const [data, setData] = useState<Seller[]>([]);
+  const [total, setTotal] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(0);
+
   const classes = useStyles();
 
   useEffect(() => {
-    fetchSellers().then((pagedData) => {
+    fetchSellers(rowsPerPage, page).then((pagedData) => {
       setData(pagedData.data);
+      setTotal(pagedData.total);
     });
-  }, []);
+  }, [page, rowsPerPage]);
+
+  const handleChangePage = (event, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   return (
     <Grid direction="column">
@@ -56,7 +82,7 @@ const SellerListPage = (props: SellerListPageProps) => {
           <TableBody>
             {data.map((row, i) => (
               <TableRow key={i}>
-                <TableCell>{i + 1}</TableCell>
+                <TableCell>{i + 1 + rowsPerPage * page}</TableCell>
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.phoneNumber}</TableCell>
                 <TableCell>{row.address}</TableCell>
@@ -68,6 +94,23 @@ const SellerListPage = (props: SellerListPageProps) => {
               </TableRow>
             ))}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 20]}
+                count={total}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: { "aria-label": "rows per page" },
+                  native: true
+                }}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
         </Table>
       </Grid>
     </Grid>
