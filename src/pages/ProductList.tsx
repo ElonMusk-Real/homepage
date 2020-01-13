@@ -57,7 +57,7 @@ const ProductList = (props: ProductListProps) => {
             {snacks.map((snacks) => {
               return (
                 <Grid item>
-                  <ProductCard name={snacks.name} price={snacks.price} address={snacks.address} />
+                  <ProductCard name={snacks.name} price={snacks.price} address={snacks.address} image={snacks.image} />
                 </Grid>
               );
             })}

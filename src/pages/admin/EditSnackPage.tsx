@@ -132,7 +132,7 @@ const EditSnackPage = (props: EditSnackPageProps) => {
           />
           <InputFile name="image" className={classes.paddingv} fullWidth label="Image" form={form} required={false} />
           <Button type="submit" className={classes.marginv} fullWidth variant="contained" color="inherit">
-            Create
+            Update
           </Button>
         </form>
       </Grid>

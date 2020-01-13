@@ -88,7 +88,7 @@ const EditSellerPage = (props: EditSellerPageProps) => {
             defaultValue={"Loading..."}
           />
           <Button type="submit" className={classes.marginv} fullWidth variant="contained" color="inherit">
-            Save
+            Update
           </Button>
         </form>
       </Grid>
