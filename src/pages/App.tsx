@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
+import { makeStyles, Grid } from "@material-ui/core";
 
 import Toast from "../components/Toast";
 import HomePage from "./HomePage";
@@ -16,7 +17,7 @@ import AddSnackPage from "./admin/AddSnackPage";
 import ProductList from "./ProductList";
 import ProfileListPage from "./admin/ProfileListPage";
 import EditSellerPage from "./admin/EditSellerPage";
-import { makeStyles, Grid } from "@material-ui/core";
+import Footer from "../components/Footer";
 
 const menus = [
   { icon: "home", text: "Home", url: "/", component: HomePage, exact: true },
@@ -36,7 +37,7 @@ const menus = [
 const useStyles = makeStyles({
   container: {
     minHeight: "100vh",
-    paddingTop: 72
+    paddingTop: 64
   }
 });
 
@@ -59,6 +60,7 @@ const App = () => {
           </Switch>
         </Grid>
       </div>
+      <Footer />
       <Toast />
     </>
   );

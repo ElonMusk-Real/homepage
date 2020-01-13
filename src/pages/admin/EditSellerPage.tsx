@@ -50,7 +50,7 @@ const EditSellerPage = (props: EditSellerPageProps) => {
   }, []);
 
   return (
-    <Grid container justify="center">
+    <Grid justify="center">
       <Grid item xs={11} md={6}>
         <Grid container justify="center">
           <Typography variant="body1" className={classes.text} display="block">

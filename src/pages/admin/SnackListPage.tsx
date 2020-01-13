@@ -11,6 +11,9 @@ const useStyles = makeStyles({
   },
   numberCell: {
     width: 10
+  },
+  addButton: {
+    margin: 16
   }
 });
 
@@ -33,7 +36,7 @@ const SnackListPage = (props: SnackListPageProps) => {
     <Grid direction="column">
       <Grid>
         <Link to="/snacks/add">
-          <Button color="primary" variant="contained">
+          <Button color="primary" variant="contained" className={classes.addButton}>
             Add new Snack
           </Button>
         </Link>
