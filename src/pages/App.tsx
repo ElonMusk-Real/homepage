@@ -7,20 +7,22 @@ import AboutPage from "./AboutPage";
 import Register from "./RegisterPage";
 import Login from "./LoginPage";
 import ProfilePage from "./ProfilePage";
-import SnackListPage from "./SnackListPage";
+import SnackListPage from "./admin/SnackListPage";
 import Navbar from "../components/NavBar";
-import SellerListPage from "./SellerListPage";
+import SellerListPage from "./admin/SellerListPage";
 import withTitle from "../modules/withTitle";
-import AddSellerPage from "./AddSellerPage";
-import AddSnackPage from "./AddSnackPage";
+import AddSellerPage from "./admin/AddSellerPage";
+import AddSnackPage from "./admin/AddSnackPage";
 import ProductList from "./ProductList";
-import ProfileListPage from "./ProfileListPage";
+import ProfileListPage from "./admin/ProfileListPage";
+import EditSellerPage from "./admin/EditSellerPage";
 
 const menus = [
   { icon: "home", text: "Home", url: "/", component: HomePage, exact: true },
   { icon: "view_module", text: "Product List", url: "/productlist", component: ProductList },
   { icon: "view_module", text: "Snack List", url: "/snacks", component: SnackListPage, adminOnly: true, exact: true },
   { icon: "view_module", text: "Add new Snack", url: "/snacks/add", component: AddSnackPage, hideFromMenu: true },
+  { icon: "view_module", text: "Edit Seller", url: "/sellers/edit/:id", component: EditSellerPage, hideFromMenu: true },
   { icon: "person", text: "Seller List", url: "/sellers", component: SellerListPage, adminOnly: true, exact: true },
   { icon: "person", text: "Profile List", url: "/users", component: ProfileListPage, adminOnly: true },
   { icon: "person", text: "Add new Seller", url: "/sellers/add", component: AddSellerPage, hideFromMenu: true },

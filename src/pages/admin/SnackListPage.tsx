@@ -3,9 +3,8 @@ import { connect } from "react-redux";
 import { makeStyles, Table, TableHead, TableRow, TableCell, TableBody, Button, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-import { fetchAllProfile, Profile } from "../modules/api/usersAPI";
-import Container from "../components/Container";
-import { Pagination } from "../modules/api/pagination";
+import { fetchSnacks, Snack } from "../../modules/api/snacksAPI";
+import Container from "../../components/Container";
 
 const useStyles = makeStyles({
   table: {
@@ -16,18 +15,18 @@ const useStyles = makeStyles({
   }
 });
 
-interface ProfileListPageProps {
-  fetchAllProfile: () => Promise<Pagination<Profile>>;
+interface SnackListPageProps {
+  fetchSnacks: () => Promise<Snack[]>;
 }
 
-const ProfileListPage = (props: ProfileListPageProps) => {
-  const { fetchAllProfile } = props;
-  const [data, setData] = useState<Profile[]>([]);
+const SnackListPage = (props: SnackListPageProps) => {
+  const { fetchSnacks } = props;
+  const [data, setData] = useState<Snack[]>([]);
   const classes = useStyles();
 
   useEffect(() => {
-    fetchAllProfile().then((pagedData) => {
-      setData(pagedData.data);
+    fetchSnacks().then((snacks) => {
+      setData(snacks);
     });
   }, []);
 
@@ -35,17 +34,24 @@ const ProfileListPage = (props: ProfileListPageProps) => {
     <Container>
       <Grid direction="column">
         <Grid>
+          <Link to="/snacks/add">
+            <Button color="primary" variant="contained">
+              Add new Snack
+            </Button>
+          </Link>
+        </Grid>
+        <Grid>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell className={classes.numberCell}>Number</TableCell>
                 <TableCell>Id</TableCell>
-                <TableCell>Email</TableCell>
+                <TableCell>Seller</TableCell>
                 <TableCell>Name</TableCell>
-                <TableCell>Phone Number</TableCell>
-                <TableCell>Line Id</TableCell>
-                <TableCell>University</TableCell>
-                <TableCell>Faculty</TableCell>
+                <TableCell>Price</TableCell>
+                <TableCell>Quantity</TableCell>
+                <TableCell>Selling Price</TableCell>
+                <TableCell>Image</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -53,12 +59,12 @@ const ProfileListPage = (props: ProfileListPageProps) => {
                 <TableRow key={i}>
                   <TableCell>{i + 1}</TableCell>
                   <TableCell>{row.id}</TableCell>
-                  <TableCell>{row.email}</TableCell>
+                  <TableCell>{row.seller}</TableCell>
                   <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.phoneNumber}</TableCell>
-                  <TableCell>{row.lineId}</TableCell>
-                  <TableCell>{row.university}</TableCell>
-                  <TableCell>{row.faculty}</TableCell>
+                  <TableCell>{row.price}</TableCell>
+                  <TableCell>{row.quantity}</TableCell>
+                  <TableCell>{row.sellingPrice}</TableCell>
+                  <TableCell>{row.image}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -69,6 +75,6 @@ const ProfileListPage = (props: ProfileListPageProps) => {
   );
 };
 
-const mapDispatchToProps = { fetchAllProfile };
+const mapDispatchToProps = { fetchSnacks };
 
-export default connect(undefined, mapDispatchToProps)(ProfileListPage);
+export default connect(undefined, mapDispatchToProps)(SnackListPage);

@@ -3,10 +3,9 @@ import { connect } from "react-redux";
 import { Typography, Grid, makeStyles, Button } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 
-import InputText from "../components/forms/InputText";
-import { minLength, maxLength } from "../modules/validation";
-import { addSeller, InsertSellerForm } from "../modules/api/sellersAPI";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import InputText from "../../components/forms/InputText";
+import { minLength, maxLength, isEmail } from "../../modules/validation";
+import { addSeller, InsertSellerForm } from "../../modules/api/sellersAPI";
 
 const useStyles = makeStyles({
   container: {
@@ -29,15 +28,11 @@ const useStyles = makeStyles({
   }
 });
 
-interface ParamMatch {
-  id: string;
-}
-
-interface EditSellerPageProps extends RouteComponentProps<ParamMatch> {
+interface AddSellerPageProps {
   addSeller: (insertSellerForm: InsertSellerForm) => Promise<void>;
 }
 
-const EditSellerPage = (props: EditSellerPageProps) => {
+const AddSellerPage = (props: AddSellerPageProps) => {
   const { handleSubmit, ...form } = useForm();
 
   const classes = useStyles();
@@ -94,4 +89,4 @@ const EditSellerPage = (props: EditSellerPageProps) => {
 
 const mapDispatchToProps = { addSeller };
 
-export default withRouter(connect(undefined, mapDispatchToProps)(EditSellerPage));
+export default connect(undefined, mapDispatchToProps)(AddSellerPage);

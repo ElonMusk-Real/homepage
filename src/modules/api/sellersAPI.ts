@@ -39,6 +39,14 @@ export const addSeller = (insertSellerForm: InsertSellerForm) => async (dispatch
   dispatch(push("/sellers"));
 };
 
+export const getSeller = (id: number) => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  const url = `${BASE_API}/sellers/${id}`;
+  const seller: Seller = await get(url, token);
+
+  return seller;
+};
+
 export const fetchAllSellers = () => async (dispatch, getState) => {
   const token = selectToken(getState());
   const url = `${BASE_API}/sellers/all`;

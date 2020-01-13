@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Typography, Grid, makeStyles, Button } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 
-import InputText from "../components/forms/InputText";
-import { minLength, maxLength, isEmail } from "../modules/validation";
-import { addSeller, InsertSellerForm } from "../modules/api/sellersAPI";
+import InputText from "../../components/forms/InputText";
+import { minLength, maxLength } from "../../modules/validation";
+import { getSeller, InsertSellerForm, Seller } from "../../modules/api/sellersAPI";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
 const useStyles = makeStyles({
   container: {
@@ -28,20 +29,32 @@ const useStyles = makeStyles({
   }
 });
 
-interface AddSellerPageProps {
-  addSeller: (insertSellerForm: InsertSellerForm) => Promise<void>;
+interface ParamMatch {
+  id: string;
 }
 
-const AddSellerPage = (props: AddSellerPageProps) => {
+interface EditSellerPageProps extends RouteComponentProps<ParamMatch> {
+  getSeller: (id: number) => Promise<Seller>;
+}
+
+const EditSellerPage = (props: EditSellerPageProps) => {
   const { handleSubmit, ...form } = useForm();
+  form.watch();
 
   const classes = useStyles();
 
-  const handleCreate = (data) => {
-    const { name, phoneNumber, address } = data;
-    const insertSellerForm: InsertSellerForm = { name, phoneNumber, address };
-    props.addSeller(insertSellerForm);
+  const handleCreate = (data) => {};
+
+  const setSeller = (seller: Seller) => {
+    form.setValue("name", seller.name);
+    form.setValue("phoneNumber", seller.phoneNumber);
+    form.setValue("address", seller.address);
   };
+
+  useEffect(() => {
+    const { id } = props.match.params;
+    props.getSeller(+id).then(setSeller);
+  }, []);
 
   return (
     <div className={classes.container}>
@@ -49,7 +62,7 @@ const AddSellerPage = (props: AddSellerPageProps) => {
         <Grid item xs={11} md={6}>
           <Grid container justify="center">
             <Typography variant="body1" className={classes.text} display="block">
-              Add new Seller
+              Edit Seller
             </Typography>
             <form onSubmit={handleSubmit(handleCreate)}>
               <InputText
@@ -59,6 +72,7 @@ const AddSellerPage = (props: AddSellerPageProps) => {
                 label="Name"
                 form={form}
                 validators={[minLength(3), maxLength(30)]}
+                defaultValue={"Loading..."}
               />
               <InputText
                 name="phoneNumber"
@@ -67,6 +81,7 @@ const AddSellerPage = (props: AddSellerPageProps) => {
                 label="Phone Number"
                 form={form}
                 validators={[minLength(3), maxLength(30)]}
+                defaultValue={"Loading..."}
               />
               <InputText
                 name="address"
@@ -75,9 +90,10 @@ const AddSellerPage = (props: AddSellerPageProps) => {
                 label="Address"
                 form={form}
                 validators={[minLength(3), maxLength(30)]}
+                defaultValue={"Loading..."}
               />
               <Button type="submit" className={classes.marginv} fullWidth variant="contained" color="inherit">
-                Create
+                Save
               </Button>
             </form>
           </Grid>
@@ -87,6 +103,6 @@ const AddSellerPage = (props: AddSellerPageProps) => {
   );
 };
 
-const mapDispatchToProps = { addSeller };
+const mapDispatchToProps = { getSeller };
 
-export default connect(undefined, mapDispatchToProps)(AddSellerPage);
+export default withRouter(connect(undefined, mapDispatchToProps)(EditSellerPage));

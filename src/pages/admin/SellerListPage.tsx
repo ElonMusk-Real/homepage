@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { makeStyles, Table, TableHead, TableRow, TableCell, TableBody, Button, Grid } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-import { fetchSellers, Seller } from "../modules/api/sellersAPI";
-import { Pagination } from "../modules/api/pagination";
-import Container from "../components/Container";
+import { fetchSellers, Seller } from "../../modules/api/sellersAPI";
+import { Pagination } from "../../modules/api/pagination";
+import Container from "../../components/Container";
 
 const useStyles = makeStyles({
   table: {
@@ -26,7 +26,7 @@ const SellerListPage = (props: SellerListPageProps) => {
   const classes = useStyles();
 
   useEffect(() => {
-    fetchSellers().then(pagedData => {
+    fetchSellers().then((pagedData) => {
       setData(pagedData.data);
     });
   }, []);
@@ -49,6 +49,7 @@ const SellerListPage = (props: SellerListPageProps) => {
                 <TableCell>Name</TableCell>
                 <TableCell>Phone Number</TableCell>
                 <TableCell>Address</TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -58,6 +59,11 @@ const SellerListPage = (props: SellerListPageProps) => {
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.phoneNumber}</TableCell>
                   <TableCell>{row.address}</TableCell>
+                  <TableCell>
+                    <Link to={`/sellers/edit/${row.id}`}>
+                      <Button>Edit</Button>
+                    </Link>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

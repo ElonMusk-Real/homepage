@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { Typography, Grid, makeStyles, Button } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 
-import InputText from "../components/forms/InputText";
-import { minLength, maxLength, isEmail, isNumber } from "../modules/validation";
-import { addSnack, InsertSnackForm } from "../modules/api/snacksAPI";
-import { fetchAllSellers, IdToName } from "../modules/api/sellersAPI";
-import Dropdown from "../components/forms/Dropdown";
+import InputText from "../../components/forms/InputText";
+import { minLength, maxLength, isEmail, isNumber } from "../../modules/validation";
+import { addSnack, InsertSnackForm } from "../../modules/api/snacksAPI";
+import { fetchAllSellers, IdToName } from "../../modules/api/sellersAPI";
+import Dropdown from "../../components/forms/Dropdown";
 
 const useStyles = makeStyles({
   container: {
