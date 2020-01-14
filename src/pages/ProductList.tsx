@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer, useRef } from "react";
 import { connect } from "react-redux";
-import { makeStyles, Grid, Button } from "@material-ui/core";
-import ProductCard from "../components/ProductCard";
+import { makeStyles, Grid, Button, ButtonGroup } from "@material-ui/core";
+import ReactPaginate from "react-paginate";
 
 import { fetchSnacks, Snack } from "../modules/api/snacksAPI";
+import ProductCard from "../components/ProductCard";
 import { Pagination } from "../modules/api/pagination";
+import PaginationControl from "../components/PaginationControl";
 
 const useStyles = makeStyles({
   text: {
@@ -21,6 +23,9 @@ const useStyles = makeStyles({
   },
   paddingDropdown: {
     paddingBottom: 6
+  },
+  paginationControl: {
+    marginTop: 20
   }
 });
 
@@ -29,15 +34,27 @@ interface ProductListProps {
 }
 
 const ProductList = (props: ProductListProps) => {
+  const rowsPerPage = 12;
   const classes = useStyles();
   const { fetchSnacks } = props;
   const [snacks, setSnacks] = useState<Snack[]>([]);
+  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState(0);
 
   useEffect(() => {
-    fetchSnacks().then((pagedData) => {
+    fetchSnacks(rowsPerPage, page - 1).then((pagedData) => {
       setSnacks(pagedData.data);
+      setPageCount(Math.ceil(pagedData.total / rowsPerPage));
     });
-  }, []);
+  }, [page]);
+
+  const handleChangePage = (page: number) => {
+    setPage(page);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
 
   return (
     <>
@@ -64,7 +81,12 @@ const ProductList = (props: ProductListProps) => {
           </Grid>
         </Grid>
       </Grid>
-      <div className={classes.separator}></div>
+      <PaginationControl
+        className={classes.paginationControl}
+        page={page}
+        pageCount={pageCount}
+        onPageChange={handleChangePage}
+      />
     </>
   );
 };
