@@ -2,23 +2,35 @@ import React from "react";
 import { connect } from "react-redux";
 import { Typography, Grid, makeStyles, Button } from "@material-ui/core";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 import InputText from "../components/forms/InputText";
 import { registerUser, UserRegistrationForm } from "../modules/api/usersAPI";
 import { minLength, maxLength, isEmail } from "../modules/validation";
 import Dropdown from "../components/forms/Dropdown";
+import { red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles({
   text: {
-    padding: 48
+    padding: 30,
+    fontWeight: "bold"
   },
-  paddingv: {
-    paddingTop: 6,
-    paddingBottom: 6
-  },
-  marginv: {
+  button: {
+    backgroundColor: red[400],
+    "&:hover": {
+      backgroundColor: red[500]
+    },
+    color: "white",
+    fontWeight: "bold",
     marginTop: 6,
     marginBottom: 6
+  },
+  loginLink: {
+    color: red[500],
+    textDecorationLine: "none"
+  },
+  haveAccount: {
+    marginTop: 20
   }
 });
 
@@ -46,25 +58,16 @@ const RegisterPage = (props: RegisterPageProps) => {
         <form onSubmit={handleSubmit(handleRegister)}>
           <InputText
             name="email"
-            className={classes.paddingv}
             fullWidth
-            label="email"
+            label="Email"
             form={form}
             validators={[minLength(5), maxLength(50), isEmail]}
           />
-          <InputText
-            name="name"
-            className={classes.paddingv}
-            fullWidth
-            label="name"
-            form={form}
-            validators={[minLength(3), maxLength(30)]}
-          />
+          <InputText name="name" fullWidth label="Name" form={form} validators={[minLength(3), maxLength(30)]} />
           <InputText
             name="password"
-            className={classes.paddingv}
             fullWidth
-            label="password"
+            label="Password"
             password
             form={form}
             validators={[minLength(8), maxLength(16)]}
@@ -96,10 +99,16 @@ const RegisterPage = (props: RegisterPageProps) => {
             label="Faculty"
             form={form}
           />
-          <Button type="submit" className={classes.marginv} fullWidth variant="contained" color="inherit">
+          <Button type="submit" className={classes.button} fullWidth variant="contained" color="inherit">
             Register
           </Button>
         </form>
+        <Typography className={classes.haveAccount}>
+          Already have an account?{" "}
+          <Link className={classes.loginLink} to="/login">
+            Click here
+          </Link>
+        </Typography>
       </Grid>
     </Grid>
   );

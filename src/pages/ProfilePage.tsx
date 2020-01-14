@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Grid, makeStyles, Avatar, Button } from "@material-ui/core";
+import { green } from "@material-ui/core/colors";
 import { connect } from "react-redux";
+import { useForm } from "react-hook-form";
 
 import { getMyProfile, Profile, updateProfile, UserUpdateForm } from "../modules/api/usersAPI";
-import { useForm } from "react-hook-form";
 import InputText from "../components/forms/InputText";
 import { minLength, maxLength, isEmail } from "../modules/validation";
 import Dropdown from "../components/forms/Dropdown";
-import { green } from "@material-ui/core/colors";
 
 const useStyles = makeStyles({
-  text: {
-    padding: 48
-  },
   avatar: {
     margin: 10,
     width: 60,
@@ -20,14 +17,6 @@ const useStyles = makeStyles({
   },
   avatarContainer: {
     padding: 20
-  },
-  paddingv: {
-    paddingTop: 6,
-    paddingBottom: 6
-  },
-  marginv: {
-    marginTop: 6,
-    marginBottom: 6
   }
 });
 
@@ -86,7 +75,6 @@ const ProfilePage = (props: ProfilePageProps) => {
           <Grid container justify="center">
             <InputText
               name="email"
-              className={classes.paddingv}
               fullWidth
               label="email"
               form={form}
@@ -96,7 +84,6 @@ const ProfilePage = (props: ProfilePageProps) => {
             />
             <InputText
               name="name"
-              className={classes.paddingv}
               fullWidth
               label="name"
               form={form}
@@ -106,7 +93,6 @@ const ProfilePage = (props: ProfilePageProps) => {
             />
             <InputText
               name="lineId"
-              className={classes.paddingv}
               fullWidth
               label="Line ID"
               form={form}
@@ -117,7 +103,6 @@ const ProfilePage = (props: ProfilePageProps) => {
             />
             <InputText
               name="phoneNumber"
-              className={classes.paddingv}
               fullWidth
               label="Phone Number"
               form={form}

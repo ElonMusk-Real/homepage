@@ -1,18 +1,19 @@
-import React from "react";
-import { TextField, makeStyles } from "@material-ui/core";
+import React, { useState } from "react";
+import { TextField, makeStyles, InputAdornment, IconButton } from "@material-ui/core";
 import { combineValidator, Validator } from "../../modules/validation";
+import clsx from "clsx";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   inputClasses: ({ readOnly }) => ({
-    paddingTop: 16,
-    paddingBottom: 16,
     background: readOnly ? "transparent" : "white"
   }),
-  labelClasses: {
-    top: -6
+  container: {
+    marginBottom: 8,
+    marginTop: 8
   },
-  shrinkClasses: {
-    top: -9
+  showPassword: {
+    backgroundColor: "white"
   }
 });
 
@@ -33,18 +34,24 @@ const InputText = (props: InputTextProps) => {
   const { label, className, name, form, password, validators, defaultValue, readOnly, required } = props;
   const classes = useStyles({ readOnly });
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <>
       <TextField
         defaultValue={defaultValue}
         name={name}
-        className={className}
-        variant="filled"
+        className={clsx([classes.inputClasses, classes.container, className])}
+        variant="outlined"
         error={!!form.errors[name]}
         helperText={form.errors[name] && form.errors[name].message}
         label={label}
         fullWidth={props.fullWidth}
-        type={password ? "password" : "text"}
+        type={password && !showPassword ? "password" : "text"}
         inputRef={form.register({
           required: required === undefined ? true : required,
           validate: combineValidator(validators || [])
@@ -53,13 +60,19 @@ const InputText = (props: InputTextProps) => {
           classes: {
             input: classes.inputClasses
           },
-          readOnly: !!readOnly
-        }}
-        InputLabelProps={{
-          classes: {
-            root: classes.labelClasses,
-            shrink: classes.shrinkClasses
-          }
+          readOnly: !!readOnly,
+          endAdornment: password && (
+            <InputAdornment className={classes.showPassword} position="end">
+              <IconButton
+                className={classes.showPassword}
+                aria-label="toggle password visibility"
+                onClick={() => setShowPassword(!showPassword)}
+                onMouseDown={handleMouseDownPassword}
+              >
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          )
         }}
       />
     </>

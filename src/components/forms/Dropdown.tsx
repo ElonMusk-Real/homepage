@@ -2,23 +2,9 @@ import React, { useEffect } from "react";
 import { makeStyles, InputLabel, Select, MenuItem, FormControl, FormHelperText } from "@material-ui/core";
 
 const useStyles = makeStyles({
-  text: {
-    padding: 48
-  },
-  separator: {
-    height: 24
-  },
   formControl: {
+    marginTop: 8,
     width: "100%"
-  },
-  menuItem: {
-    width: "100%"
-  },
-  switch: {
-    width: "100%"
-  },
-  padding: {
-    padding: 12
   }
 });
 

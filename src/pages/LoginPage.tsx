@@ -1,21 +1,33 @@
 import React from "react";
 import { Typography, Grid, makeStyles, Button } from "@material-ui/core";
+import { connect } from "react-redux";
+import { useForm } from "react-hook-form";
+import { red } from "@material-ui/core/colors";
+import { Link } from "react-router-dom";
 
 import InputText from "../components/forms/InputText";
 import { loginUser } from "../modules/api/usersAPI";
-import { connect } from "react-redux";
-import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles({
   text: {
-    padding: 48
+    padding: 48,
+    fontWeight: "bold"
   },
-  paddingv: {
-    paddingTop: 6,
-    paddingBottom: 6
+  link: {
+    color: red[500],
+    textDecorationLine: "none"
   },
-  marginv: {
-    marginTop: 6,
+  needAccount: {
+    marginTop: 20
+  },
+  button: {
+    backgroundColor: red[400],
+    "&:hover": {
+      backgroundColor: red[500]
+    },
+    color: "white",
+    fontWeight: "bold",
+    marginTop: 12,
     marginBottom: 6
   }
 });
@@ -37,15 +49,21 @@ const LoginPage = (props: LoginPageProps) => {
     <Grid item xs={11} md={6}>
       <Grid container justify="center">
         <Typography variant="body1" className={classes.text} display="block">
-          Log In to Your Account
+          Log in to your account
         </Typography>
         <form onSubmit={handleSubmit(handleLogin)}>
-          <InputText className={classes.paddingv} fullWidth name="email" label="email" form={form} />
-          <InputText className={classes.paddingv} fullWidth name="password" password label="password" form={form} />
-          <Button type="submit" className={classes.marginv} fullWidth variant="contained" color="inherit">
+          <InputText fullWidth name="email" label="email" form={form} />
+          <InputText fullWidth name="password" password label="password" form={form} />
+          <Button type="submit" className={classes.button} fullWidth variant="contained">
             Login
           </Button>
         </form>
+        <Typography className={classes.needAccount}>
+          Need an account?{" "}
+          <Link className={classes.link} to="/register">
+            Click here
+          </Link>
+        </Typography>
       </Grid>
     </Grid>
   );
