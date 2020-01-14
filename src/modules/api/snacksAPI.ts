@@ -45,9 +45,8 @@ export interface RawSnack {
 }
 
 export const fetchSnacks = (rowsPerPage: number = 10, page: number = 0) => async (dispatch, getState) => {
-  const token = selectToken(getState());
   const url = `${BASE_API}/snacks/?skip=${rowsPerPage * page}&take=${rowsPerPage}`;
-  const snacks: Pagination<Snack> = await get(url, token);
+  const snacks: Pagination<Snack> = await get(url);
 
   return snacks;
 };
