@@ -1,11 +1,24 @@
 import React from "react";
-import { AppBar, Toolbar, IconButton, Icon, makeStyles, Button, MenuItem, Menu } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Icon,
+  makeStyles,
+  Button,
+  MenuItem,
+  Menu,
+  Theme,
+  createStyles
+} from "@material-ui/core";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { red } from "@material-ui/core/colors";
 import { AccountCircle } from "@material-ui/icons";
 import { isBrowser, isMobile } from "react-device-detect";
 import { connect } from "react-redux";
 import clsx from "clsx";
+import SearchIcon from "@material-ui/icons/Search";
+import InputBase from "@material-ui/core/InputBase";
 
 import Drawer from "./Drawer";
 import logogram from "./../assets/logogram.png";
@@ -13,37 +26,75 @@ import logotype from "./../assets/logotype-white.png";
 import { NavMenu, MenuGroup } from "../pages/App";
 import { isAdmin, isLoggedIn } from "../modules/session/sessionSelectors";
 import { logout } from "../modules/session/sessionAPI";
+import { fade } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
-  appBar: {
-    backgroundColor: "#E73361"
-  },
-  logotype: {
-    paddingLeft: 8,
-    marginBottom: 3
-  },
-  menuButton: {
-    color: "white"
-  },
-  link: {
-    flexGrow: 1
-  },
-  linkButton: {
-    textDecorationLine: "none"
-  },
-  linkSubButton: {
-    textDecorationLine: "none",
-    color: "black"
-  },
-  button: {
-    color: "white",
-    fontWeight: "bold",
-    marginRight: 10
-  },
-  selectedButton: {
-    backgroundColor: red[700]
-  }
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    appBar: {
+      backgroundColor: "#E73361"
+    },
+    logotype: {
+      paddingLeft: 8,
+      marginBottom: 3
+    },
+    menuButton: {
+      color: "white"
+    },
+    link: {
+      flexGrow: 1
+    },
+    linkButton: {
+      textDecorationLine: "none"
+    },
+    linkSubButton: {
+      textDecorationLine: "none",
+      color: "black"
+    },
+    button: {
+      color: "white",
+      fontWeight: "bold",
+      marginRight: 10
+    },
+    selectedButton: {
+      backgroundColor: red[700]
+    },
+    search: {
+      position: "relative",
+      borderRadius: theme.shape.borderRadius,
+      backgroundColor: fade(theme.palette.common.white, 0.8),
+      "&:hover": {
+        backgroundColor: fade(theme.palette.common.white, 0.9)
+      },
+      marginRight: theme.spacing(2),
+      marginLeft: 0,
+      width: "100%",
+      [theme.breakpoints.up("sm")]: {
+        marginLeft: theme.spacing(3),
+        width: "auto"
+      }
+    },
+    searchIcon: {
+      width: theme.spacing(7),
+      height: "100%",
+      position: "absolute",
+      pointerEvents: "none",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    },
+    inputRoot: {
+      color: "inherit"
+    },
+    inputInput: {
+      padding: theme.spacing(1, 1, 1, 7),
+      transition: theme.transitions.create("width"),
+      width: "100%",
+      [theme.breakpoints.up("md")]: {
+        width: 200
+      }
+    }
+  })
+);
 
 interface NavBarProps extends RouteComponentProps<{}> {
   menus: NavMenu[];
@@ -126,6 +177,21 @@ const Navbar = (props: NavBarProps) => {
             <img src={logogram} height="32" />
             <img src={logotype} height="26" className={classes.logotype} />
           </Link>
+          {isBrowser && (
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput
+                }}
+                inputProps={{ "aria-label": "search" }}
+              />
+            </div>
+          )}
           {isBrowser && (
             <>
               {renderUngroupedMenu()}
