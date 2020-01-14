@@ -28,7 +28,7 @@ const Footer = () => {
           <SocialIcon style={mediaStyle} url="https://twitter.com/natadanus/" />
           <SocialIcon style={mediaStyle} url="https://facebook.com/natadanus/" />
           <SocialIcon style={mediaStyle} url="https://instagram.com/natadanus/" />
-          <SocialIcon style={mediaStyle} url="https://linkedin.com/natadanus/" />
+          <SocialIcon style={mediaStyle} url="https://www.linkedin.com/showcase/natadanus/about/" />
         </Grid>
       </Grid>
     </div>
