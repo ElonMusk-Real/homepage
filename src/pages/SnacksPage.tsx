@@ -28,11 +28,11 @@ const useStyles = makeStyles({
   }
 });
 
-interface ProductListProps {
+interface SnacksPageProps {
   fetchSnacks: (rowsPerPage?: number, page?: number) => Promise<Pagination<Snack>>;
 }
 
-const ProductList = (props: ProductListProps) => {
+const SnacksPage = (props: SnacksPageProps) => {
   const rowsPerPage = 12;
   const classes = useStyles();
   const { fetchSnacks } = props;
@@ -91,4 +91,4 @@ const ProductList = (props: ProductListProps) => {
 };
 const mapDispatchToProps = { fetchSnacks };
 
-export default connect(undefined, mapDispatchToProps)(ProductList);
+export default connect(undefined, mapDispatchToProps)(SnacksPage);

@@ -13,7 +13,7 @@ import SellerListPage from "./admin/SellerListPage";
 import withTitle from "../modules/withTitle";
 import AddSellerPage from "./admin/AddSellerPage";
 import AddSnackPage from "./admin/AddSnackPage";
-import ProductList from "./ProductList";
+import SnacksPage from "./SnacksPage";
 import ProfileListPage from "./admin/ProfileListPage";
 import EditSellerPage from "./admin/EditSellerPage";
 import Footer from "../components/Footer";
@@ -37,7 +37,7 @@ export interface NavMenu {
 
 const menus = [
   { icon: "home", text: "Home", url: "/", component: HomePage, exact: true },
-  { icon: "view_module", text: "Snacks", url: "/snacks", component: ProductList },
+  { icon: "view_module", text: "Snacks", url: "/snacks", component: SnacksPage },
   {
     icon: "person",
     text: "My Profile",

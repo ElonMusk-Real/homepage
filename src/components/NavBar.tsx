@@ -1,9 +1,11 @@
 import React from "react";
 import { AppBar, Toolbar, IconButton, Icon, makeStyles, Button, MenuItem, Menu } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { red } from "@material-ui/core/colors";
 import { AccountCircle } from "@material-ui/icons";
 import { isBrowser, isMobile } from "react-device-detect";
+import { connect } from "react-redux";
+import clsx from "clsx";
 
 import Drawer from "./Drawer";
 import logogram from "./../assets/logogram.png";
@@ -11,7 +13,6 @@ import logotype from "./../assets/logotype-white.png";
 import { NavMenu, MenuGroup } from "../pages/App";
 import { isAdmin, isLoggedIn } from "../modules/session/sessionSelectors";
 import { logout } from "../modules/session/sessionAPI";
-import { connect } from "react-redux";
 
 const useStyles = makeStyles({
   appBar: {
@@ -44,7 +45,7 @@ const useStyles = makeStyles({
   }
 });
 
-interface NavBarProps {
+interface NavBarProps extends RouteComponentProps<{}> {
   menus: NavMenu[];
   isLoggedIn: boolean;
   isAdmin: boolean;
@@ -89,12 +90,17 @@ const Navbar = (props: NavBarProps) => {
     setAnchorElAdmin(null);
   };
 
+  const isMatch = (menuURL: string) => props.location.pathname.split("/")[1] === menuURL.split("/")[1];
+
+  const getLinkButtonCSS = (menu: NavMenu) =>
+    isMatch(menu.url) ? clsx([classes.button, classes.selectedButton]) : classes.button;
+
   const renderUngroupedMenu = () =>
     visibleMenus
       .filter((menu) => menu.group === undefined)
       .map((menu) => (
         <Link className={classes.linkButton} to={menu.url}>
-          <Button className={classes.button}>{menu.text}</Button>
+          <Button className={getLinkButtonCSS(menu)}>{menu.text}</Button>
         </Link>
       ));
 
@@ -209,4 +215,4 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = { logout };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));
