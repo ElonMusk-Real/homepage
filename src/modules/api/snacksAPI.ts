@@ -31,6 +31,7 @@ export interface Snack {
   price: number;
   quantity: number;
   sellingPrice: number;
+  estimatedProfit: number;
   image: string;
 }
 
@@ -41,6 +42,7 @@ export interface RawSnack {
   price: number;
   quantity: number;
   sellingPrice: number;
+  estimatedProfit: number;
   image: string;
 }
 

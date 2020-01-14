@@ -1,7 +1,9 @@
 import React from "react";
-import { Card, CardMedia, CardContent, Typography, CardActionArea } from "@material-ui/core";
+import { Card, CardMedia, CardContent, Typography, CardActionArea, Button, Grid, Icon } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { BASE_API } from "../modules/api/http";
+import { Snack } from "../modules/api/snacksAPI";
+import { green } from "@material-ui/core/colors";
 
 const useStyles = makeStyles({
   container: {
@@ -12,22 +14,25 @@ const useStyles = makeStyles({
     width: 320
   },
   placeText: {},
-  perBox: {
-    fontSize: 18,
-    color: "black",
-    display: "block"
+  desc: {
+    marginTop: 5,
+    fontSize: 15
+  },
+  addButton: {
+    backgroundColor: green[700],
+    "&:hover": {
+      backgroundColor: green[900]
+    },
+    color: "white"
   }
 });
 
 interface ProductCardProps {
-  name: string;
-  price: number;
-  address: string;
-  image: string | null;
+  snack: Snack;
 }
 
 const ProductCard = (props: ProductCardProps) => {
-  const { name, price, address, image } = props;
+  const { name, price, quantity, image, estimatedProfit } = props.snack;
   const classes = useStyles();
 
   return (
@@ -42,12 +47,17 @@ const ProductCard = (props: ProductCardProps) => {
           <CardContent>
             <Typography gutterBottom>{name}</Typography>
             <Typography color="primary" variant="h6">
-              <b>Rp {price.toLocaleString()}</b>
-              <span className={classes.perBox}>per box</span>
+              <b>Rp. {price.toLocaleString()}</b>
             </Typography>
-            <Typography className={classes.placeText} variant="caption">
-              {address.length > 40 ? `${address.substring(0, 40)}...` : address}
-            </Typography>
+
+            <Grid container direction="row" justify="space-between" alignItems="center">
+              <Grid className={classes.desc}>{quantity} / box</Grid>
+              <Grid>
+                <Button size="small" className={classes.addButton}>
+                  <Icon>add</Icon> Add
+                </Button>
+              </Grid>
+            </Grid>
           </CardContent>
         </CardActionArea>
       </Card>

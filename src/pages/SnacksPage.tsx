@@ -8,20 +8,8 @@ import { Pagination } from "../modules/api/pagination";
 import PaginationControl from "../components/PaginationControl";
 
 const useStyles = makeStyles({
-  text: {
-    padding: 48
-  },
-  separator: {
-    height: 24
-  },
-  formControl: {
-    minWidth: 120
-  },
-  padding: {
-    padding: 12
-  },
-  paddingDropdown: {
-    paddingBottom: 6
+  container: {
+    marginTop: 32
   },
   paginationControl: {
     marginTop: 20
@@ -57,23 +45,13 @@ const SnacksPage = (props: SnacksPageProps) => {
 
   return (
     <>
-      <div className={classes.separator}></div>
-      <Grid container justify="center">
-        <Grid item xs={12}>
-          <Grid container justify="center" className={classes.padding}>
-            <Grid item className={classes.padding}>
-              <Button variant="contained" color="primary">
-                Search
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
+      <Grid className={classes.container} container justify="center">
         <Grid item xs={10}>
           <Grid container justify="center" spacing={4}>
-            {snacks.map((snacks) => {
+            {snacks.map((snack) => {
               return (
                 <Grid item>
-                  <ProductCard name={snacks.name} price={snacks.price} address={snacks.address} image={snacks.image} />
+                  <ProductCard snack={snack} />
                 </Grid>
               );
             })}
