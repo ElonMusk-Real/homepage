@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useReducer, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { makeStyles, Grid, Button, ButtonGroup } from "@material-ui/core";
-import ReactPaginate from "react-paginate";
+import { makeStyles, Grid, Button } from "@material-ui/core";
 
 import { fetchSnacks, Snack } from "../modules/api/snacksAPI";
 import ProductCard from "../components/ProductCard";
