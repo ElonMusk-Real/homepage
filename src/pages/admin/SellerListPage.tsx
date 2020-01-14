@@ -62,7 +62,7 @@ const SellerListPage = (props: SellerListPageProps) => {
   return (
     <Grid direction="column">
       <Grid>
-        <Link to="/sellers/add">
+        <Link to="/admin/sellers/add">
           <Button color="primary" variant="contained" className={classes.addButton}>
             Add new Seller
           </Button>
@@ -87,7 +87,7 @@ const SellerListPage = (props: SellerListPageProps) => {
                 <TableCell>{row.phoneNumber}</TableCell>
                 <TableCell>{row.address}</TableCell>
                 <TableCell>
-                  <Link to={`/sellers/edit/${row.id}`}>
+                  <Link to={`/admin/sellers/edit/${row.id}`}>
                     <Button>Edit</Button>
                   </Link>
                 </TableCell>

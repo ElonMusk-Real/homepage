@@ -43,7 +43,7 @@ export const addSeller = (insertSellerForm: UpdateSellerForm) => async (dispatch
   const body: Message = await post(url, token, insertSellerForm);
 
   dispatch(showToast(body.message));
-  dispatch(push("/sellers"));
+  dispatch(push("/admin/sellers"));
 };
 
 export const getSeller = (id: number) => async (dispatch, getState) => {
@@ -68,5 +68,5 @@ export const updateSeller = (id: number, updateSellerForm: UpdateSellerForm) => 
   const body: Message = await put(url, token, updateSellerForm);
 
   dispatch(showToast(body.message));
-  dispatch(push("/sellers"));
+  dispatch(push("/admin/sellers"));
 };

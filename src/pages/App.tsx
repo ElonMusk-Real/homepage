@@ -4,7 +4,6 @@ import { makeStyles, Grid } from "@material-ui/core";
 
 import Toast from "../components/Toast";
 import HomePage from "./HomePage";
-import AboutPage from "./AboutPage";
 import Register from "./RegisterPage";
 import Login from "./LoginPage";
 import ProfilePage from "./ProfilePage";
@@ -20,20 +19,65 @@ import EditSellerPage from "./admin/EditSellerPage";
 import Footer from "../components/Footer";
 import EditSnackPage from "./admin/EditSnackPage";
 
+export enum MenuGroup {
+  ADMIN,
+  PROFILE
+}
+
+export interface NavMenu {
+  icon: string;
+  text: string;
+  url: string;
+  userOnly?: boolean;
+  guestOnly?: boolean;
+  adminOnly?: boolean;
+  hideFromMenu?: boolean;
+  group?: MenuGroup;
+}
+
 const menus = [
   { icon: "home", text: "Home", url: "/", component: HomePage, exact: true },
-  { icon: "view_module", text: "Product List", url: "/productlist", component: ProductList },
-  { icon: "view_module", text: "Snack List", url: "/snacks", component: SnackListPage, adminOnly: true, exact: true },
-  { icon: "", text: "Add new Snack", url: "/snacks/add", component: AddSnackPage, hideFromMenu: true },
-  { icon: "", text: "Edit Seller", url: "/sellers/edit/:id", component: EditSellerPage, hideFromMenu: true },
-  { icon: "", text: "Edit Snack", url: "/snacks/edit/:id", component: EditSnackPage, hideFromMenu: true },
-  { icon: "person", text: "Seller List", url: "/sellers", component: SellerListPage, adminOnly: true, exact: true },
-  { icon: "person", text: "Profile List", url: "/users", component: ProfileListPage, adminOnly: true },
-  { icon: "", text: "Add new Seller", url: "/sellers/add", component: AddSellerPage, hideFromMenu: true },
-  { icon: "person", text: "Profile", url: "/profile", component: ProfilePage, userOnly: true },
+  { icon: "view_module", text: "Snacks", url: "/snacks", component: ProductList },
+  {
+    icon: "person",
+    text: "My Profile",
+    url: "/profile",
+    component: ProfilePage,
+    userOnly: true,
+    group: MenuGroup.PROFILE
+  },
   { icon: "double_arrow", text: "Login", url: "/login", component: Login, guestOnly: true },
   { icon: "add_circle", text: "Register", url: "/register", component: Register, guestOnly: true },
-  { icon: "info", text: "About", url: "/about", component: AboutPage }
+  {
+    icon: "view_module",
+    text: "Manage Snacks",
+    url: "/admin/snacks",
+    component: SnackListPage,
+    adminOnly: true,
+    exact: true,
+    group: MenuGroup.ADMIN
+  },
+  {
+    icon: "person",
+    text: "Manage Sellers",
+    url: "/admin/sellers",
+    component: SellerListPage,
+    adminOnly: true,
+    exact: true,
+    group: MenuGroup.ADMIN
+  },
+  {
+    icon: "person",
+    text: "User List",
+    url: "/admin/users",
+    component: ProfileListPage,
+    adminOnly: true,
+    group: MenuGroup.ADMIN
+  },
+  { icon: "", text: "Add new Snack", url: "/admin/snacks/add", component: AddSnackPage, hideFromMenu: true },
+  { icon: "", text: "Edit Seller", url: "/admin/sellers/edit/:id", component: EditSellerPage, hideFromMenu: true },
+  { icon: "", text: "Edit Snack", url: "/admin/snacks/edit/:id", component: EditSnackPage, hideFromMenu: true },
+  { icon: "", text: "Add new Seller", url: "/admin/sellers/add", component: AddSellerPage, hideFromMenu: true }
 ];
 
 const useStyles = makeStyles({

@@ -58,7 +58,7 @@ export const addSnack = (insertSnackForm: InsertSnackForm) => async (dispatch, g
   const body: Message = await postMultipart(url, token, insertSnackForm);
 
   dispatch(showToast(body.message));
-  dispatch(push("/snacks"));
+  dispatch(push("/admin/snacks"));
 };
 
 export const getSnack = (id: number) => async (dispatch, getState) => {
@@ -75,5 +75,5 @@ export const updateSnack = (id: number, updateSnackForm: UpdateSnackForm) => asy
   const body: Message = await putMultipart(url, token, updateSnackForm);
 
   dispatch(showToast(body.message));
-  dispatch(push("/snacks"));
+  dispatch(push("/admin/snacks"));
 };

@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 
 import { isLoggedIn, isAdmin } from "../modules/session/sessionSelectors";
 import { logout } from "../modules/session/sessionAPI";
+import { NavMenu } from "../pages/App";
 
 const useStyles = makeStyles({
   list: {
@@ -12,23 +13,13 @@ const useStyles = makeStyles({
   }
 });
 
-export interface Menu {
-  icon: string;
-  text: string;
-  url: string;
-  userOnly?: boolean;
-  guestOnly?: boolean;
-  adminOnly?: boolean;
-  hideFromMenu?: boolean;
-}
-
 export interface DrawerProps {
   isLoggedIn: boolean;
   isAdmin: boolean;
   logout: () => void;
   open: boolean;
   toggle: () => void;
-  menus: Menu[];
+  menus: NavMenu[];
 }
 
 const Drawer = (props: DrawerProps) => {

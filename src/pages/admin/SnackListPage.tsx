@@ -62,7 +62,7 @@ const SnackListPage = (props: SnackListPageProps) => {
   return (
     <Grid direction="column">
       <Grid>
-        <Link to="/snacks/add">
+        <Link to="/admin/snacks/add">
           <Button color="primary" variant="contained" className={classes.addButton}>
             Add new Snack
           </Button>
@@ -96,7 +96,7 @@ const SnackListPage = (props: SnackListPageProps) => {
                 </TableCell>
 
                 <TableCell>
-                  <Link to={`/snacks/edit/${row.id}`}>
+                  <Link to={`/admin/snacks/edit/${row.id}`}>
                     <Button>Edit</Button>
                   </Link>
                 </TableCell>
