@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/styles";
 import { BASE_API } from "../modules/api/http";
 import { Snack } from "../modules/api/snacksAPI";
 import { green } from "@material-ui/core/colors";
+import QuantityButton from "./QuantityButton";
 
 const useStyles = makeStyles({
   container: {
@@ -16,7 +17,8 @@ const useStyles = makeStyles({
   placeText: {},
   desc: {
     marginTop: 5,
-    fontSize: 15
+    fontSize: 15,
+    marginBottom: 20
   },
   addButton: {
     backgroundColor: green[700],
@@ -29,6 +31,7 @@ const useStyles = makeStyles({
 
 interface ProductCardProps {
   snack: Snack;
+  quantity: number;
 }
 
 const ProductCard = (props: ProductCardProps) => {
@@ -53,9 +56,7 @@ const ProductCard = (props: ProductCardProps) => {
             <Grid container direction="row" justify="space-between" alignItems="center">
               <Grid className={classes.desc}>{quantity} / box</Grid>
               <Grid>
-                <Button size="small" className={classes.addButton}>
-                  <Icon>add</Icon> Add
-                </Button>
+                <QuantityButton snackId={props.snack.id} quantity={props.quantity} />
               </Grid>
             </Grid>
           </CardContent>
