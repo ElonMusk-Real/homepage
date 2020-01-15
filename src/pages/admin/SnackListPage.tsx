@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 });
 
 interface SnackListPageProps {
-  fetchSnacks: (rowsPerPage?: number, page?: number) => Promise<Pagination<Snack>>;
+  fetchSnacks: (rowsPerPage?: number, page?: number, q?: string) => Promise<Pagination<Snack>>;
 }
 
 const SnackListPage = (props: SnackListPageProps) => {

@@ -46,8 +46,8 @@ export interface RawSnack {
   image: string;
 }
 
-export const fetchSnacks = (rowsPerPage: number = 10, page: number = 0) => async (dispatch, getState) => {
-  const url = `${BASE_API}/snacks/?skip=${rowsPerPage * page}&take=${rowsPerPage}`;
+export const fetchSnacks = (rows: number = 10, page: number = 0, q: string = "") => async (dispatch, getState) => {
+  const url = `${BASE_API}/snacks/?skip=${rows * page}&take=${rows}&q=${q}`;
   const snacks: Pagination<Snack> = await get(url);
 
   return snacks;

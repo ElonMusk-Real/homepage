@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -19,6 +19,7 @@ import { connect } from "react-redux";
 import clsx from "clsx";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
+import { fade } from "@material-ui/core/styles";
 
 import Drawer from "./Drawer";
 import logogram from "./../assets/logogram.png";
@@ -26,7 +27,6 @@ import logotype from "./../assets/logotype-white.png";
 import { NavMenu, MenuGroup } from "../pages/App";
 import { isAdmin, isLoggedIn } from "../modules/session/sessionSelectors";
 import { logout } from "../modules/session/sessionAPI";
-import { fade } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -105,6 +105,7 @@ interface NavBarProps extends RouteComponentProps<{}> {
 
 const Navbar = (props: NavBarProps) => {
   const { menus, isLoggedIn, isAdmin, logout } = props;
+  const [searchText, setSearchText] = useState("");
   const classes = useStyles();
 
   const visibleMenus = menus
@@ -164,6 +165,16 @@ const Navbar = (props: NavBarProps) => {
         </Link>
       ));
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      props.history.push(`/snacks?q=${searchText}`);
+    }
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+
   return (
     <div>
       <AppBar color="inherit" className={classes.appBar}>
@@ -188,7 +199,10 @@ const Navbar = (props: NavBarProps) => {
                   root: classes.inputRoot,
                   input: classes.inputInput
                 }}
+                onKeyDown={handleKeyDown}
                 inputProps={{ "aria-label": "search" }}
+                value={searchText}
+                onChange={handleSearchChange}
               />
             </div>
           )}

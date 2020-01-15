@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { makeStyles, Grid, Button } from "@material-ui/core";
+import { makeStyles, Grid } from "@material-ui/core";
+import queryString from "query-string";
 
 import { fetchSnacks, Snack } from "../modules/api/snacksAPI";
 import ProductCard from "../components/ProductCard";
 import { Pagination } from "../modules/api/pagination";
 import PaginationControl from "../components/PaginationControl";
+import { RouteComponentProps, withRouter } from "react-router-dom";
+import { isArray } from "util";
 
 const useStyles = makeStyles({
   container: {
@@ -16,8 +19,8 @@ const useStyles = makeStyles({
   }
 });
 
-interface SnacksPageProps {
-  fetchSnacks: (rowsPerPage?: number, page?: number) => Promise<Pagination<Snack>>;
+interface SnacksPageProps extends RouteComponentProps<{}> {
+  fetchSnacks: (rowsPerPage?: number, page?: number, q?: string) => Promise<Pagination<Snack>>;
 }
 
 const SnacksPage = (props: SnacksPageProps) => {
@@ -28,8 +31,10 @@ const SnacksPage = (props: SnacksPageProps) => {
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
 
+  const q = queryString.parse(props.location.search).q || "";
+
   useEffect(() => {
-    fetchSnacks(rowsPerPage, page - 1).then((pagedData) => {
+    fetchSnacks(rowsPerPage, page - 1, isArray(q) ? q[0] : q).then((pagedData) => {
       setSnacks(pagedData.data);
       setPageCount(Math.ceil(pagedData.total / rowsPerPage));
     });
@@ -69,4 +74,4 @@ const SnacksPage = (props: SnacksPageProps) => {
 };
 const mapDispatchToProps = { fetchSnacks };
 
-export default connect(undefined, mapDispatchToProps)(SnacksPage);
+export default withRouter(connect(undefined, mapDispatchToProps)(SnacksPage));
