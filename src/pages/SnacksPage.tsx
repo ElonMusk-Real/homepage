@@ -12,6 +12,7 @@ import PaginationControl from "../components/PaginationControl";
 import { CartSnack, fetchCart } from "../modules/api/cartAPI";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { isArray } from "util";
+import { isLoggedIn } from "../modules/session/sessionSelectors";
 
 const useStyles = makeStyles({
   container: {
@@ -28,6 +29,7 @@ const useStyles = makeStyles({
 interface SnacksPageProps extends RouteComponentProps<{}> {
   fetchSnacks: (rowsPerPage?: number, page?: number, q?: string) => Promise<Pagination<Snack>>;
   fetchCart: () => Promise<CartSnack[]>;
+  isLoggedIn: boolean;
 }
 
 const SnacksPage = (props: SnacksPageProps) => {
@@ -54,7 +56,9 @@ const SnacksPage = (props: SnacksPageProps) => {
   }, [page]);
 
   useEffect(() => {
-    fetchCart().then(setCart);
+    if (props.isLoggedIn) {
+      fetchCart().then(setCart);
+    }
   }, [page]);
 
   const handleChangePage = (page: number) => {
@@ -114,6 +118,13 @@ const SnacksPage = (props: SnacksPageProps) => {
     </>
   );
 };
+
 const mapDispatchToProps = { fetchSnacks, fetchCart };
 
-export default withRouter(connect(undefined, mapDispatchToProps)(SnacksPage));
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: isLoggedIn(state)
+  };
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SnacksPage));

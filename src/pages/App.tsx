@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Switch, withRouter } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Switch, withRouter, RouteComponentProps } from "react-router-dom";
 import { makeStyles, Grid } from "@material-ui/core";
 
 import Toast from "../components/Toast";
@@ -18,6 +18,7 @@ import ProfileListPage from "./admin/ProfileListPage";
 import EditSellerPage from "./admin/EditSellerPage";
 import Footer from "../components/Footer";
 import EditSnackPage from "./admin/EditSnackPage";
+import ScrollToTop from "../components/ScrollToTop";
 
 export enum MenuGroup {
   ADMIN,
@@ -87,7 +88,9 @@ const useStyles = makeStyles({
   }
 });
 
-const App = () => {
+interface AppProps extends RouteComponentProps<{}> {}
+
+const App = (props: AppProps) => {
   const classes = useStyles();
 
   return (
@@ -108,6 +111,7 @@ const App = () => {
       </div>
       <Footer />
       <Toast />
+      <ScrollToTop />
     </>
   );
 };
