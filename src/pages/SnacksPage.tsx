@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { makeStyles, Grid } from "@material-ui/core";
+import { makeStyles, Grid, Typography, CircularProgress } from "@material-ui/core";
 import queryString from "query-string";
 import ld from "lodash";
 
@@ -18,6 +18,9 @@ const useStyles = makeStyles({
   },
   paginationControl: {
     marginTop: 20
+  },
+  info: {
+    marginTop: 200
   }
 });
 
@@ -34,13 +37,16 @@ const SnacksPage = (props: SnacksPageProps) => {
   const [cart, setCart] = useState<CartSnack[]>([]);
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
+  const [fetched, setFetched] = useState(false);
 
   const q = queryString.parse(props.location.search).q || "";
 
   useEffect(() => {
-    fetchSnacks(rowsPerPage, page - 1, isArray(q) ? q[0] : q).then(pagedData => {
+    fetchSnacks(rowsPerPage, page - 1, isArray(q) ? q[0] : q).then((pagedData) => {
       setSnacks(pagedData.data);
       setPageCount(Math.ceil(pagedData.total / rowsPerPage));
+      setFetched(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }, [page]);
 
@@ -50,26 +56,44 @@ const SnacksPage = (props: SnacksPageProps) => {
 
   const handleChangePage = (page: number) => {
     setPage(page);
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
   };
 
   const idToCart = ld.keyBy(cart, "id");
+
+  const renderSnacks = () =>
+    snacks.map((snack) => {
+      return (
+        <Grid item>
+          <ProductCard snack={snack} quantity={idToCart[snack.id] ? idToCart[snack.id].quantity : 0} />
+        </Grid>
+      );
+    });
+
+  const renderLoading = () => (
+    <Grid container direction="column" justify="center" alignItems="center" className={classes.info}>
+      <Grid>
+        <CircularProgress />
+      </Grid>
+      <Grid>
+        <Typography variant="h6">Loading</Typography>
+      </Grid>
+    </Grid>
+  );
+
+  const renderNotFound = () => (
+    <Typography className={classes.info} variant="h6">
+      Oops, snack not found
+    </Typography>
+  );
 
   return (
     <>
       <Grid className={classes.container} container justify="center">
         <Grid item xs={10}>
           <Grid container justify="center" spacing={4}>
-            {snacks.map(snack => {
-              return (
-                <Grid item>
-                  <ProductCard snack={snack} quantity={idToCart[snack.id] ? idToCart[snack.id].quantity : 0} />
-                </Grid>
-              );
-            })}
+            {renderSnacks()}
+            {fetched && snacks.length === 0 && renderNotFound()}
+            {!fetched && renderLoading()}
           </Grid>
         </Grid>
       </Grid>

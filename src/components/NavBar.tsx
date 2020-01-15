@@ -9,19 +9,14 @@ import {
   MenuItem,
   Menu,
   Theme,
-  createStyles,
-  InputAdornment,
-  InputBase
+  createStyles
 } from "@material-ui/core";
-import ClearIcon from "@material-ui/icons/Clear";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { red } from "@material-ui/core/colors";
 import { AccountCircle } from "@material-ui/icons";
 import { isBrowser, isMobile } from "react-device-detect";
 import { connect } from "react-redux";
 import clsx from "clsx";
-import SearchIcon from "@material-ui/icons/Search";
-import { fade } from "@material-ui/core/styles";
 import queryString from "query-string";
 
 import Drawer from "./Drawer";
@@ -31,6 +26,7 @@ import { NavMenu, MenuGroup } from "../pages/App";
 import { isAdmin, isLoggedIn } from "../modules/session/sessionSelectors";
 import { logout } from "../modules/session/sessionAPI";
 import { isArray } from "util";
+import SearchBox from "./SearchBox";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -61,54 +57,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     selectedButton: {
       backgroundColor: red[700]
-    },
-    search: {
-      position: "relative",
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.8),
-      "&:hover": {
-        backgroundColor: fade(theme.palette.common.white, 0.9)
-      },
-      marginRight: theme.spacing(2),
-      marginLeft: 0,
-      width: "100%",
-      [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(3),
-        width: "auto"
-      }
-    },
-    clearSearchButton: {
-      width: theme.spacing(7),
-      height: "100%",
-      position: "absolute",
-      pointerEvents: "none",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
-    },
-    searchIcon: {
-      width: theme.spacing(7),
-      height: "100%",
-      position: "absolute",
-      pointerEvents: "none",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
-    },
-    inputRoot: {
-      color: "inherit"
-    },
-    inputAdornment: {
-      width: 20,
-      marginRight: 5
-    },
-    inputInput: {
-      padding: theme.spacing(1, 1, 1, 7),
-      transition: theme.transitions.create("width"),
-      width: "100%",
-      [theme.breakpoints.up("md")]: {
-        width: 200
-      }
     }
   })
 );
@@ -122,7 +70,6 @@ interface NavBarProps extends RouteComponentProps<{}> {
 
 const Navbar = (props: NavBarProps) => {
   const { menus, isLoggedIn, isAdmin, logout } = props;
-  const [searchText, setSearchText] = useState("");
   const classes = useStyles();
 
   const visibleMenus = menus
@@ -141,22 +88,8 @@ const Navbar = (props: NavBarProps) => {
 
   const isMatch = (menuURL: string) => props.location.pathname.split("/")[1] === menuURL.split("/")[1];
 
-  const isQueryStringExists = !!queryString.parse(props.location.search).q;
-  const isSnackPage = isMatch("/snacks");
-  const isSnackSearchPage = isSnackPage && isQueryStringExists;
-
-  useEffect(() => {
-    const q = queryString.parse(props.location.search).q || "";
-    setSearchText(isArray(q) ? q[0] : q);
-  }, [props.location.pathname, props.location.search]);
-
   const toggle = () => {
     setOpen(!open);
-  };
-
-  const handleClearSearchText = () => {
-    setSearchText("");
-    props.history.push("/snacks");
   };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -196,16 +129,6 @@ const Navbar = (props: NavBarProps) => {
         </Link>
       ));
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      props.history.push(`/snacks?q=${searchText}`);
-    }
-  };
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
-  };
-
   return (
     <div>
       <AppBar color="inherit" className={classes.appBar}>
@@ -219,37 +142,7 @@ const Navbar = (props: NavBarProps) => {
             <img src={logogram} height="32" />
             <img src={logotype} height="26" className={classes.logotype} />
           </Link>
-          {isBrowser && (
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-                onKeyDown={handleKeyDown}
-                inputProps={{ "aria-label": "search" }}
-                value={searchText}
-                onChange={handleSearchChange}
-                endAdornment={
-                  isSnackSearchPage ? (
-                    <InputAdornment className={classes.inputAdornment} position="end">
-                      <IconButton aria-label="toggle password visibility" onClick={handleClearSearchText}>
-                        <div className={classes.clearSearchButton}>
-                          <ClearIcon />
-                        </div>
-                      </IconButton>
-                    </InputAdornment>
-                  ) : (
-                    <InputAdornment className={classes.inputAdornment} position="end"></InputAdornment>
-                  )
-                }
-              />
-            </div>
-          )}
+          {isBrowser && <SearchBox />}
           {isBrowser && (
             <>
               {renderUngroupedMenu()}
