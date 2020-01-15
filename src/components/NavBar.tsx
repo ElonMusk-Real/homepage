@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -9,8 +9,11 @@ import {
   MenuItem,
   Menu,
   Theme,
-  createStyles
+  createStyles,
+  InputAdornment,
+  InputBase
 } from "@material-ui/core";
+import ClearIcon from "@material-ui/icons/Clear";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { red } from "@material-ui/core/colors";
 import { AccountCircle } from "@material-ui/icons";
@@ -18,8 +21,8 @@ import { isBrowser, isMobile } from "react-device-detect";
 import { connect } from "react-redux";
 import clsx from "clsx";
 import SearchIcon from "@material-ui/icons/Search";
-import InputBase from "@material-ui/core/InputBase";
 import { fade } from "@material-ui/core/styles";
+import queryString from "query-string";
 
 import Drawer from "./Drawer";
 import logogram from "./../assets/logogram.png";
@@ -27,6 +30,7 @@ import logotype from "./../assets/logotype-white.png";
 import { NavMenu, MenuGroup } from "../pages/App";
 import { isAdmin, isLoggedIn } from "../modules/session/sessionSelectors";
 import { logout } from "../modules/session/sessionAPI";
+import { isArray } from "util";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -73,6 +77,15 @@ const useStyles = makeStyles((theme: Theme) =>
         width: "auto"
       }
     },
+    clearSearchButton: {
+      width: theme.spacing(7),
+      height: "100%",
+      position: "absolute",
+      pointerEvents: "none",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    },
     searchIcon: {
       width: theme.spacing(7),
       height: "100%",
@@ -84,6 +97,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     inputRoot: {
       color: "inherit"
+    },
+    inputAdornment: {
+      width: 20,
+      marginRight: 5
     },
     inputInput: {
       padding: theme.spacing(1, 1, 1, 7),
@@ -122,8 +139,24 @@ const Navbar = (props: NavBarProps) => {
   const [anchorElAdmin, setAnchorElAdmin] = React.useState<null | HTMLElement>(null);
   const adminOpen = Boolean(anchorElAdmin);
 
+  const isMatch = (menuURL: string) => props.location.pathname.split("/")[1] === menuURL.split("/")[1];
+
+  const isQueryStringExists = !!queryString.parse(props.location.search).q;
+  const isSnackPage = isMatch("/snacks");
+  const isSnackSearchPage = isSnackPage && isQueryStringExists;
+
+  useEffect(() => {
+    const q = queryString.parse(props.location.search).q || "";
+    setSearchText(isArray(q) ? q[0] : q);
+  }, [props.location.pathname, props.location.search]);
+
   const toggle = () => {
     setOpen(!open);
+  };
+
+  const handleClearSearchText = () => {
+    setSearchText("");
+    props.history.push("/snacks");
   };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -141,8 +174,6 @@ const Navbar = (props: NavBarProps) => {
   const handleAdminClose = () => {
     setAnchorElAdmin(null);
   };
-
-  const isMatch = (menuURL: string) => props.location.pathname.split("/")[1] === menuURL.split("/")[1];
 
   const getLinkButtonCSS = (menu: NavMenu) =>
     isMatch(menu.url) ? clsx([classes.button, classes.selectedButton]) : classes.button;
@@ -203,6 +234,19 @@ const Navbar = (props: NavBarProps) => {
                 inputProps={{ "aria-label": "search" }}
                 value={searchText}
                 onChange={handleSearchChange}
+                endAdornment={
+                  isSnackSearchPage ? (
+                    <InputAdornment className={classes.inputAdornment} position="end">
+                      <IconButton aria-label="toggle password visibility" onClick={handleClearSearchText}>
+                        <div className={classes.clearSearchButton}>
+                          <ClearIcon />
+                        </div>
+                      </IconButton>
+                    </InputAdornment>
+                  ) : (
+                    <InputAdornment className={classes.inputAdornment} position="end"></InputAdornment>
+                  )
+                }
               />
             </div>
           )}
