@@ -30,20 +30,26 @@ export interface QuantityButtonProps {
 
 const QuantityButton = (props: QuantityButtonProps) => {
   const { snackId } = props;
-  const [quantity, setQuantity] = useState<number>(props.quantity);
+  const [quantity, setQuantity] = useState(0);
   const classes = useStyles();
 
-  const handleIncrease = e => {
+  useEffect(() => setQuantity(props.quantity), [props.quantity]);
+
+  const handleIncrease = () => {
     const increasedQuantity = quantity + 1;
     props.upsertCart({ snackId, quantity: increasedQuantity }).then(() => {
       setQuantity(increasedQuantity);
     });
   };
 
-  const handleDecrease = e => {
-    setQuantity(quantity - 1);
+  const handleDecrease = () => {
+    const decreasedQuantity = quantity - 1;
+    props.upsertCart({ snackId, quantity: decreasedQuantity }).then(() => {
+      setQuantity(decreasedQuantity);
+    });
   };
-  if (quantity == 0) {
+
+  if (quantity === 0) {
     return (
       <Button size="small" className={classes.addButton} onClick={handleIncrease}>
         <Icon>add</Icon> Add
@@ -52,7 +58,7 @@ const QuantityButton = (props: QuantityButtonProps) => {
   } else {
     return (
       <Grid direction="row" container>
-        <ButtonGroup color="primary" aria-label="outlined primary button group">
+        <ButtonGroup size="small" color="primary" aria-label="outlined primary button group">
           <Button size="small" className={classes.quantityButton} onClick={handleDecrease}>
             <Icon>remove</Icon>
           </Button>

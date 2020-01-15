@@ -75,7 +75,11 @@ const ProductCard = (props: ProductCardProps) => {
                 {onFetch ? <Skeleton variant="text" width={80} /> : <>{quantity} / box</>}
               </Grid>
               <Grid>
-                <QuantityButton snackId={props.snack.id} quantity={props.quantity} />
+                {onFetch ? (
+                  <Skeleton variant="text" width={40} />
+                ) : (
+                  <QuantityButton snackId={props.snack.id} quantity={props.quantity} />
+                )}
               </Grid>
             </Grid>
           </CardContent>

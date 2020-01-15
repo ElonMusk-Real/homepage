@@ -1,7 +1,14 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
-  palette: {}
+  palette: {},
+  overrides: {
+    MuiButton: {
+      root: {
+        minWidth: 40
+      }
+    }
+  }
 });
 
 export default theme;

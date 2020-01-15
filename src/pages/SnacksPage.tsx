@@ -55,14 +55,14 @@ const SnacksPage = (props: SnacksPageProps) => {
 
   useEffect(() => {
     fetchCart().then(setCart);
-  }, []);
+  }, [page]);
 
   const handleChangePage = (page: number) => {
     setPage(page);
     setOnFetch(true);
   };
 
-  const idToCart = ld.keyBy(cart, "id");
+  const idToCart = ld.keyBy(cart, "snackId");
 
   const renderSnacks = () =>
     snacks.map((snack) => {
