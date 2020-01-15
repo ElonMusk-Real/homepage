@@ -1,10 +1,12 @@
 import React from "react";
 import { Card, CardMedia, CardContent, Typography, CardActionArea, Button, Grid, Icon } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import { green } from "@material-ui/core/colors";
+import Skeleton from "@material-ui/lab/Skeleton";
+
+import QuantityButton from "./QuantityButton";
 import { BASE_API } from "../modules/api/http";
 import { Snack } from "../modules/api/snacksAPI";
-import { green } from "@material-ui/core/colors";
-import QuantityButton from "./QuantityButton";
 
 const useStyles = makeStyles({
   container: {
@@ -32,29 +34,43 @@ const useStyles = makeStyles({
 interface ProductCardProps {
   snack: Snack;
   quantity: number;
+  onFetch: boolean;
 }
+
+const ImagePlaceHolder = () => {
+  const classes = useStyles();
+
+  return <Skeleton variant="rect" className={classes.media} />;
+};
 
 const ProductCard = (props: ProductCardProps) => {
   const { name, price, quantity, image, estimatedProfit } = props.snack;
+  const { onFetch } = props;
   const classes = useStyles();
 
   return (
     <div>
       <Card className={classes.container}>
-        <CardMedia
-          className={classes.media}
-          component="img"
-          image={image ? `${BASE_API}/file/public/${image}` : "https://via.placeholder.com/640x480"}
-        />
+        {onFetch ? (
+          <CardMedia component={ImagePlaceHolder} />
+        ) : (
+          <CardMedia
+            className={classes.media}
+            component="img"
+            image={image ? `${BASE_API}/file/public/${image}` : "https://via.placeholder.com/640x480"}
+          />
+        )}
         <CardActionArea>
           <CardContent>
-            <Typography gutterBottom>{name}</Typography>
+            <Typography gutterBottom>{onFetch ? <Skeleton variant="text" /> : name}</Typography>
             <Typography color="primary" variant="h6">
-              <b>Rp. {price.toLocaleString()}</b>
+              <b>{onFetch ? <Skeleton variant="text" /> : <>Rp. {price.toLocaleString()}</>}</b>
             </Typography>
 
             <Grid container direction="row" justify="space-between" alignItems="center">
-              <Grid className={classes.desc}>{quantity} / box</Grid>
+              <Grid className={classes.desc}>
+                {onFetch ? <Skeleton variant="text" width={80} /> : <>{quantity} / box</>}
+              </Grid>
               <Grid>
                 <QuantityButton snackId={props.snack.id} quantity={props.quantity} />
               </Grid>

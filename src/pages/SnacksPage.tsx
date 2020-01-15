@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { makeStyles, Grid, Typography, CircularProgress } from "@material-ui/core";
 import queryString from "query-string";
 import ld from "lodash";
+import delay from "delay";
 
 import { fetchSnacks, Snack } from "../modules/api/snacksAPI";
 import ProductCard from "../components/ProductCard";
@@ -38,6 +39,7 @@ const SnacksPage = (props: SnacksPageProps) => {
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
   const [fetched, setFetched] = useState(false);
+  const [onFetch, setOnFetch] = useState(false);
 
   const q = queryString.parse(props.location.search).q || "";
 
@@ -47,6 +49,7 @@ const SnacksPage = (props: SnacksPageProps) => {
       setPageCount(Math.ceil(pagedData.total / rowsPerPage));
       setFetched(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
+      delay(500).then(() => setOnFetch(false));
     });
   }, [page]);
 
@@ -56,6 +59,7 @@ const SnacksPage = (props: SnacksPageProps) => {
 
   const handleChangePage = (page: number) => {
     setPage(page);
+    setOnFetch(true);
   };
 
   const idToCart = ld.keyBy(cart, "id");
@@ -64,7 +68,11 @@ const SnacksPage = (props: SnacksPageProps) => {
     snacks.map((snack) => {
       return (
         <Grid item>
-          <ProductCard snack={snack} quantity={idToCart[snack.id] ? idToCart[snack.id].quantity : 0} />
+          <ProductCard
+            snack={snack}
+            quantity={idToCart[snack.id] ? idToCart[snack.id].quantity : 0}
+            onFetch={onFetch}
+          />
         </Grid>
       );
     });
