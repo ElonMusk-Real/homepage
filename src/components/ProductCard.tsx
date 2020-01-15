@@ -7,6 +7,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import QuantityButton from "./QuantityButton";
 import { BASE_API } from "../modules/api/http";
 import { Snack } from "../modules/api/snacksAPI";
+import LazyCardMediaImage from "./LazyCardMediaImage";
 
 const useStyles = makeStyles({
   container: {
@@ -44,20 +45,22 @@ const ImagePlaceHolder = () => {
 };
 
 const ProductCard = (props: ProductCardProps) => {
-  const { name, price, quantity, image, estimatedProfit } = props.snack;
+  const { name, price, quantity, image } = props.snack;
   const { onFetch } = props;
   const classes = useStyles();
 
   return (
     <div>
       <Card className={classes.container}>
-        {onFetch ? (
-          <CardMedia component={ImagePlaceHolder} />
-        ) : (
+        {onFetch && <CardMedia component={ImagePlaceHolder} />}
+        {!onFetch && (
           <CardMedia
-            className={classes.media}
-            component="img"
-            image={image ? `${BASE_API}/file/public/${image}` : "https://via.placeholder.com/640x480"}
+            component={() => (
+              <LazyCardMediaImage
+                className={classes.media}
+                src={image ? `${BASE_API}/file/public/${image}` : "https://cdn-2.tstatic.net/default-2.jpg"}
+              />
+            )}
           />
         )}
         <CardActionArea>
