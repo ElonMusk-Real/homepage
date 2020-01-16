@@ -1,6 +1,4 @@
-import { push } from "connected-react-router";
-
-import { BASE_API, get, Message, postMultipart, putMultipart, delete_, post } from "./http";
+import { BASE_API, get, Message, delete_, post } from "./http";
 import { selectToken } from "../session/sessionSelectors";
 import { showToast } from "../toast/toastActions";
 

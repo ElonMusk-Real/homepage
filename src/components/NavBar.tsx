@@ -1,23 +1,11 @@
-import React, { useState, useEffect } from "react";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Icon,
-  makeStyles,
-  Button,
-  MenuItem,
-  Menu,
-  Theme,
-  createStyles
-} from "@material-ui/core";
+import React from "react";
+import { AppBar, Toolbar, IconButton, Icon, makeStyles, Button, MenuItem, Menu } from "@material-ui/core";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { red } from "@material-ui/core/colors";
 import { AccountCircle } from "@material-ui/icons";
 import { isBrowser, isMobile } from "react-device-detect";
 import { connect } from "react-redux";
 import clsx from "clsx";
-import queryString from "query-string";
 
 import Drawer from "./Drawer";
 import logogram from "./../assets/logogram.png";
@@ -25,41 +13,38 @@ import logotype from "./../assets/logotype-white.png";
 import { NavMenu, MenuGroup } from "../pages/App";
 import { isAdmin, isLoggedIn } from "../modules/session/sessionSelectors";
 import { logout } from "../modules/session/sessionAPI";
-import { isArray } from "util";
 import SearchBox from "./SearchBox";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    appBar: {
-      backgroundColor: "#E73361"
-    },
-    logotype: {
-      paddingLeft: 8,
-      marginBottom: 3
-    },
-    menuButton: {
-      color: "white"
-    },
-    link: {
-      flexGrow: 1
-    },
-    linkButton: {
-      textDecorationLine: "none"
-    },
-    linkSubButton: {
-      textDecorationLine: "none",
-      color: "black"
-    },
-    button: {
-      color: "white",
-      fontWeight: "bold",
-      marginRight: 10
-    },
-    selectedButton: {
-      backgroundColor: red[700]
-    }
-  })
-);
+const useStyles = makeStyles({
+  appBar: {
+    backgroundColor: "#E73361"
+  },
+  logotype: {
+    paddingLeft: 8,
+    marginBottom: 3
+  },
+  menuButton: {
+    color: "white"
+  },
+  link: {
+    flexGrow: 1
+  },
+  linkButton: {
+    textDecorationLine: "none"
+  },
+  linkSubButton: {
+    textDecorationLine: "none",
+    color: "black"
+  },
+  button: {
+    color: "white",
+    fontWeight: "bold",
+    marginRight: 10
+  },
+  selectedButton: {
+    backgroundColor: red[700]
+  }
+});
 
 interface NavBarProps extends RouteComponentProps<{}> {
   menus: NavMenu[];
@@ -139,8 +124,8 @@ const Navbar = (props: NavBarProps) => {
             </IconButton>
           )}
           <Link className={classes.link} to="/">
-            <img src={logogram} height="32" />
-            <img src={logotype} height="26" className={classes.logotype} />
+            <img src={logogram} height="32" alt="NataDanus Logo" />
+            <img src={logotype} height="26" className={classes.logotype} alt="NataDanus" />
           </Link>
           {isBrowser && <SearchBox />}
           {isBrowser && (

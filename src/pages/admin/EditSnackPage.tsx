@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Typography, Grid, makeStyles, Button } from "@material-ui/core";
 import { useForm } from "react-hook-form";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
 import InputText from "../../components/forms/InputText";
 import { minLength, maxLength, isNumber } from "../../modules/validation";
-import { updateSnack, InsertSnackForm, RawSnack, getSnack, UpdateSnackForm } from "../../modules/api/snacksAPI";
+import { updateSnack, RawSnack, getSnack, UpdateSnackForm } from "../../modules/api/snacksAPI";
 import { fetchAllSellers, IdToName } from "../../modules/api/sellersAPI";
 import Dropdown from "../../components/forms/Dropdown";
 import InputFile from "../../components/forms/InputFile";
-import { withRouter, RouteComponentProps } from "react-router-dom";
 
 const useStyles = makeStyles({
   text: {

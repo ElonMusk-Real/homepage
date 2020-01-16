@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardMedia, CardContent, Typography, CardActionArea, Button, Grid, Icon } from "@material-ui/core";
+import { Card, CardMedia, CardContent, Typography, CardActionArea, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { green } from "@material-ui/core/colors";
 import Skeleton from "@material-ui/lab/Skeleton";

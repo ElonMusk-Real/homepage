@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import { Typography, Grid, makeStyles, Button } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { red } from "@material-ui/core/colors";
 
 import InputText from "../components/forms/InputText";
 import { registerUser, UserRegistrationForm } from "../modules/api/usersAPI";
 import { minLength, maxLength, isEmail } from "../modules/validation";
 import Dropdown from "../components/forms/Dropdown";
-import { red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles({
   text: {

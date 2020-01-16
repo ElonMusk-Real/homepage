@@ -24,8 +24,6 @@ const useStyles = makeStyles({
   }
 });
 
-const bgImageClasses = ["hero", "bgImage"];
-
 const HomePage = () => {
   const classes = useStyles();
 

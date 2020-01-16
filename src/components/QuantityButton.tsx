@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Button, Grid, Icon, ButtonGroup } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { green } from "@material-ui/core/colors";
-import { Snack } from "../modules/api/snacksAPI";
-import { CartSnack, upsertCart, UpsertCartForm } from "../modules/api/cartAPI";
 import { connect } from "react-redux";
+
+import { upsertCart, UpsertCartForm } from "../modules/api/cartAPI";
 
 const useStyles = makeStyles({
   addButton: {

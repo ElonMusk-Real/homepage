@@ -4,14 +4,14 @@ import { makeStyles, Grid, Typography, CircularProgress } from "@material-ui/cor
 import queryString from "query-string";
 import ld from "lodash";
 import delay from "delay";
+import { RouteComponentProps, withRouter } from "react-router-dom";
+import { isArray } from "util";
 
 import { fetchSnacks, Snack } from "../modules/api/snacksAPI";
 import ProductCard from "../components/ProductCard";
 import { Pagination } from "../modules/api/pagination";
 import PaginationControl from "../components/PaginationControl";
 import { CartSnack, fetchCart } from "../modules/api/cartAPI";
-import { RouteComponentProps, withRouter } from "react-router-dom";
-import { isArray } from "util";
 import { isLoggedIn } from "../modules/session/sessionSelectors";
 
 const useStyles = makeStyles({

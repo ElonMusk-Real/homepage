@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { TextField, makeStyles, InputAdornment, IconButton } from "@material-ui/core";
-import { combineValidator, Validator } from "../../modules/validation";
 import clsx from "clsx";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
+
+import { combineValidator, Validator } from "../../modules/validation";
 
 const useStyles = makeStyles({
   inputClasses: ({ readOnly }) => ({
