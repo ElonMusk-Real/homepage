@@ -29,6 +29,9 @@ const useStyles = makeStyles({
       backgroundColor: green[900]
     },
     color: "white"
+  },
+  font15: {
+    fontSize: 15
   }
 });
 
@@ -44,7 +47,7 @@ const ImagePlaceHolder = () => {
 };
 
 const ProductCard = (props: ProductCardProps) => {
-  const { name, price, quantity, image } = props.snack;
+  const { name, price, quantity, stock, image } = props.snack;
   const { onFetch } = props;
   const classes = useStyles();
 
@@ -68,7 +71,10 @@ const ProductCard = (props: ProductCardProps) => {
             <Typography color="primary" variant="h6">
               <b>{onFetch ? <Skeleton variant="text" /> : <>Rp. {price.toLocaleString()}</>}</b>
             </Typography>
-
+            <Grid className={classes.font15}>
+              {" "}
+              {onFetch ? <Skeleton variant="text" width={80} /> : <>Stock: {stock}</>}{" "}
+            </Grid>
             <Grid container direction="row" justify="space-between" alignItems="center">
               <Grid className={classes.desc}>
                 {onFetch ? <Skeleton variant="text" width={80} /> : <>{quantity} / box</>}

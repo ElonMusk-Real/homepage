@@ -10,6 +10,7 @@ export interface InsertSnackForm {
   name: string;
   price: number;
   quantity: number;
+  stock: number;
   sellingPrice: number;
   image?: any;
 }
@@ -19,6 +20,7 @@ export interface UpdateSnackForm {
   name: string;
   price: number;
   quantity: number;
+  stock: number;
   sellingPrice: number;
   image?: any;
 }
@@ -30,6 +32,7 @@ export interface Snack {
   name: string;
   price: number;
   quantity: number;
+  stock: number;
   sellingPrice: number;
   estimatedProfit: number;
   image: string;
@@ -41,6 +44,7 @@ export interface RawSnack {
   name: string;
   price: number;
   quantity: number;
+  stock: number;
   sellingPrice: number;
   estimatedProfit: number;
   image: string;

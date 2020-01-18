@@ -77,6 +77,7 @@ const SnackListPage = (props: SnackListPageProps) => {
               <TableCell>Name</TableCell>
               <TableCell>Price</TableCell>
               <TableCell>Quantity</TableCell>
+              <TableCell>Stock</TableCell>
               <TableCell>Selling Price</TableCell>
               <TableCell>Image</TableCell>
               <TableCell>Action</TableCell>
@@ -90,6 +91,7 @@ const SnackListPage = (props: SnackListPageProps) => {
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.price.toLocaleString()}</TableCell>
                 <TableCell>{row.quantity}</TableCell>
+                <TableCell>{row.stock}</TableCell>
                 <TableCell>{row.sellingPrice.toLocaleString()}</TableCell>
                 <TableCell>
                   {(row.image && <img height={40} src={`${BASE_API}/file/public/${row.image}`} />) || "-"}
