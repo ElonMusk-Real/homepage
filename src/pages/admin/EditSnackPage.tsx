@@ -64,7 +64,7 @@ const EditSnackPage = (props: EditSnackPageProps) => {
 
   useEffect(() => {
     props.getSnack(id).then(setSnack);
-  }, []);
+  }, [allMenu]);
 
   const handleUpdate = (data) => {
     const { sellerId, name, price, quantity, stock, sellingPrice, image } = data;
@@ -96,7 +96,7 @@ const EditSnackPage = (props: EditSnackPageProps) => {
           Add new Snack
         </Typography>
         <form onSubmit={handleSubmit(handleUpdate)}>
-          <Dropdown name="sellerId" listMenu={allMenu} label="Seller Id" form={form} defaultValue={"Loading..."} />
+          <Dropdown name="sellerId" listMenu={allMenu} label="Seller Id" form={form} defaultValue={""} />
           <InputText
             name="name"
             className={classes.paddingv}

@@ -50,13 +50,13 @@ const Dropdown = (props: DropdownProps) => {
           inputProps={{
             readOnly: !!readOnly
           }}
-          value={values[name]}
+          value={+values[name]}
           onChange={(e) => {
             form.setValue(name, e.target.value);
           }}
         >
           {Object.keys(listMenu).map((key) => {
-            return <MenuItem value={key}>{listMenu[key]}</MenuItem>;
+            return <MenuItem value={+key}>{listMenu[key]}</MenuItem>;
           })}
         </Select>
         <FormHelperText>{form.errors[name] && form.errors[name].message}</FormHelperText>
