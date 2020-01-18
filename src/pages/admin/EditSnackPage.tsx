@@ -57,6 +57,7 @@ const EditSnackPage = (props: EditSnackPageProps) => {
     form.setValue("name", snack.name);
     form.setValue("price", snack.price);
     form.setValue("quantity", snack.quantity);
+    form.setValue("stock", snack.stock);
     form.setValue("sellingPrice", snack.sellingPrice);
     form.setValue("sellerId", snack.sellerId);
   };
@@ -66,13 +67,14 @@ const EditSnackPage = (props: EditSnackPageProps) => {
   }, []);
 
   const handleUpdate = (data) => {
-    const { sellerId, name, price, quantity, sellingPrice, image } = data;
+    const { sellerId, name, price, quantity, stock, sellingPrice, image } = data;
     const updateSnackForm: UpdateSnackForm = image[0]
       ? {
           sellerId,
           name,
           price,
           quantity,
+          stock,
           sellingPrice,
           image: image[0]
         }
@@ -81,6 +83,7 @@ const EditSnackPage = (props: EditSnackPageProps) => {
           name,
           price,
           quantity,
+          stock,
           sellingPrice
         };
     props.updateSnack(id, updateSnackForm);
@@ -117,6 +120,15 @@ const EditSnackPage = (props: EditSnackPageProps) => {
             className={classes.paddingv}
             fullWidth
             label="Quantity"
+            form={form}
+            validators={[isNumber]}
+            defaultValue="Loading..."
+          />
+          <InputText
+            name="stock"
+            className={classes.paddingv}
+            fullWidth
+            label="Stock"
             form={form}
             validators={[isNumber]}
             defaultValue="Loading..."

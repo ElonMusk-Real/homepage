@@ -46,13 +46,14 @@ const AddSnackPage = (props: AddSnackPageProps) => {
   }, []);
 
   const handleCreate = (data) => {
-    const { sellerId, name, price, quantity, sellingPrice, image } = data;
+    const { sellerId, name, price, quantity, stock, sellingPrice, image } = data;
     const insertSnackForm: InsertSnackForm = image[0]
       ? {
           sellerId,
           name,
           price,
           quantity,
+          stock,
           sellingPrice,
           image: image[0]
         }
@@ -61,6 +62,7 @@ const AddSnackPage = (props: AddSnackPageProps) => {
           name,
           price,
           quantity,
+          stock,
           sellingPrice
         };
     props.addSnack(insertSnackForm);
@@ -95,6 +97,14 @@ const AddSnackPage = (props: AddSnackPageProps) => {
             className={classes.paddingv}
             fullWidth
             label="Quantity"
+            form={form}
+            validators={[isNumber]}
+          />
+          <InputText
+            name="stock"
+            className={classes.paddingv}
+            fullWidth
+            label="Stock"
             form={form}
             validators={[isNumber]}
           />
