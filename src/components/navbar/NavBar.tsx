@@ -2,18 +2,18 @@ import React from "react";
 import { AppBar, Toolbar, IconButton, Icon, makeStyles, Button, MenuItem, Menu } from "@material-ui/core";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { red } from "@material-ui/core/colors";
-import { AccountCircle } from "@material-ui/icons";
 import { isBrowser, isMobile } from "react-device-detect";
 import { connect } from "react-redux";
 import clsx from "clsx";
 
 import Drawer from "./Drawer";
-import logogram from "./../assets/logogram.png";
-import logotype from "./../assets/logotype-white.png";
-import { NavMenu, MenuGroup } from "../pages/App";
-import { isAdmin, isLoggedIn } from "../modules/session/sessionSelectors";
-import { logout } from "../modules/session/sessionAPI";
+import logogram from "./../../assets/logogram.png";
+import logotype from "./../../assets/logotype-white.png";
+import { NavMenu, MenuGroup } from "../../pages/App";
+import { isAdmin, isLoggedIn } from "../../modules/session/sessionSelectors";
 import SearchBox from "./SearchBox";
+import ProfileMenu from "./ProfileMenu";
+import CartMenu from "./CartMenu";
 
 const useStyles = makeStyles({
   appBar: {
@@ -50,11 +50,10 @@ interface NavBarProps extends RouteComponentProps<{}> {
   menus: NavMenu[];
   isLoggedIn: boolean;
   isAdmin: boolean;
-  logout: () => void;
 }
 
 const Navbar = (props: NavBarProps) => {
-  const { menus, isLoggedIn, isAdmin, logout } = props;
+  const { menus, isLoggedIn, isAdmin } = props;
   const classes = useStyles();
 
   const visibleMenus = menus
@@ -65,33 +64,16 @@ const Navbar = (props: NavBarProps) => {
 
   const [open, setOpen] = React.useState(false);
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const profileOpen = Boolean(anchorEl);
-
   const [anchorElAdmin, setAnchorElAdmin] = React.useState<null | HTMLElement>(null);
   const adminOpen = Boolean(anchorElAdmin);
 
   const isMatch = (menuURL: string) => props.location.pathname.split("/")[1] === menuURL.split("/")[1];
 
-  const toggle = () => {
-    setOpen(!open);
-  };
+  const toggle = () => setOpen(!open);
 
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleAdminMenu = (event: React.MouseEvent<HTMLElement>) => setAnchorElAdmin(event.currentTarget);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleAdminMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElAdmin(event.currentTarget);
-  };
-
-  const handleAdminClose = () => {
-    setAnchorElAdmin(null);
-  };
+  const handleAdminClose = () => setAnchorElAdmin(null);
 
   const getLinkButtonCSS = (menu: NavMenu) =>
     isMatch(menu.url) ? clsx([classes.button, classes.selectedButton]) : classes.button;
@@ -156,48 +138,9 @@ const Navbar = (props: NavBarProps) => {
                 </div>
               )}
               {isLoggedIn && (
-                <div>
-                  <IconButton
-                    className={classes.menuButton}
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={handleMenu}
-                  >
-                    <AccountCircle />
-                  </IconButton>
-                  <Menu
-                    id="menu-appbar"
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                      vertical: "top",
-                      horizontal: "right"
-                    }}
-                    keepMounted
-                    transformOrigin={{
-                      vertical: "top",
-                      horizontal: "right"
-                    }}
-                    open={profileOpen}
-                    onClose={handleClose}
-                  >
-                    {visibleMenus
-                      .filter((menu) => menu.group === MenuGroup.PROFILE)
-                      .map((menu) => (
-                        <Link className={classes.linkSubButton} to={menu.url}>
-                          <MenuItem onClick={handleClose}>{menu.text}</MenuItem>
-                        </Link>
-                      ))}
-                    <MenuItem
-                      onClick={() => {
-                        logout();
-                        handleClose();
-                      }}
-                    >
-                      Logout
-                    </MenuItem>
-                  </Menu>
-                </div>
+                <>
+                  <CartMenu /> <ProfileMenu menus={visibleMenus} />
+                </>
               )}
             </>
           )}
@@ -215,6 +158,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = { logout };
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));
+export default withRouter(connect(mapStateToProps)(Navbar));

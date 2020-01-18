@@ -3,9 +3,9 @@ import { Drawer as DrawerMUI, List, ListItem, ListItemIcon, ListItemText, Icon, 
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { isLoggedIn, isAdmin } from "../modules/session/sessionSelectors";
-import { logout } from "../modules/session/sessionAPI";
-import { NavMenu } from "../pages/App";
+import { isLoggedIn, isAdmin } from "../../modules/session/sessionSelectors";
+import { logout } from "../../modules/session/sessionAPI";
+import { NavMenu } from "../../pages/App";
 
 const useStyles = makeStyles({
   list: {

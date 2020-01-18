@@ -8,7 +8,7 @@ import Register from "./RegisterPage";
 import Login from "./LoginPage";
 import ProfilePage from "./ProfilePage";
 import SnackListPage from "./admin/SnackListPage";
-import Navbar from "../components/NavBar";
+import Navbar from "../components/navbar/NavBar";
 import SellerListPage from "./admin/SellerListPage";
 import withTitle from "../modules/withTitle";
 import AddSellerPage from "./admin/AddSellerPage";

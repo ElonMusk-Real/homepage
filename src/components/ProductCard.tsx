@@ -34,7 +34,6 @@ const useStyles = makeStyles({
 
 interface ProductCardProps {
   snack: Snack;
-  quantity: number;
   onFetch: boolean;
 }
 
@@ -78,7 +77,7 @@ const ProductCard = (props: ProductCardProps) => {
                 {onFetch ? (
                   <Skeleton variant="text" width={40} />
                 ) : (
-                  <QuantityButton snackId={props.snack.id} quantity={props.quantity} />
+                  <QuantityButton snackId={props.snack.id} name={props.snack.name} price={props.snack.price} />
                 )}
               </Grid>
             </Grid>

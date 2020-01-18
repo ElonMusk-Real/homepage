@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button, Grid, Icon, ButtonGroup } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { green } from "@material-ui/core/colors";
 import { connect } from "react-redux";
 
-import { upsertCart, UpsertCartForm } from "../modules/api/cartAPI";
+import { CartSnack } from "../modules/api/cartAPI";
+import { updateCart } from "../modules/cart/cartAPI";
+import { AppState } from "../modules/store";
+import { getCartQuantity } from "../modules/cart/cartSelectors";
 
 const useStyles = makeStyles({
   addButton: {
@@ -24,29 +27,22 @@ const useStyles = makeStyles({
 
 export interface QuantityButtonProps {
   snackId: number;
+  name: string;
+  price: number;
   quantity: number;
-  upsertCart: (upsertCartForm: UpsertCartForm) => Promise<void>;
+  onUpdateCart: (cartSnack: CartSnack) => void;
 }
 
 const QuantityButton = (props: QuantityButtonProps) => {
-  const { snackId } = props;
-  const [quantity, setQuantity] = useState(0);
+  const { snackId, name, price, quantity, onUpdateCart } = props;
   const classes = useStyles();
 
-  useEffect(() => setQuantity(props.quantity), [props.quantity]);
-
   const handleIncrease = () => {
-    const increasedQuantity = quantity + 1;
-    props.upsertCart({ snackId, quantity: increasedQuantity }).then(() => {
-      setQuantity(increasedQuantity);
-    });
+    onUpdateCart({ snackId, name, price, quantity: quantity + 1 });
   };
 
   const handleDecrease = () => {
-    const decreasedQuantity = quantity - 1;
-    props.upsertCart({ snackId, quantity: decreasedQuantity }).then(() => {
-      setQuantity(decreasedQuantity);
-    });
+    onUpdateCart({ snackId, name, price, quantity: quantity - 1 });
   };
 
   if (quantity === 0) {
@@ -74,6 +70,14 @@ const QuantityButton = (props: QuantityButtonProps) => {
   }
 };
 
-const mapDispatchToProps = { upsertCart };
+const mapStateToProps = (state: AppState, ownProps) => {
+  return {
+    quantity: getCartQuantity(state, ownProps.snackId)
+  };
+};
 
-export default connect(undefined, mapDispatchToProps)(QuantityButton);
+const mapDispatchToProps = {
+  onUpdateCart: updateCart
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuantityButton);

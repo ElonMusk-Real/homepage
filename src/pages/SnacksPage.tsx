@@ -11,8 +11,10 @@ import { fetchSnacks, Snack } from "../modules/api/snacksAPI";
 import ProductCard from "../components/ProductCard";
 import { Pagination } from "../modules/api/pagination";
 import PaginationControl from "../components/PaginationControl";
-import { CartSnack, fetchCart } from "../modules/api/cartAPI";
 import { isLoggedIn } from "../modules/session/sessionSelectors";
+import { getCart } from "../modules/cart/cartSelectors";
+import { AppState } from "../modules/store";
+import { CartState } from "../modules/cart/cartActions";
 
 const useStyles = makeStyles({
   container: {
@@ -28,16 +30,14 @@ const useStyles = makeStyles({
 
 interface SnacksPageProps extends RouteComponentProps<{}> {
   fetchSnacks: (rowsPerPage?: number, page?: number, q?: string) => Promise<Pagination<Snack>>;
-  fetchCart: () => Promise<CartSnack[]>;
   isLoggedIn: boolean;
 }
 
 const SnacksPage = (props: SnacksPageProps) => {
   const rowsPerPage = 12;
   const classes = useStyles();
-  const { fetchSnacks, fetchCart } = props;
+  const { fetchSnacks } = props;
   const [snacks, setSnacks] = useState<Snack[]>([]);
-  const [cart, setCart] = useState<CartSnack[]>([]);
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(0);
   const [fetched, setFetched] = useState(false);
@@ -55,28 +55,16 @@ const SnacksPage = (props: SnacksPageProps) => {
     });
   }, [page]);
 
-  useEffect(() => {
-    if (props.isLoggedIn) {
-      fetchCart().then(setCart);
-    }
-  }, [page]);
-
   const handleChangePage = (page: number) => {
     setPage(page);
     setOnFetch(true);
   };
 
-  const idToCart = ld.keyBy(cart, "snackId");
-
   const renderSnacks = () =>
     snacks.map((snack) => {
       return (
         <Grid item>
-          <ProductCard
-            snack={snack}
-            quantity={idToCart[snack.id] ? idToCart[snack.id].quantity : 0}
-            onFetch={onFetch}
-          />
+          <ProductCard snack={snack} onFetch={onFetch} />
         </Grid>
       );
     });
@@ -119,9 +107,9 @@ const SnacksPage = (props: SnacksPageProps) => {
   );
 };
 
-const mapDispatchToProps = { fetchSnacks, fetchCart };
+const mapDispatchToProps = { fetchSnacks };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppState) => {
   return {
     isLoggedIn: isLoggedIn(state)
   };

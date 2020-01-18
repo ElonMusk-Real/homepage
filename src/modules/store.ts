@@ -8,12 +8,14 @@ import storage from "redux-persist/es/storage";
 import { toastReducer } from "./toast/toastReducer";
 import { toastMiddleware } from "./toast/toastMiddleware";
 import { sessionReducer } from "./session/sessionReducer";
+import { cartReducer } from "./cart/cartReducer";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   session: persistReducer({ key: "session", storage }, sessionReducer),
   toast: toastReducer,
+  cart: cartReducer,
   router: connectRouter(history)
 });
 
