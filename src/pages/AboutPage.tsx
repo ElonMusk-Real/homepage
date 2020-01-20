@@ -1,42 +1,47 @@
 import React from "react";
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Grid, { GridSpacing } from '@material-ui/core/Grid';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import Paper from '@material-ui/core/Paper';
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import Grid, { GridSpacing } from "@material-ui/core/Grid";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import Radio from "@material-ui/core/Radio";
+import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 1,
+      flexGrow: 1
     },
     paper: {
       height: 140,
-      width: 100,
+      width: 100
     },
     control: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(2)
     },
     container: {
       margin: 100,
       width: "auto"
     }
-  }),
+  })
 );
 
 const AboutPage = () => {
   const classes = useStyles();
 
   return (
-    <Grid className={classes.container} >
-      {/* <div style={{ display: "block" }}> */}
-      <p> Test</p>
-      {/* </div> */}
-    </Grid >
-  );
+    <Grid className={classes.container}>
+      <div>
+        <h1>ABOUT US</h1>
+        <p>NATA DANUS adalah platform untuk danusanmu yang lebih murah, variatif, dan enak.</p>
+      </div>
 
+      <p>
+        NATA DANUS, menyediakan berbagai varian anti-mainstream jajanan danusmu. Lebih dari 100 jenis jajanan kami
+        sediakan. Dengan data base yang besar dan merchant pilihan.
+      </p>
+    </Grid>
+  );
 };
 
 export default AboutPage;

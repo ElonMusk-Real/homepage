@@ -45,6 +45,8 @@ const TransactionPage = (props: TransactionPageProps) => {
   }, [props.cart.status]);
 
   useEffect(() => {
+    setSnackList([]);
+    setTransaction(undefined);
     if (status === TransactionStatuses.Process) {
       props.onGetTransactionDetail().then(({ transaction, cartSnackList }) => {
         setSnackList(cartSnackList.filter((cartSnack) => cartSnack.quantity > 0));
