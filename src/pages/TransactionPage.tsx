@@ -99,6 +99,12 @@ const TransactionPage = (props: TransactionPageProps) => {
     </Typography>
   );
 
+  const renderDone = () => (
+    <Typography className={classes.info} variant="h6">
+      Your last transaction has <span className={classes.greenText}>done</span>
+    </Typography>
+  );
+
   return (
     <>
       <Grid container className={classes.container} justify="center">
@@ -107,6 +113,7 @@ const TransactionPage = (props: TransactionPageProps) => {
         {status === TransactionStatuses.Confirmed && renderConfirmed()}
         {status === TransactionStatuses.InDelivery && renderInDelivery()}
         {status === TransactionStatuses.WaitToPickUp && renderWaitToPickUp()}
+        {status === TransactionStatuses.Done && renderDone()}
         {status === TransactionStatuses.Process && (
           <>
             <Grid item xs={12} sm={6}>
