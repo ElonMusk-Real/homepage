@@ -122,7 +122,9 @@ const TransactionListPage = (props: TransactionListPageProps) => {
                   </TableCell>
                   <TableCell>{row.status}</TableCell>
                   <TableCell>
-                    <Button onClick={() => handleDialogOpen(row.id)}>Update</Button>
+                    {row.status !== TransactionStatuses.Done && (
+                      <Button onClick={() => handleDialogOpen(row.id)}>Update</Button>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
