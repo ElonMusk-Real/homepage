@@ -11,7 +11,8 @@ import {
   cancelTransaction,
   updateTransaction,
   UpdateTransactionForm,
-  Transaction
+  Transaction,
+  PaymentMethods
 } from "../modules/api/transactionAPI";
 
 const useStyle = makeStyles({
@@ -55,10 +56,10 @@ const TransactionForm = (props: TransactionFormProps) => {
   const { handleSubmit, ...form } = useForm();
 
   const handleSave = (data) => {
-    const { date, time, location, image } = data;
+    const { date, paymentMethod, time, location, image } = data;
     const updateTransactionForm: UpdateTransactionForm = image[0]
-      ? { date, time, location, transferImage: image[0] }
-      : { date, time, location };
+      ? { date, time, paymentMethod, location, transferImage: image[0] }
+      : { date, time, paymentMethod, location };
 
     props.onUpdateTransaction(updateTransactionForm);
   };
@@ -76,6 +77,17 @@ const TransactionForm = (props: TransactionFormProps) => {
       <Paper className={classes.summary} elevation={3}>
         <Grid direction="column" container>
           <form onSubmit={handleSubmit(handleSave)}>
+            <Dropdown
+              name="paymentMethod"
+              listMenu={{
+                gopay: "Gopay 082215151500",
+                ovo: "Ovo 082215151500",
+                "bank bca": "0496518845 BNI a.n. Muhammad Dzulkarnaen",
+                "bank bni": "BCA 8691493547 A.n. Muhammad Dzulkarnaen Abdul Aziz"
+              }}
+              label="Transfer VIA"
+              form={form}
+            ></Dropdown>
             <Dropdown
               name="date"
               listMenu={{
