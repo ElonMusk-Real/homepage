@@ -47,23 +47,29 @@ const LoginPage = (props: LoginPageProps) => {
 
   return (
     <Grid item xs={11} md={6}>
-      <Grid container justify="center">
-        <Typography variant="body1" className={classes.text} display="block">
-          Log in to your account
-        </Typography>
-        <form onSubmit={handleSubmit(handleLogin)}>
-          <InputText fullWidth name="email" label="email" form={form} />
-          <InputText fullWidth name="password" password label="password" form={form} />
-          <Button type="submit" className={classes.button} fullWidth variant="contained">
-            Login
-          </Button>
-        </form>
-        <Typography className={classes.needAccount}>
-          Need an account?{" "}
-          <Link className={classes.link} to="/register">
-            Click here
-          </Link>
-        </Typography>
+      <Grid container justify="center" direction="column">
+        <Grid container justify="center">
+          <Typography variant="body1" className={classes.text} display="block">
+            Log in to your account
+          </Typography>
+        </Grid>
+        <Grid>
+          <form onSubmit={handleSubmit(handleLogin)}>
+            <InputText fullWidth name="email" label="email" form={form} />
+            <InputText fullWidth name="password" password label="password" form={form} />
+            <Button type="submit" className={classes.button} fullWidth variant="contained">
+              Login
+            </Button>
+          </form>
+        </Grid>
+        <Grid container justify="center">
+          <Typography className={classes.needAccount}>
+            Need an account?{" "}
+            <Link className={classes.link} to="/register">
+              Click here
+            </Link>
+          </Typography>
+        </Grid>
       </Grid>
     </Grid>
   );

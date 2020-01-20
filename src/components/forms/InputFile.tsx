@@ -1,17 +1,17 @@
 import React from "react";
 import { TextField, makeStyles } from "@material-ui/core";
+import clsx from "clsx";
 
 const useStyles = makeStyles({
   inputClasses: {
-    paddingTop: 16,
-    paddingBottom: 16,
-    background: "white"
+    background: "white",
+    paddingLeft: 0
   },
-  labelClasses: {
-    top: -6
+  inputLabel: {
+    left: -12
   },
-  shrinkClasses: {
-    top: -9
+  container: {
+    marginBottom: 8
   }
 });
 
@@ -32,7 +32,7 @@ const InputFile = (props: InputFileProps) => {
     <>
       <TextField
         name={name}
-        className={className}
+        className={clsx([classes.container, className])}
         variant="filled"
         error={!!form.errors[name]}
         helperText={form.errors[name] && form.errors[name].message}
@@ -42,15 +42,15 @@ const InputFile = (props: InputFileProps) => {
         inputRef={form.register({
           required: required === undefined ? true : required
         })}
+        InputLabelProps={{
+          shrink: true,
+          classes: {
+            shrink: classes.inputLabel
+          }
+        }}
         InputProps={{
           classes: {
             input: classes.inputClasses
-          }
-        }}
-        InputLabelProps={{
-          classes: {
-            root: classes.labelClasses,
-            shrink: classes.shrinkClasses
           }
         }}
       />

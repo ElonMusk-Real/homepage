@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, withRouter, RouteComponentProps } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { makeStyles, Grid } from "@material-ui/core";
 
 import Toast from "../components/Toast";
@@ -19,6 +19,7 @@ import EditSellerPage from "./admin/EditSellerPage";
 import Footer from "../components/Footer";
 import EditSnackPage from "./admin/EditSnackPage";
 import ScrollToTop from "../components/ScrollToTop";
+import TransactionPage from "./TransactionPage";
 
 export enum MenuGroup {
   ADMIN,
@@ -26,7 +27,7 @@ export enum MenuGroup {
 }
 
 export interface NavMenu {
-  icon: string;
+  icon?: string;
   text: string;
   url: string;
   userOnly?: boolean;
@@ -75,10 +76,17 @@ const menus = [
     adminOnly: true,
     group: MenuGroup.ADMIN
   },
-  { icon: "", text: "Add new Snack", url: "/admin/snacks/add", component: AddSnackPage, hideFromMenu: true },
-  { icon: "", text: "Edit Seller", url: "/admin/sellers/edit/:id", component: EditSellerPage, hideFromMenu: true },
-  { icon: "", text: "Edit Snack", url: "/admin/snacks/edit/:id", component: EditSnackPage, hideFromMenu: true },
-  { icon: "", text: "Add new Seller", url: "/admin/sellers/add", component: AddSellerPage, hideFromMenu: true }
+  { text: "Add new Snack", url: "/admin/snacks/add", component: AddSnackPage, hideFromMenu: true },
+  { text: "Edit Seller", url: "/admin/sellers/edit/:id", component: EditSellerPage, hideFromMenu: true },
+  { text: "Edit Snack", url: "/admin/snacks/edit/:id", component: EditSnackPage, hideFromMenu: true },
+  { text: "Add new Seller", url: "/admin/sellers/add", component: AddSellerPage, hideFromMenu: true },
+  {
+    icon: "account_balance_wallet",
+    text: "Transaction",
+    url: "/transaction",
+    component: TransactionPage,
+    userOnly: true
+  }
 ];
 
 const useStyles = makeStyles({
@@ -88,9 +96,7 @@ const useStyles = makeStyles({
   }
 });
 
-interface AppProps extends RouteComponentProps<{}> {}
-
-const App = (props: AppProps) => {
+const App = () => {
   const classes = useStyles();
 
   return (
@@ -116,4 +122,4 @@ const App = (props: AppProps) => {
   );
 };
 
-export default withRouter(App);
+export default App;

@@ -35,7 +35,7 @@ const useStyles = makeStyles({
   }
 });
 
-interface ProductCardProps {
+interface SnackCardProps {
   snack: Snack;
   onFetch: boolean;
 }
@@ -46,7 +46,7 @@ const ImagePlaceHolder = () => {
   return <Skeleton variant="rect" className={classes.media} />;
 };
 
-const ProductCard = (props: ProductCardProps) => {
+const SnackCard = (props: SnackCardProps) => {
   const { name, price, quantity, stock, image } = props.snack;
   const { onFetch } = props;
   const classes = useStyles();
@@ -72,12 +72,11 @@ const ProductCard = (props: ProductCardProps) => {
               <b>{onFetch ? <Skeleton variant="text" /> : <>Rp. {price.toLocaleString()}</>}</b>
             </Typography>
             <Grid className={classes.font15}>
-              {" "}
-              {onFetch ? <Skeleton variant="text" width={80} /> : <>Stock: {stock}</>}{" "}
+              {onFetch ? <Skeleton variant="text" width={80} /> : <>{quantity} / box</>}
             </Grid>
             <Grid container direction="row" justify="space-between" alignItems="center">
               <Grid className={classes.desc}>
-                {onFetch ? <Skeleton variant="text" width={80} /> : <>{quantity} / box</>}
+                {onFetch ? <Skeleton variant="text" width={80} /> : <>Stock: {stock}</>}
               </Grid>
               <Grid>
                 {onFetch ? (
@@ -94,4 +93,4 @@ const ProductCard = (props: ProductCardProps) => {
   );
 };
 
-export default ProductCard;
+export default SnackCard;

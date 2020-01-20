@@ -2,19 +2,16 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { makeStyles, Grid, Typography, CircularProgress } from "@material-ui/core";
 import queryString from "query-string";
-import ld from "lodash";
 import delay from "delay";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { isArray } from "util";
 
 import { fetchSnacks, Snack } from "../modules/api/snacksAPI";
-import ProductCard from "../components/ProductCard";
+import SnackCard from "../components/SnackCard";
 import { Pagination } from "../modules/api/pagination";
 import PaginationControl from "../components/PaginationControl";
 import { isLoggedIn } from "../modules/session/sessionSelectors";
-import { getCart } from "../modules/cart/cartSelectors";
 import { AppState } from "../modules/store";
-import { CartState } from "../modules/cart/cartActions";
 
 const useStyles = makeStyles({
   container: {
@@ -64,7 +61,7 @@ const SnacksPage = (props: SnacksPageProps) => {
     snacks.map((snack) => {
       return (
         <Grid item>
-          <ProductCard snack={snack} onFetch={onFetch} />
+          <SnackCard snack={snack} onFetch={onFetch} />
         </Grid>
       );
     });

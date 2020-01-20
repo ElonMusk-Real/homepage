@@ -9,6 +9,16 @@ export interface CartSnack {
   quantity: number;
 }
 
+export enum CartStatuses {
+  Open = "open",
+  Process = "process",
+  Done = "done"
+}
+
+export interface CartStatusResponse {
+  status: CartStatuses;
+}
+
 export interface UpsertCartForm {
   snackId: number;
   quantity: number;
@@ -34,4 +44,12 @@ export const removeFromCart = (snackId: number) => async (dispatch, getState) =>
   const response: Message = await delete_(url, token);
 
   dispatch(showToast(response.message));
+};
+
+export const getCartStatus = () => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  const url = `${BASE_API}/carts/status`;
+  const response: CartStatusResponse = await get(url, token);
+
+  return response.status;
 };

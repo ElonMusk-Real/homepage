@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { AppBar, Toolbar, IconButton, Icon, makeStyles, Button, MenuItem, Menu } from "@material-ui/core";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import { red } from "@material-ui/core/colors";
@@ -14,6 +14,7 @@ import { isAdmin, isLoggedIn } from "../../modules/session/sessionSelectors";
 import SearchBox from "./SearchBox";
 import ProfileMenu from "./ProfileMenu";
 import CartMenu from "./CartMenu";
+import { getCartStatus, CartStatuses } from "../../modules/api/cartAPI";
 
 const useStyles = makeStyles({
   appBar: {
@@ -50,11 +51,21 @@ interface NavBarProps extends RouteComponentProps<{}> {
   menus: NavMenu[];
   isLoggedIn: boolean;
   isAdmin: boolean;
+  onGetCartStatus: () => Promise<CartStatuses>;
 }
 
 const Navbar = (props: NavBarProps) => {
   const { menus, isLoggedIn, isAdmin } = props;
+  const [inTransaction, setInTransaction] = useState(false);
   const classes = useStyles();
+
+  useEffect(() => {
+    (isLoggedIn &&
+      props.onGetCartStatus().then((cartStatuses) => {
+        cartStatuses === CartStatuses.Process && setInTransaction(true);
+      })) ||
+      setInTransaction(false);
+  }, [isLoggedIn]);
 
   const visibleMenus = menus
     .filter((menu) => !(menu.userOnly && !isLoggedIn))
@@ -78,14 +89,17 @@ const Navbar = (props: NavBarProps) => {
   const getLinkButtonCSS = (menu: NavMenu) =>
     isMatch(menu.url) ? clsx([classes.button, classes.selectedButton]) : classes.button;
 
-  const renderUngroupedMenu = () =>
-    visibleMenus
-      .filter((menu) => menu.group === undefined)
-      .map((menu) => (
-        <Link className={classes.linkButton} to={menu.url}>
-          <Button className={getLinkButtonCSS(menu)}>{menu.text}</Button>
-        </Link>
-      ));
+  const renderUngroupedMenu = () => (
+    <>
+      {visibleMenus
+        .filter((menu) => menu.group === undefined)
+        .map((menu) => (
+          <Link className={classes.linkButton} to={menu.url}>
+            <Button className={getLinkButtonCSS(menu)}>{menu.text}</Button>
+          </Link>
+        ))}
+    </>
+  );
 
   const renderAdminMenu = () =>
     visibleMenus
@@ -158,4 +172,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(Navbar));
+const mapDispatchToProps = {
+  onGetCartStatus: getCartStatus
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));

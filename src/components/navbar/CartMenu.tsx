@@ -6,11 +6,12 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { red, grey } from "@material-ui/core/colors";
 
 import CartItem from "./CartItem";
-import { CartSnack, fetchCart } from "../../modules/api/cartAPI";
+import { CartSnack, fetchCart, getCartStatus, CartStatuses } from "../../modules/api/cartAPI";
 import { resetCart } from "../../modules/cart/cartAPI";
 import { getCart } from "../../modules/cart/cartSelectors";
 import { CartState } from "../../modules/cart/cartActions";
 import { AppState } from "../../modules/store";
+import { createTransaction } from "../../modules/api/transactionAPI";
 
 const useStyles = makeStyles({
   root: {
@@ -68,7 +69,9 @@ const useStyles = makeStyles({
 
 interface CartMenuProps {
   onFetchCart: () => Promise<CartSnack[]>;
-  onResetCart: (cartSnacks: CartSnack[]) => void;
+  onResetCart: () => void;
+  onCreateTransaction: () => Promise<void>;
+  onGetCartStatus: () => Promise<CartStatuses>;
   cart: CartState;
 }
 
@@ -76,6 +79,8 @@ const CartMenu = (props: CartMenuProps) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
+  const inTransaction = props.cart.status === CartStatuses.Process;
+  const cartData = props.cart.data;
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -92,7 +97,7 @@ const CartMenu = (props: CartMenuProps) => {
   const prevOpen = React.useRef(open);
 
   useEffect(() => {
-    props.onFetchCart().then(props.onResetCart);
+    props.onResetCart();
   }, []);
 
   useEffect(() => {
@@ -102,24 +107,28 @@ const CartMenu = (props: CartMenuProps) => {
     prevOpen.current = open;
   }, [open]);
 
-  const totalBox = Object.keys(props.cart).reduce((prev, id) => prev + props.cart[id].quantity, 0);
-  const totalPrice = Object.keys(props.cart).reduce(
-    (prev, id) => prev + props.cart[id].price * props.cart[id].quantity,
-    0
-  );
+  const totalBox = Object.keys(cartData).reduce((prev, id) => prev + cartData[id].quantity, 0);
+  const totalPrice = Object.keys(cartData).reduce((prev, id) => prev + cartData[id].price * cartData[id].quantity, 0);
+
+  const handleToPayment = () => {
+    props.onCreateTransaction().then(() => {
+      setOpen(false);
+      props.onResetCart();
+    });
+  };
 
   const renderCartList = () => (
     <>
       <Grid className={classes.cartItemList}>
-        {Object.keys(props.cart).map((id) => (
-          <CartItem {...props.cart[id]} />
+        {Object.keys(cartData).map((id) => (
+          <CartItem {...cartData[id]} />
         ))}
       </Grid>
       <Grid justify="flex-end" container className={classes.subTotalSection}>
         Total Price: <span className={classes.total}>Rp. {totalPrice.toLocaleString()}</span>
       </Grid>
       <Grid>
-        <Button className={classes.toPaymentButton}>
+        <Button onClick={handleToPayment} className={classes.toPaymentButton}>
           Continue to payment
           <KeyboardArrowRightIcon />
         </Button>
@@ -129,11 +138,17 @@ const CartMenu = (props: CartMenuProps) => {
 
   const renderEmptyCart = () => (
     <Grid className={classes.emptyCartPanel} container direction="column" justify="center" alignItems="center">
-      <Grid className={classes.emptyCartText}>Your Cart is Empty</Grid>
+      <Grid className={classes.emptyCartText}>{inTransaction ? "Can't access your cart" : "Your Cart is Empty"}</Grid>
       <Grid className={classes.emptyCartDesc}>
-        Looks like you haven't added
-        <br />
-        anything to your cart yet
+        {inTransaction ? (
+          "You need to finish your transaction first"
+        ) : (
+          <>
+            Looks like you haven't added
+            <br />
+            anything to your cart yet
+          </>
+        )}
       </Grid>
     </Grid>
   );
@@ -180,7 +195,9 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = {
   onFetchCart: fetchCart,
-  onResetCart: resetCart
+  onResetCart: resetCart,
+  onCreateTransaction: createTransaction,
+  onGetCartStatus: getCartStatus
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartMenu);

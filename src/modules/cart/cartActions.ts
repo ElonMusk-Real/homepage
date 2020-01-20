@@ -1,4 +1,4 @@
-import { CartSnack } from "../api/cartAPI";
+import { CartSnack, CartStatuses } from "../api/cartAPI";
 
 export const UPDATE_CART = "UPDATE_CART";
 export const RESET_CART = "RESET_CART";
@@ -16,10 +16,14 @@ interface UpdateCartAction {
 interface ResetCartAction {
   type: typeof RESET_CART;
   data: CartSnack[];
+  status: CartStatuses;
 }
 
 export interface CartState {
-  [snackId: number]: CartSnack;
+  data: {
+    [snackId: number]: CartSnack;
+  };
+  status: CartStatuses;
 }
 
 export type CartActionTypes = UpdateCartAction | ResetCartAction;
@@ -28,6 +32,6 @@ export const updateCartAction = (data: CartSnack): UpdateCartAction => {
   return { type: UPDATE_CART, data };
 };
 
-export const resetCartAction = (data: CartSnack[]): ResetCartAction => {
-  return { type: RESET_CART, data };
+export const resetCartAction = (data: CartSnack[], status: CartStatuses): ResetCartAction => {
+  return { type: RESET_CART, data, status };
 };

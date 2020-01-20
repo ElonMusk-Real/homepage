@@ -3,7 +3,7 @@ import { makeStyles, InputLabel, Select, MenuItem, FormControl, FormHelperText }
 
 const useStyles = makeStyles({
   formControl: {
-    marginTop: 8,
+    marginBottom: 8,
     width: "100%"
   }
 });
@@ -19,7 +19,7 @@ interface DropdownProps {
 
 const Dropdown = (props: DropdownProps) => {
   const classes = useStyles();
-  const { listMenu, label, form, name, defaultValue, readOnly } = props;
+  const { listMenu, label, form, name, readOnly } = props;
 
   useEffect(() => {
     form.register(
@@ -43,20 +43,17 @@ const Dropdown = (props: DropdownProps) => {
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="age-helper">{label}</InputLabel>
         <Select
-          defaultValue={defaultValue}
           error={!!form.errors[name]}
           autoWidth={true}
           name={name}
-          inputProps={{
-            readOnly: !!readOnly
-          }}
-          value={+values[name]}
+          inputProps={{ readOnly: !!readOnly }}
+          value={values[name] || ""}
           onChange={(e) => {
             form.setValue(name, e.target.value);
           }}
         >
           {Object.keys(listMenu).map((key) => {
-            return <MenuItem value={+key}>{listMenu[key]}</MenuItem>;
+            return <MenuItem value={key}>{listMenu[key]}</MenuItem>;
           })}
         </Select>
         <FormHelperText>{form.errors[name] && form.errors[name].message}</FormHelperText>

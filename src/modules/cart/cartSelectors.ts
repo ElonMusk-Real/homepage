@@ -5,5 +5,5 @@ export const getCart = (state: AppState) => {
 };
 
 export const getCartQuantity = (state: AppState, snackId: number) => {
-  return state.cart[snackId] ? state.cart[snackId].quantity : 0;
+  return state.cart.data[snackId] ? state.cart.data[snackId].quantity : 0;
 };
