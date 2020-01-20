@@ -12,7 +12,8 @@ import {
   cancelTransaction,
   updateTransaction,
   UpdateTransactionForm,
-  Transaction
+  Transaction,
+  PaymentMethods
 } from "../modules/api/transactionAPI";
 
 const useStyle = makeStyles({
@@ -59,10 +60,10 @@ const TransactionForm = (props: TransactionFormProps) => {
   form.watch();
 
   const handleSave = (data) => {
-    const { date, time, location, image } = data;
+    const { date, paymentMethod, time, location, image } = data;
     const updateTransactionForm: UpdateTransactionForm = image[0]
-      ? { date, time, location, transferImage: image[0] }
-      : { date, time, location };
+      ? { date, time, paymentMethod, location, transferImage: image[0] }
+      : { date, time, paymentMethod, location };
 
     props.onUpdateTransaction(updateTransactionForm);
     setEditMode(false);
@@ -73,6 +74,7 @@ const TransactionForm = (props: TransactionFormProps) => {
       transaction.location && form.setValue("location", transaction.location);
       transaction.date && form.setValue("date", transaction.date);
       transaction.time && form.setValue("time", transaction.time);
+      transaction.paymentMethod && form.setValue("paymentMethod", transaction.paymentMethod);
 
       if (transaction.location === null) {
         setEditMode(true);
@@ -115,6 +117,18 @@ const TransactionForm = (props: TransactionFormProps) => {
       <Paper className={classes.summary} elevation={3}>
         <Grid direction="column" container>
           <form onSubmit={handleSubmit(handleSave)}>
+            <Dropdown
+              name="paymentMethod"
+              listMenu={{
+                gopay: "Gopay 082215151500",
+                ovo: "Ovo 082215151500",
+                "bank bca": "0496518845 BNI a.n. Muhammad Dzulkarnaen",
+                "bank bni": "BCA 8691493547 A.n. Muhammad Dzulkarnaen Abdul Aziz"
+              }}
+              label="Transfer VIA"
+              form={form}
+              readOnly={!editMode}
+            ></Dropdown>
             <Dropdown name="date" listMenu={getNext7Days()} label="Date" form={form} readOnly={!editMode} />
             <Dropdown
               name="time"

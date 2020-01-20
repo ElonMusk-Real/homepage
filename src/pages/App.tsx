@@ -20,6 +20,7 @@ import Footer from "../components/Footer";
 import EditSnackPage from "./admin/EditSnackPage";
 import ScrollToTop from "../components/ScrollToTop";
 import TransactionPage from "./TransactionPage";
+import AboutPage from "./AboutPage";
 import TransactionListPage from "./admin/TransactionListPage";
 
 export enum MenuGroup {
@@ -95,7 +96,8 @@ const menus = [
     url: "/transaction",
     component: TransactionPage,
     userOnly: true
-  }
+  },
+  { text: "About Us", url: "/about", component: AboutPage, hideFromMenu: true }
 ];
 
 const useStyles = makeStyles({

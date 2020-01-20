@@ -24,7 +24,6 @@ const Footer = () => {
     <div className={classes.container}>
       <Grid container direction="row" justify="space-between">
         <Grid>
-          {" "}
           <a href="/about">About</a> | Contact Us | Become A Merchant | FaQ | Terms & Conditions
         </Grid>
         <Grid>

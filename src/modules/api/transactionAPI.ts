@@ -16,6 +16,12 @@ export enum TransactionStatuses {
   Done = "done"
 }
 
+export enum PaymentMethods {
+  Gopay = "gopay",
+  Ovo = "ovo",
+  BankBca = "bank bca",
+  BankBni = "bank bni"
+}
 export interface TransactionWithUser {
   id: number;
   email: string;
@@ -38,6 +44,7 @@ export interface Transaction {
   userId: number;
   cartId: number;
   price: number;
+  paymentMethod: string | null;
   date: string | null;
   time: string | null;
   location: string | null;
@@ -49,6 +56,7 @@ export interface Transaction {
 
 export interface UpdateTransactionForm {
   date: string;
+  paymentMethod: string;
   time: string;
   location: string;
   transferImage?: any;
