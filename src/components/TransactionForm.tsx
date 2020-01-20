@@ -57,7 +57,7 @@ const TransactionForm = (props: TransactionFormProps) => {
   const handleSave = (data) => {
     const { date, time, location, image } = data;
     const updateTransactionForm: UpdateTransactionForm = image[0]
-      ? { date, time, location, image: image[0] }
+      ? { date, time, location, transferImage: image[0] }
       : { date, time, location };
 
     props.onUpdateTransaction(updateTransactionForm);

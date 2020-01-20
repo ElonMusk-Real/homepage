@@ -33,7 +33,7 @@ export interface UpdateTransactionForm {
   date: string;
   time: string;
   location: string;
-  image?: any;
+  transferImage?: any;
 }
 
 export interface TransactionWithCartSnackList {
