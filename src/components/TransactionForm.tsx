@@ -3,6 +3,7 @@ import { Paper, Grid, makeStyles, Button } from "@material-ui/core";
 import { red, green } from "@material-ui/core/colors";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
+import ld from "lodash";
 
 import Dropdown from "../components/forms/Dropdown";
 import InputFile from "../components/forms/InputFile";
@@ -79,28 +80,49 @@ const TransactionForm = (props: TransactionFormProps) => {
     }
   }, [transaction]);
 
+  const getNext7Days = () => {
+    const date = new Date();
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
+    return ld
+      .range(1, 6)
+      .map((i) => {
+        date.setDate(date.getDate() + 1);
+
+        return date.getDate() + " " + monthNames[date.getMonth()];
+      })
+      .reduce((prev, curr) => {
+        prev[curr] = curr;
+
+        return prev;
+      }, {});
+  };
+
   return (
     <>
       <Paper className={classes.summary} elevation={3}>
         <Grid direction="column" container>
           <form onSubmit={handleSubmit(handleSave)}>
-            <Dropdown
-              name="date"
-              listMenu={{
-                "20 Januari": "20 Januari",
-                "21 Januari": "21 Januari",
-                "22 Januari": "22 Januari",
-                "23 Januari": "23 Januari"
-              }}
-              label="Date"
-              form={form}
-              readOnly={!editMode}
-            />
+            <Dropdown name="date" listMenu={getNext7Days()} label="Date" form={form} readOnly={!editMode} />
             <Dropdown
               name="time"
               listMenu={{
-                "7 am - 9 am": "7 am - 9 am",
-                "4 pm - 6 pm": "4 pm - 6 pm"
+                "6 am - 8 am": "6 am - 8 am",
+                "8 am - 10 am": "8 am - 10 am",
+                "10 am - 12 pm": "10 am - 12 pm",
+                "12 pm - 2 pm": "12 pm - 2 pm"
               }}
               label="Time"
               form={form}
