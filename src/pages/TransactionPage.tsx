@@ -42,6 +42,7 @@ const TransactionPage = (props: TransactionPageProps) => {
   const [status, setStatus] = useState<TransactionStatuses | null>(null);
   const [snackList, setSnackList] = useState<CartSnack[]>([]);
   const [transaction, setTransaction] = useState<Transaction>();
+  const [updatedData, setUpdatedData] = useState(0);
 
   const handleUpdateStatus = () => props.onGetTransactionStatus().then(setStatus);
 
@@ -59,7 +60,7 @@ const TransactionPage = (props: TransactionPageProps) => {
         setTransaction(transaction);
       });
     }
-  }, [status]);
+  }, [status, updatedData]);
 
   const renderLoading = () => (
     <Grid container direction="column" justify="center" alignItems="center" className={classes.info}>
@@ -120,7 +121,7 @@ const TransactionPage = (props: TransactionPageProps) => {
               <TransactionSummary snackList={snackList} />
             </Grid>
             <Grid item>
-              <TransactionForm transaction={transaction} />
+              <TransactionForm transaction={transaction} onUpdated={() => setUpdatedData((i) => i + 1)} />
             </Grid>
           </>
         )}

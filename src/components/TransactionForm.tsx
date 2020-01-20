@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Paper, Grid, makeStyles, Button } from "@material-ui/core";
+import { Paper, Grid, makeStyles, Button, InputLabel } from "@material-ui/core";
 import { red, green } from "@material-ui/core/colors";
 import { useForm } from "react-hook-form";
 import { connect } from "react-redux";
@@ -14,6 +14,7 @@ import {
   UpdateTransactionForm,
   Transaction
 } from "../modules/api/transactionAPI";
+import { BASE_API } from "../modules/api/http";
 
 const useStyle = makeStyles({
   summary: {
@@ -41,6 +42,18 @@ const useStyle = makeStyles({
     fontWeight: "bold",
     marginTop: 6,
     marginBottom: 6
+  },
+  label: {
+    marginTop: 10,
+    fontSize: 12,
+    marginBottom: 8
+  },
+  imageLink: {
+    height: 20,
+    marginBottom: 30
+  },
+  editButton: {
+    marginTop: 15
   }
 });
 
@@ -48,6 +61,7 @@ interface TransactionFormProps {
   onCancelTransaction: () => Promise<void>;
   onUpdateTransaction: (updateTransactionForm: UpdateTransactionForm) => Promise<void>;
   transaction?: Transaction;
+  onUpdated: () => void;
 }
 
 const TransactionForm = (props: TransactionFormProps) => {
@@ -55,17 +69,19 @@ const TransactionForm = (props: TransactionFormProps) => {
   const { transaction } = props;
   const { handleSubmit, ...form } = useForm();
   const [editMode, setEditMode] = useState(false);
+  const [image, setImage] = useState("");
+  const [isEditImage, setIsEditImage] = useState(false);
 
   form.watch();
 
   const handleSave = (data) => {
     const { date, time, location, image } = data;
-    const updateTransactionForm: UpdateTransactionForm = image[0]
-      ? { date, time, location, transferImage: image[0] }
-      : { date, time, location };
+    const updateTransactionForm: UpdateTransactionForm =
+      image && image[0] ? { date, time, location, transferImage: image[0] } : { date, time, location };
 
-    props.onUpdateTransaction(updateTransactionForm);
+    props.onUpdateTransaction(updateTransactionForm).then(props.onUpdated);
     setEditMode(false);
+    setIsEditImage(false);
   };
 
   useEffect(() => {
@@ -73,6 +89,7 @@ const TransactionForm = (props: TransactionFormProps) => {
       transaction.location && form.setValue("location", transaction.location);
       transaction.date && form.setValue("date", transaction.date);
       transaction.time && form.setValue("time", transaction.time);
+      transaction.transferImage && setImage(transaction.transferImage);
 
       if (transaction.location === null) {
         setEditMode(true);
@@ -129,7 +146,30 @@ const TransactionForm = (props: TransactionFormProps) => {
               readOnly={!editMode}
             />
             <Dropdown name="location" listMenu={facultyList} label="Location" form={form} readOnly={!editMode} />
-            <InputFile name="image" fullWidth label="Receipt of transfer" form={form} required={false} />
+            {!image && <InputFile name="image" fullWidth label="Receipt of transfer" form={form} required={false} />}
+            {isEditImage && image && (
+              <Grid container justify="space-between" className={classes.imageLink}>
+                <Grid>
+                  <InputFile name="image" fullWidth label="Receipt of transfer" form={form} required={false} />
+                </Grid>
+                {image && (
+                  <Grid>
+                    <Button onClick={() => setIsEditImage(false)}>Cancel</Button>
+                  </Grid>
+                )}
+              </Grid>
+            )}
+            {!isEditImage && image && (
+              <Grid container justify="space-between" className={classes.imageLink}>
+                <Grid>
+                  <InputLabel className={classes.label}>Receipt of transfer</InputLabel>
+                  <a target="_blank" href={`${BASE_API}/file/public/${image}`}>
+                    {image}
+                  </a>
+                </Grid>
+                <Grid>{editMode && <Button onClick={() => setIsEditImage(true)}>Edit</Button>}</Grid>
+              </Grid>
+            )}
             {editMode && (
               <>
                 <Button type="submit" className={classes.saveButton} fullWidth variant="contained" color="inherit">
@@ -148,7 +188,12 @@ const TransactionForm = (props: TransactionFormProps) => {
             )}
           </form>
           {!editMode && (
-            <Button onClick={() => setEditMode(true)} color="primary" variant="contained">
+            <Button
+              onClick={() => setEditMode(true)}
+              className={classes.editButton}
+              color="primary"
+              variant="contained"
+            >
               Edit Transaction
             </Button>
           )}
