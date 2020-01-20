@@ -20,6 +20,7 @@ import Footer from "../components/Footer";
 import EditSnackPage from "./admin/EditSnackPage";
 import ScrollToTop from "../components/ScrollToTop";
 import TransactionPage from "./TransactionPage";
+import TransactionListPage from "./admin/TransactionListPage";
 
 export enum MenuGroup {
   ADMIN,
@@ -73,6 +74,14 @@ const menus = [
     text: "User List",
     url: "/admin/users",
     component: ProfileListPage,
+    adminOnly: true,
+    group: MenuGroup.ADMIN
+  },
+  {
+    icon: "person",
+    text: "Transaction List",
+    url: "/admin/transaction",
+    component: TransactionListPage,
     adminOnly: true,
     group: MenuGroup.ADMIN
   },

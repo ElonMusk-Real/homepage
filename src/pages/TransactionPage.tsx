@@ -15,13 +15,19 @@ import { AppState } from "../modules/store";
 import { getCart } from "../modules/cart/cartSelectors";
 import { CartState } from "../modules/cart/cartActions";
 import { CartSnack } from "../modules/api/cartAPI";
+import { green } from "@material-ui/core/colors";
 
 const useStyle = makeStyles({
   container: {
     margin: 24
   },
   info: {
-    marginTop: 200
+    marginTop: 200,
+    textAlign: "center"
+  },
+  greenText: {
+    fontWeight: "bold",
+    color: green[600]
   }
 });
 
@@ -72,11 +78,35 @@ const TransactionPage = (props: TransactionPageProps) => {
     </Typography>
   );
 
+  const renderConfirmed = () => (
+    <Typography className={classes.info} variant="h6">
+      <div>
+        Your transaction has been <span className={classes.greenText}>confirmed</span>
+      </div>
+      <div>Please wait until the snack box is delivered</div>
+    </Typography>
+  );
+
+  const renderInDelivery = () => (
+    <Typography className={classes.info} variant="h6">
+      Your snack box is <span className={classes.greenText}>being delivered</span>
+    </Typography>
+  );
+
+  const renderWaitToPickUp = () => (
+    <Typography className={classes.info} variant="h6">
+      Your snack box has <span className={classes.greenText}>arrived</span>
+    </Typography>
+  );
+
   return (
     <>
       <Grid container className={classes.container} justify="center">
         {status === null && renderLoading()}
         {status === TransactionStatuses.NotFound && renderNotFound()}
+        {status === TransactionStatuses.Confirmed && renderConfirmed()}
+        {status === TransactionStatuses.InDelivery && renderInDelivery()}
+        {status === TransactionStatuses.WaitToPickUp && renderWaitToPickUp()}
         {status === TransactionStatuses.Process && (
           <>
             <Grid item xs={12} sm={6}>

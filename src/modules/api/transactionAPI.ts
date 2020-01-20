@@ -1,10 +1,11 @@
 import { push } from "connected-react-router";
 
-import { BASE_API, post, Message, delete_, get, putMultipart } from "./http";
+import { BASE_API, post, Message, delete_, get, putMultipart, patch } from "./http";
 import { selectToken } from "../session/sessionSelectors";
 import { showToast } from "../toast/toastActions";
 import { resetCart } from "../cart/cartAPI";
 import { CartSnack } from "./cartAPI";
+import { Pagination } from "./pagination";
 
 export enum TransactionStatuses {
   NotFound = "not found",
@@ -13,6 +14,23 @@ export enum TransactionStatuses {
   InDelivery = "in delivery",
   WaitToPickUp = "wait to pick up",
   Done = "done"
+}
+
+export interface TransactionWithUser {
+  id: number;
+  email: string;
+  name: string;
+  phoneNumber: string | null;
+  lineId: string | null;
+  cartId: number;
+  price: number;
+  date: string | null;
+  time: string | null;
+  location: string | null;
+  startedDateTime: string | null;
+  transferImage: string | null;
+  uploadedDateTime: string | null;
+  status: TransactionStatuses;
 }
 
 export interface Transaction {
@@ -26,7 +44,7 @@ export interface Transaction {
   startedDateTime: string | null;
   transferImage: string | null;
   uploadedDateTime: string | null;
-  status: string;
+  status: TransactionStatuses;
 }
 
 export interface UpdateTransactionForm {
@@ -43,6 +61,10 @@ export interface TransactionWithCartSnackList {
 
 export interface TransactionStatusResponse {
   status: TransactionStatuses | null;
+}
+
+export interface TransactionStatusUpdate {
+  status: TransactionStatuses;
 }
 
 export const createTransaction = () => async (dispatch, getState) => {
@@ -83,6 +105,22 @@ export const updateTransaction = (updateTransactionForm: UpdateTransactionForm) 
   const token = selectToken(getState());
   const url = `${BASE_API}/transactions/`;
   const body: Message = await putMultipart(url, token, updateTransactionForm);
+
+  dispatch(showToast(body.message));
+};
+
+export const fetchTransaction = (rows: number = 10, page: number = 0) => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  const url = `${BASE_API}/transactions/?skip=${rows * page}&take=${rows}`;
+  const transactions: Pagination<TransactionWithUser> = await get(url, token);
+
+  return transactions;
+};
+
+export const updateTransactionStatus = (id: number, status: TransactionStatuses) => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  const url = `${BASE_API}/transactions/${id}`;
+  const body: Message = await patch(url, token, { status } as TransactionStatusUpdate);
 
   dispatch(showToast(body.message));
 };
