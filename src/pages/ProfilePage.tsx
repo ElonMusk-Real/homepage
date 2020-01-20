@@ -143,7 +143,7 @@ const ProfilePage = (props: ProfilePageProps) => {
             )}
           </Grid>
         </form>
-        {editMode || (
+        {!editMode && (
           <Button onClick={() => setEditMode(true)} color="primary" variant="contained">
             Edit Profile
           </Button>

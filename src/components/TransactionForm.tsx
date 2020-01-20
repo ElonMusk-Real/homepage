@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Paper, Grid, makeStyles, Button } from "@material-ui/core";
 import { red, green } from "@material-ui/core/colors";
 import { useForm } from "react-hook-form";
@@ -53,6 +53,9 @@ const TransactionForm = (props: TransactionFormProps) => {
   const classes = useStyle();
   const { transaction } = props;
   const { handleSubmit, ...form } = useForm();
+  const [editMode, setEditMode] = useState(false);
+
+  form.watch();
 
   const handleSave = (data) => {
     const { date, time, location, image } = data;
@@ -61,6 +64,7 @@ const TransactionForm = (props: TransactionFormProps) => {
       : { date, time, location };
 
     props.onUpdateTransaction(updateTransactionForm);
+    setEditMode(false);
   };
 
   useEffect(() => {
@@ -68,6 +72,10 @@ const TransactionForm = (props: TransactionFormProps) => {
       transaction.location && form.setValue("location", transaction.location);
       transaction.date && form.setValue("date", transaction.date);
       transaction.time && form.setValue("time", transaction.time);
+
+      if (transaction.location === null) {
+        setEditMode(true);
+      }
     }
   }, [transaction]);
 
@@ -86,6 +94,7 @@ const TransactionForm = (props: TransactionFormProps) => {
               }}
               label="Date"
               form={form}
+              readOnly={!editMode}
             />
             <Dropdown
               name="time"
@@ -95,22 +104,32 @@ const TransactionForm = (props: TransactionFormProps) => {
               }}
               label="Time"
               form={form}
+              readOnly={!editMode}
             />
-            <Dropdown name="location" listMenu={facultyList} label="Location" form={form} />
+            <Dropdown name="location" listMenu={facultyList} label="Location" form={form} readOnly={!editMode} />
             <InputFile name="image" fullWidth label="Receipt of transfer" form={form} required={false} />
-            <Button type="submit" className={classes.saveButton} fullWidth variant="contained" color="inherit">
-              Save
-            </Button>
-            <Button
-              onClick={props.onCancelTransaction}
-              className={classes.cancelButton}
-              fullWidth
-              variant="outlined"
-              color="inherit"
-            >
-              Cancel Transaction
-            </Button>
+            {editMode && (
+              <>
+                <Button type="submit" className={classes.saveButton} fullWidth variant="contained" color="inherit">
+                  Save
+                </Button>
+                <Button
+                  onClick={props.onCancelTransaction}
+                  className={classes.cancelButton}
+                  fullWidth
+                  variant="outlined"
+                  color="inherit"
+                >
+                  Cancel Transaction
+                </Button>
+              </>
+            )}
           </form>
+          {!editMode && (
+            <Button onClick={() => setEditMode(true)} color="primary" variant="contained">
+              Edit Transaction
+            </Button>
+          )}
         </Grid>
       </Paper>
     </>
