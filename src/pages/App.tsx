@@ -22,6 +22,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import TransactionPage from "./TransactionPage";
 import AboutPage from "./AboutPage";
 import TransactionListPage from "./admin/TransactionListPage";
+import Contacts from "./Contacts";
 
 export enum MenuGroup {
   ADMIN,
@@ -97,7 +98,8 @@ const menus = [
     component: TransactionPage,
     userOnly: true
   },
-  { text: "About Us", url: "/about", component: AboutPage, hideFromMenu: true }
+  { text: "About Us", url: "/about", component: AboutPage, hideFromMenu: true },
+  { text: "Contact Us", url: "/contacts", component: Contacts, hideFromMenu: true }
 ];
 
 const useStyles = makeStyles({

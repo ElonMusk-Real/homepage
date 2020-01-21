@@ -24,7 +24,7 @@ const Footer = () => {
     <div className={classes.container}>
       <Grid container direction="row" justify="space-between">
         <Grid>
-          <a href="/about">About</a> | Contact Us | Become A Merchant | FaQ | Terms & Conditions
+          <a href="/about">About</a> | <a href="/contacts">Contact Us</a> | Become A Merchant | FaQ | Terms & Conditions
         </Grid>
         <Grid>
           <SocialIcon style={mediaStyle} url="https://twitter.com/natadanus/" />
