@@ -5,6 +5,7 @@ import { red } from "@material-ui/core/colors";
 import { isBrowser, isMobile } from "react-device-detect";
 import { connect } from "react-redux";
 import clsx from "clsx";
+import SearchIcon from "@material-ui/icons/Search";
 
 import Drawer from "./Drawer";
 import logogram from "./../../assets/logogram.png";
@@ -44,6 +45,9 @@ const useStyles = makeStyles({
   },
   selectedButton: {
     backgroundColor: red[700]
+  },
+  searchIcon: {
+    color: "white"
   }
 });
 
@@ -56,16 +60,20 @@ interface NavBarProps extends RouteComponentProps<{}> {
 
 const Navbar = (props: NavBarProps) => {
   const { menus, isLoggedIn, isAdmin } = props;
-  const [inTransaction, setInTransaction] = useState(false);
+  const [onSearch, setOnSearch] = useState(false);
   const classes = useStyles();
 
   useEffect(() => {
-    (isLoggedIn &&
-      props.onGetCartStatus().then((cartStatuses) => {
-        cartStatuses === CartStatuses.Process && setInTransaction(true);
-      })) ||
-      setInTransaction(false);
+    isLoggedIn && props.onGetCartStatus();
   }, [isLoggedIn]);
+
+  const isMatch = (menuURL: string) => props.location.pathname.split("/")[1] === menuURL.split("/")[1];
+
+  const isSnackPage = isMatch("/snacks");
+
+  useEffect(() => {
+    !isSnackPage && isMobile && setOnSearch(false);
+  }, [props.location.pathname]);
 
   const visibleMenus = menus
     .filter((menu) => !(menu.userOnly && !isLoggedIn))
@@ -77,8 +85,6 @@ const Navbar = (props: NavBarProps) => {
 
   const [anchorElAdmin, setAnchorElAdmin] = React.useState<null | HTMLElement>(null);
   const adminOpen = Boolean(anchorElAdmin);
-
-  const isMatch = (menuURL: string) => props.location.pathname.split("/")[1] === menuURL.split("/")[1];
 
   const toggle = () => setOpen(!open);
 
@@ -119,11 +125,14 @@ const Navbar = (props: NavBarProps) => {
               <Icon className={classes.menuButton}>menu</Icon>
             </IconButton>
           )}
-          <Link className={classes.link} to="/">
-            <img src={logogram} height="32" alt="NataDanus Logo" />
-            <img src={logotype} height="26" className={classes.logotype} alt="NataDanus" />
-          </Link>
-          {isBrowser && <SearchBox />}
+          {!onSearch && (
+            <Link className={classes.link} to="/">
+              <img src={logogram} height="32" alt="NataDanus Logo" />
+              <img src={logotype} height="26" className={classes.logotype} alt="NataDanus" />
+            </Link>
+          )}
+          {(isBrowser || onSearch) && <SearchBox onClose={() => setOnSearch(false)} />}
+          {isMobile && <SearchIcon className={classes.searchIcon} onClick={() => setOnSearch(true)} />}
           {isBrowser && (
             <>
               {renderUngroupedMenu()}
