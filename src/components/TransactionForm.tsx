@@ -122,7 +122,7 @@ const TransactionForm = (props: TransactionFormProps) => {
       .map((i) => {
         date.setDate(date.getDate() + 1);
 
-        return date.getDate() + " " + monthNames[date.getMonth()];
+        return date.getDate() + " " + monthNames[date.getMonth()] + " " + date.getFullYear();
       })
       .reduce((prev, curr) => {
         prev[curr] = curr;
