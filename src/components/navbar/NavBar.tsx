@@ -132,7 +132,7 @@ const Navbar = (props: NavBarProps) => {
             </Link>
           )}
           {(isBrowser || onSearch) && <SearchBox onClose={() => setOnSearch(false)} />}
-          {isMobile && <SearchIcon className={classes.searchIcon} onClick={() => setOnSearch(true)} />}
+          {isMobile && !onSearch && <SearchIcon className={classes.searchIcon} onClick={() => setOnSearch(true)} />}
           {isBrowser && (
             <>
               {renderUngroupedMenu()}
