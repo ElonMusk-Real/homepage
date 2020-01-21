@@ -45,7 +45,7 @@ const PaginationControl = (props: PaginationControlProps) => {
 
   return (
     <ButtonGroup className={className} size="small" aria-label="small outlined button group">
-      {page > 1 && <Button onClick={() => onPageChange(page - 1)}>previous</Button>}
+      {page > 1 && <Button onClick={() => onPageChange(page - 1)}>{"<"}</Button>}
       {getPageNumber().map((pageNumber) => {
         if (pageNumber === "...") {
           return <Button disabled>...</Button>;
@@ -59,7 +59,7 @@ const PaginationControl = (props: PaginationControlProps) => {
           return <Button onClick={() => onPageChange(+pageNumber)}>{pageNumber}</Button>;
         }
       })}
-      {page < pageCount && <Button onClick={() => onPageChange(page + 1)}>next</Button>}
+      {page < pageCount && <Button onClick={() => onPageChange(page + 1)}>{">"}</Button>}
     </ButtonGroup>
   );
 };

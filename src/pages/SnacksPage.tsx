@@ -12,6 +12,8 @@ import { Pagination } from "../modules/api/pagination";
 import PaginationControl from "../components/PaginationControl";
 import { isLoggedIn } from "../modules/session/sessionSelectors";
 import { AppState } from "../modules/store";
+import { isMobile } from "react-device-detect";
+import MobileCartButton from "../components/MobileCartButton";
 
 const useStyles = makeStyles({
   container: {
@@ -100,6 +102,7 @@ const SnacksPage = (props: SnacksPageProps) => {
         pageCount={pageCount}
         onPageChange={handleChangePage}
       />
+      {isMobile && <MobileCartButton />}
     </>
   );
 };

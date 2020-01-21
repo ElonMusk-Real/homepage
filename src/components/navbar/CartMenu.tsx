@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { IconButton, makeStyles, Popper, Grow, Paper, ClickAwayListener, Button, Grid, Badge } from "@material-ui/core";
-import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import { IconButton, makeStyles, Popper, Grow, Badge } from "@material-ui/core";
 import { connect } from "react-redux";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
-import { red, grey } from "@material-ui/core/colors";
 
-import CartItem from "./CartItem";
 import { CartSnack, fetchCart, getCartStatus, CartStatuses } from "../../modules/api/cartAPI";
 import { resetCart } from "../../modules/cart/cartAPI";
 import { getCart } from "../../modules/cart/cartSelectors";
 import { CartState } from "../../modules/cart/cartActions";
 import { AppState } from "../../modules/store";
 import { createTransaction } from "../../modules/api/transactionAPI";
+import CartPaper from "./CartPaper";
 
 const useStyles = makeStyles({
   root: {
@@ -22,48 +20,6 @@ const useStyles = makeStyles({
   },
   menuButton: {
     color: "white"
-  },
-  cartPanel: {
-    padding: 10,
-    width: 320,
-    height: 400
-  },
-  cartItemList: {
-    height: 310,
-    overflowY: "scroll",
-    borderColor: grey[300],
-    borderWidth: 1,
-    borderStyle: "solid"
-  },
-  toPaymentButton: {
-    backgroundColor: red[400],
-    "&:hover": {
-      backgroundColor: red[500]
-    },
-    color: "white",
-    width: "100%",
-    fontWeight: "bold"
-  },
-  total: {
-    fontWeight: "bold",
-    marginLeft: 5,
-    marginRight: 5
-  },
-  subTotalSection: {
-    marginBottom: 6,
-    marginTop: 6
-  },
-  emptyCartPanel: {
-    height: "100%"
-  },
-  emptyCartText: {
-    fontSize: 18,
-    fontWeight: "bold"
-  },
-  emptyCartDesc: {
-    marginTop: 8,
-    textAlign: "center",
-    color: grey[700]
   }
 });
 
@@ -79,19 +35,10 @@ const CartMenu = (props: CartMenuProps) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
-  const inTransaction = props.cart.status === CartStatuses.Process;
   const cartData = props.cart.data;
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
-  };
-
-  const handleClose = (event: React.MouseEvent<EventTarget>) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
-      return;
-    }
-
-    setOpen(false);
   };
 
   const prevOpen = React.useRef(open);
@@ -108,50 +55,6 @@ const CartMenu = (props: CartMenuProps) => {
   }, [open]);
 
   const totalBox = Object.keys(cartData).reduce((prev, id) => prev + cartData[id].quantity, 0);
-  const totalPrice = Object.keys(cartData).reduce((prev, id) => prev + cartData[id].price * cartData[id].quantity, 0);
-
-  const handleToPayment = () => {
-    props.onCreateTransaction().then(() => {
-      setOpen(false);
-      props.onResetCart();
-    });
-  };
-
-  const renderCartList = () => (
-    <>
-      <Grid className={classes.cartItemList}>
-        {Object.keys(cartData).map((id) => (
-          <CartItem {...cartData[id]} />
-        ))}
-      </Grid>
-      <Grid justify="flex-end" container className={classes.subTotalSection}>
-        Total Price: <span className={classes.total}>Rp. {totalPrice.toLocaleString()}</span>
-      </Grid>
-      <Grid>
-        <Button onClick={handleToPayment} className={classes.toPaymentButton}>
-          Continue to payment
-          <KeyboardArrowRightIcon />
-        </Button>
-      </Grid>
-    </>
-  );
-
-  const renderEmptyCart = () => (
-    <Grid className={classes.emptyCartPanel} container direction="column" justify="center" alignItems="center">
-      <Grid className={classes.emptyCartText}>{inTransaction ? "Can't access your cart" : "Your Cart is Empty"}</Grid>
-      <Grid className={classes.emptyCartDesc}>
-        {inTransaction ? (
-          "You need to finish your transaction first"
-        ) : (
-          <>
-            Looks like you haven't added
-            <br />
-            anything to your cart yet
-          </>
-        )}
-      </Grid>
-    </Grid>
-  );
 
   return (
     <>
@@ -173,13 +76,7 @@ const CartMenu = (props: CartMenuProps) => {
             {...TransitionProps}
             style={{ transformOrigin: placement === "bottom" ? "center top" : "center bottom" }}
           >
-            <Paper elevation={3}>
-              <ClickAwayListener onClickAway={handleClose}>
-                <Grid direction="column" container className={classes.cartPanel}>
-                  {totalBox > 0 ? renderCartList() : renderEmptyCart()}
-                </Grid>
-              </ClickAwayListener>
-            </Paper>
+            <CartPaper anchorRef={anchorRef} open={open} setOpen={setOpen} />
           </Grow>
         )}
       </Popper>
