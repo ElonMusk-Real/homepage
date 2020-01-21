@@ -53,7 +53,11 @@ const Dropdown = (props: DropdownProps) => {
           }}
         >
           {Object.keys(listMenu).map((key) => {
-            return <MenuItem value={key}>{listMenu[key]}</MenuItem>;
+            return (
+              <MenuItem key={key} value={key}>
+                {listMenu[key]}
+              </MenuItem>
+            );
           })}
         </Select>
         <FormHelperText>{form.errors[name] && form.errors[name].message}</FormHelperText>

@@ -66,6 +66,10 @@ export async function put(url: string, token?: string, body?: any): Promise<any>
   return request("PUT", url, token, { "Content-Type": "application/json" }, JSON.stringify(body));
 }
 
+export async function patch(url: string, token?: string, body?: any): Promise<any> {
+  return request("PATCH", url, token, { "Content-Type": "application/json" }, JSON.stringify(body));
+}
+
 export async function postMultipart(url: string, token: string, parts: { [key: string]: any }): Promise<any> {
   const body = new FormData();
   Object.keys(parts).forEach((part) => body.append(part, parts[part]));

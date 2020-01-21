@@ -50,7 +50,7 @@ const SnacksPage = (props: SnacksPageProps) => {
       window.scrollTo({ top: 0, behavior: "smooth" });
       delay(500).then(() => setOnFetch(false));
     });
-  }, [page]);
+  }, [page, q]);
 
   const handleChangePage = (page: number) => {
     setPage(page);

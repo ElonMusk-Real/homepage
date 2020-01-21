@@ -21,6 +21,8 @@ import EditSnackPage from "./admin/EditSnackPage";
 import ScrollToTop from "../components/ScrollToTop";
 import TransactionPage from "./TransactionPage";
 import AboutPage from "./AboutPage";
+import TransactionListPage from "./admin/TransactionListPage";
+import Contacts from "./Contacts";
 
 export enum MenuGroup {
   ADMIN,
@@ -77,6 +79,14 @@ const menus = [
     adminOnly: true,
     group: MenuGroup.ADMIN
   },
+  {
+    icon: "person",
+    text: "Transaction List",
+    url: "/admin/transaction",
+    component: TransactionListPage,
+    adminOnly: true,
+    group: MenuGroup.ADMIN
+  },
   { text: "Add new Snack", url: "/admin/snacks/add", component: AddSnackPage, hideFromMenu: true },
   { text: "Edit Seller", url: "/admin/sellers/edit/:id", component: EditSellerPage, hideFromMenu: true },
   { text: "Edit Snack", url: "/admin/snacks/edit/:id", component: EditSnackPage, hideFromMenu: true },
@@ -88,7 +98,8 @@ const menus = [
     component: TransactionPage,
     userOnly: true
   },
-  { text: "About Us", url: "/about", component: AboutPage, hideFromMenu: true }
+  { text: "About Us", url: "/about", component: AboutPage, hideFromMenu: true },
+  { text: "Contact Us", url: "/contacts", component: Contacts, hideFromMenu: true }
 ];
 
 const useStyles = makeStyles({

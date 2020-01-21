@@ -6,6 +6,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { fade } from "@material-ui/core/styles";
 import queryString from "query-string";
 import { isArray } from "util";
+import { isMobile } from "react-device-detect";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,7 +61,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface SearchBoxProps extends RouteComponentProps<{}> {}
+interface SearchBoxProps extends RouteComponentProps<{}> {
+  onClose: () => void;
+}
 
 const SearchBox = (props: SearchBoxProps) => {
   const [searchText, setSearchText] = useState("");
@@ -79,7 +82,8 @@ const SearchBox = (props: SearchBoxProps) => {
 
   const handleClearSearchText = () => {
     setSearchText("");
-    props.history.push("/snacks");
+    isSnackPage && props.history.push("/snacks");
+    isMobile && props.onClose();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -108,7 +112,7 @@ const SearchBox = (props: SearchBoxProps) => {
         value={searchText}
         onChange={handleSearchChange}
         endAdornment={
-          isSnackSearchPage ? (
+          isSnackSearchPage || isMobile ? (
             <InputAdornment className={classes.inputAdornment} position="end">
               <IconButton aria-label="toggle password visibility" onClick={handleClearSearchText}>
                 <div className={classes.clearSearchButton}>
