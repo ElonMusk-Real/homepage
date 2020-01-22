@@ -96,6 +96,7 @@ const menus = [
     text: "Transaction",
     url: "/transaction",
     component: TransactionPage,
+    exact: true,
     userOnly: true
   },
   { text: "About Us", url: "/about", component: AboutPage, hideFromMenu: true },
