@@ -16,7 +16,12 @@ import TablePaginationActions from "@material-ui/core/TablePagination/TablePagin
 
 import { Pagination } from "../../modules/api/pagination";
 import { BASE_API } from "../../modules/api/http";
-import { fetchTransaction, TransactionWithUser, TransactionStatuses } from "../../modules/api/transactionAPI";
+import {
+  fetchTransaction,
+  TransactionWithUser,
+  TransactionStatuses,
+  cancelTransactionById
+} from "../../modules/api/transactionAPI";
 import UpdateTransactionStatusDialog from "../../components/UpdateTransactionStatusDialog";
 import { CartSnack, fecthCartById } from "../../modules/api/cartAPI";
 import CartSnackDialog from "../../components/CartSnackDialog";
@@ -36,6 +41,7 @@ const useStyles = makeStyles({
 interface TransactionListPageProps {
   onFetchTransaction: (rowsPerPage?: number, page?: number) => Promise<Pagination<TransactionWithUser>>;
   onFetchCartById: (cartId: number) => Promise<CartSnack[]>;
+  onCancelTransaction: (id: number) => Promise<void>;
 }
 
 const TransactionListPage = (props: TransactionListPageProps) => {
@@ -141,9 +147,21 @@ const TransactionListPage = (props: TransactionListPageProps) => {
                   <TableCell>{row.status}</TableCell>
                   <TableCell>
                     {row.status !== TransactionStatuses.Done && (
-                      <Button onClick={() => handleDialogOpen(row.id)}>Update</Button>
+                      <Button onClick={() => handleDialogOpen(row.id)} color="primary">
+                        Update
+                      </Button>
                     )}
                     <Button onClick={() => handleCartDialogOpen(row.cartId)}>View Cart</Button>
+                    {row.status !== TransactionStatuses.Done && (
+                      <Button
+                        onClick={() => {
+                          props.onCancelTransaction(row.id).then(handleUpdateData);
+                        }}
+                        color="secondary"
+                      >
+                        Cancel
+                      </Button>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
@@ -176,7 +194,8 @@ const TransactionListPage = (props: TransactionListPageProps) => {
 
 const mapDispatchToProps = {
   onFetchTransaction: fetchTransaction,
-  onFetchCartById: fecthCartById
+  onFetchCartById: fecthCartById,
+  onCancelTransaction: cancelTransactionById
 };
 
 export default connect(undefined, mapDispatchToProps)(TransactionListPage);

@@ -102,6 +102,15 @@ export const cancelTransaction = () => async (dispatch, getState) => {
   dispatch(resetCart());
 };
 
+export const cancelTransactionById = (id: number) => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  const url = `${BASE_API}/transactions/${id}`;
+  const body: Message = await delete_(url, token);
+
+  dispatch(showToast(body.message));
+  dispatch(resetCart());
+};
+
 export const getTransactionStatus = () => async (dispatch, getState) => {
   const token = selectToken(getState());
   const url = `${BASE_API}/transactions/status`;
