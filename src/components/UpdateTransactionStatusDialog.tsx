@@ -28,8 +28,6 @@ const UpdateTransactionStatusDialog = (props: UpdateTransactionStatusDialogProps
     onUpdateTransactionStatus(id, status).then(onClose);
   };
 
-  console.log(status);
-
   return (
     <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
       <form onSubmit={handleSubmit(handleSave)}>
