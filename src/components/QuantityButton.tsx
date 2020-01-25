@@ -57,7 +57,7 @@ const QuantityButton = (props: QuantityButtonProps) => {
       <Grid direction="row" container>
         <ButtonGroup size="small" color="primary" aria-label="outlined primary button group">
           <Button size="small" className={classes.quantityButton} onClick={handleDecrease}>
-            <Icon>remove</Icon>
+            <Icon fontSize="small">remove</Icon>
           </Button>
           <Button disabled>
             <span className={classes.quantityText}>{quantity}</span>
@@ -68,7 +68,7 @@ const QuantityButton = (props: QuantityButtonProps) => {
             onClick={handleIncrease}
             disabled={quantity >= maxStock}
           >
-            <Icon>add</Icon>
+            <Icon fontSize="small">add</Icon>
           </Button>
         </ButtonGroup>
       </Grid>

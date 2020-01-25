@@ -73,7 +73,7 @@ const SnackCard = (props: SnackCardProps) => {
             </Typography>
             <Grid container direction="row" justify="space-between" alignItems="center">
               <Grid className={classes.font15}>
-                {onFetch ? <Skeleton variant="text" width={80} /> : <>{quantity} / box</>}
+                {onFetch ? <Skeleton variant="text" width={80} /> : <>{quantity} pcs / box</>}
               </Grid>
               <Grid>
                 {onFetch ? (
