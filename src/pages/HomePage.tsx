@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles, Grid, Button, ButtonGroup } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
+import Icon from '@material-ui/core/Icon';
 
 const bgImgUrl =
   "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80";
@@ -59,6 +60,48 @@ const HomePage = () => {
               Log In
             </Button>
           </ButtonGroup>
+        </section>
+      </Grid>
+
+      <Grid container justify="center">
+        <section>
+          <Grid item>
+            <h2>How to order</h2>
+          </Grid>
+          <Box>
+            <Grid container>
+              <Grid item xs={6}>
+                <Icon>fastfood_outlined</Icon>
+                <h5>Pilih jenis makanan</h5>
+                <p>
+                  Pilih box danusanmu sesuai dengan kesukaanmu!
+                </p>
+              </Grid>
+              <Grid item xs={6}>
+                <Icon>shopping_cart_outlined</Icon>
+                <h5>Pilih jumlah box dan lokasi</h5>
+                <p>
+                  Tentukan jumlah dan lokasi penjemputan danusmu
+                </p>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid item xs={6}>
+                <Icon>credit_card_outlined</Icon>
+                <h5>Pilih cara pembayaran</h5>
+                <p>
+                  Gunakan OVO, Gopay, Dana m-banking, dan transfer atm
+                </p>
+              </Grid>
+              <Grid item xs={6}>
+                <Icon>pin_drop_outlined</Icon>
+                <h5>Ambil barang</h5>
+                <p>
+                  Ambil barang sesuai lokasi dan jam yang sudah ditentukan
+                </p>
+              </Grid>
+            </Grid>
+          </Box>
         </section>
       </Grid>
     </Grid>
