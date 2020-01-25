@@ -162,7 +162,7 @@ const TransactionPage = (props: TransactionPageProps) => {
   const renderPaid = () =>
     renderCard(
       <Typography className={classes.status} variant="h5">
-        <div>Thank you for your purchase</div>
+        <div>Thank you for your purchase 😊</div>
         <div>Please wait for confirmation</div>
       </Typography>
     );

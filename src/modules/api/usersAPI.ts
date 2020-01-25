@@ -43,13 +43,13 @@ export interface UserUpdateForm {
   phoneNumber: string;
 }
 
-export const loginUser = (email: string, password: string) => async dispatch => {
+export const loginUser = (email: string, password: string) => async (dispatch) => {
   const url = `${BASE_API}/users/login`;
   const loginForm: LoginForm = { email, password };
   const credential: Credential = await post(url, undefined, loginForm);
   const { token, isAdmin } = credential;
   dispatch(setSession(token, isAdmin));
-  dispatch(push("/profile"));
+  dispatch(push("/snacks"));
   dispatch(showToast("Login Success"));
 };
 
@@ -61,7 +61,7 @@ export const getMyProfile = () => async (dispatch, getState) => {
   return profile;
 };
 
-export const registerUser = (userRegistrationForm: UserRegistrationForm) => async dispatch => {
+export const registerUser = (userRegistrationForm: UserRegistrationForm) => async (dispatch) => {
   const url = `${BASE_API}/users/register`;
   const response: Message = await post(url, undefined, userRegistrationForm);
   dispatch(showToast(response.message));
