@@ -9,6 +9,7 @@ import { Pagination } from "./pagination";
 
 export enum TransactionStatuses {
   NotFound = "not found",
+  Paid = "paid",
   Process = "process",
   Confirmed = "confirmed",
   InDelivery = "in delivery",

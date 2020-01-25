@@ -69,9 +69,6 @@ const TransactionForm = (props: TransactionFormProps) => {
   const classes = useStyle();
   const { transaction } = props;
   const { handleSubmit, ...form } = useForm();
-  const [editMode, setEditMode] = useState(false);
-  const [image, setImage] = useState("");
-  const [isEditImage, setIsEditImage] = useState(false);
 
   form.watch();
 
@@ -83,8 +80,6 @@ const TransactionForm = (props: TransactionFormProps) => {
         : { date, time, paymentMethod, location };
 
     props.onUpdateTransaction(updateTransactionForm).then(props.onUpdated);
-    setEditMode(false);
-    setIsEditImage(false);
   };
 
   useEffect(() => {
@@ -92,12 +87,7 @@ const TransactionForm = (props: TransactionFormProps) => {
       transaction.location && form.setValue("location", transaction.location);
       transaction.date && form.setValue("date", transaction.date);
       transaction.time && form.setValue("time", transaction.time);
-      transaction.transferImage && setImage(transaction.transferImage);
       transaction.paymentMethod && form.setValue("paymentMethod", transaction.paymentMethod);
-
-      if (transaction.location === null) {
-        setEditMode(true);
-      }
     }
   }, [transaction]);
 
@@ -146,9 +136,8 @@ const TransactionForm = (props: TransactionFormProps) => {
               }}
               label="Transfer to"
               form={form}
-              readOnly={!editMode}
             ></Dropdown>
-            <Dropdown name="date" listMenu={getNext7Days()} label="Date" form={form} readOnly={!editMode} />
+            <Dropdown name="date" listMenu={getNext7Days()} label="Date" form={form} />
             <Dropdown
               name="time"
               listMenu={{
@@ -159,60 +148,22 @@ const TransactionForm = (props: TransactionFormProps) => {
               }}
               label="Time"
               form={form}
-              readOnly={!editMode}
             />
-            <Dropdown name="location" listMenu={facultyList} label="Location" form={form} readOnly={!editMode} />
-            {!image && <InputFile name="image" fullWidth label="Receipt of transfer" form={form} required={false} />}
-            {isEditImage && image && (
-              <Grid container justify="space-between" className={classes.imageLink}>
-                <Grid>
-                  <InputFile name="image" fullWidth label="Receipt of transfer" form={form} required={false} />
-                </Grid>
-                {image && (
-                  <Grid>
-                    <Button onClick={() => setIsEditImage(false)}>Cancel</Button>
-                  </Grid>
-                )}
-              </Grid>
-            )}
-            {!isEditImage && image && (
-              <Grid container justify="space-between" className={classes.imageLink}>
-                <Grid>
-                  <InputLabel className={classes.label}>Receipt of transfer</InputLabel>
-                  <a target="_blank" href={`${BASE_API}/file/public/${image}`}>
-                    {image}
-                  </a>
-                </Grid>
-                <Grid>{editMode && <Button onClick={() => setIsEditImage(true)}>Edit</Button>}</Grid>
-              </Grid>
-            )}
-            {editMode && (
-              <>
-                <Button type="submit" className={classes.saveButton} fullWidth variant="contained" color="inherit">
-                  Save
-                </Button>
-                <Button
-                  onClick={props.onCancelTransaction}
-                  className={classes.cancelButton}
-                  fullWidth
-                  variant="outlined"
-                  color="inherit"
-                >
-                  Cancel Transaction
-                </Button>
-              </>
-            )}
-          </form>
-          {!editMode && (
-            <Button
-              onClick={() => setEditMode(true)}
-              className={classes.editButton}
-              color="primary"
-              variant="contained"
-            >
-              Edit Transaction
+            <Dropdown name="location" listMenu={facultyList} label="Location" form={form} />
+            <InputFile name="image" fullWidth label="Receipt of transfer" form={form} required={false} />
+            <Button type="submit" className={classes.saveButton} fullWidth variant="contained" color="inherit">
+              Save
             </Button>
-          )}
+            <Button
+              onClick={props.onCancelTransaction}
+              className={classes.cancelButton}
+              fullWidth
+              variant="outlined"
+              color="inherit"
+            >
+              Cancel Transaction
+            </Button>
+          </form>
         </Grid>
       </Paper>
     </>

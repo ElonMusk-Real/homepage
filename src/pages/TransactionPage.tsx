@@ -90,7 +90,7 @@ const TransactionPage = (props: TransactionPageProps) => {
   }, [props.cart.status]);
 
   useEffect(() => {
-    props.onGetTransactionDetail().then(({ transaction, cartSnackList }) => {
+    props.onGetTransactionDetail().then(({ cartSnackList }) => {
       setfixSnackList(cartSnackList.filter((cartSnack) => cartSnack.quantity > 0));
     });
   }, []);
@@ -100,6 +100,7 @@ const TransactionPage = (props: TransactionPageProps) => {
     setTransaction(undefined);
     if (status === TransactionStatuses.Process) {
       props.onGetTransactionDetail().then(({ transaction, cartSnackList }) => {
+        setStatus(transaction.status);
         setSnackList(cartSnackList.filter((cartSnack) => cartSnack.quantity > 0));
         setTransaction(transaction);
       });
@@ -153,6 +154,14 @@ const TransactionPage = (props: TransactionPageProps) => {
     </Typography>
   );
 
+  const renderPaid = () =>
+    renderCard(
+      <Typography className={classes.status} variant="h5">
+        <div>Thank you for your purchase</div>
+        <div>Please wait for confirmation</div>
+      </Typography>
+    );
+
   const renderConfirmed = () =>
     renderCard(
       <Typography className={classes.status} variant="h5">
@@ -200,6 +209,7 @@ const TransactionPage = (props: TransactionPageProps) => {
       <Grid container className={classes.container} justify="center">
         {status === null && renderLoading()}
         {status === TransactionStatuses.NotFound && renderNotFound()}
+        {status === TransactionStatuses.Paid && renderPaid()}
         {status === TransactionStatuses.Confirmed && renderConfirmed()}
         {status === TransactionStatuses.InDelivery && renderInDelivery()}
         {status === TransactionStatuses.WaitToPickUp && renderWaitToPickUp()}
