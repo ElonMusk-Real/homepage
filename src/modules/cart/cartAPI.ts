@@ -1,11 +1,17 @@
 import { CartSnack, upsertCart, CartStatuses, fetchCart, getCartStatus } from "../api/cartAPI";
 import { updateCartAction, resetCartAction } from "./cartActions";
 
-export const updateCart = (data: CartSnack) => (dispatch) => {
+export const updateCart = (data: CartSnack) => (dispatch, getState) => {
   const { snackId, quantity } = data;
-  dispatch(upsertCart({ snackId, quantity })).then(() => {
-    dispatch(updateCartAction(data));
-  });
+  dispatch(upsertCart({ snackId, quantity }))
+    .then(() => {
+      dispatch(updateCartAction(data));
+    })
+    .catch((e) => {
+      if (e.message === "Sorry, out of stock") {
+        resetCart()(dispatch, getState);
+      }
+    });
 };
 
 export const resetCart = () => (dispatch, getState) => {
