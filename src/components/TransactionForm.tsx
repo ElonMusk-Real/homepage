@@ -16,6 +16,7 @@ import {
   PaymentMethods
 } from "../modules/api/transactionAPI";
 import { BASE_API } from "../modules/api/http";
+import ConfirmationDialog from "./ConfirmationDialog";
 
 const useStyle = makeStyles({
   summary: {
@@ -74,20 +75,33 @@ interface TransactionFormProps {
 
 const TransactionForm = (props: TransactionFormProps) => {
   const classes = useStyle();
+  const confirmTitle = "Confirm Transaction";
+  const confirmText = "Are you sure you want to confirm your transaction?";
+  const cancelTitle = "Cancel";
+  const cancelText = "Are you sure you want to cancel transaction?";
   const { transaction } = props;
   const { handleSubmit, ...form } = useForm();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [cancelDialog, setCancelDialog] = useState(false);
+  const [handleSave, setHandleSave] = useState<() => void>();
   const [diffTime, setDiffTime] = useState("");
 
   form.watch();
 
-  const handleSave = (data) => {
+  const handleDialogOpen = (data) => {
     const { date, paymentMethod, time, location, image } = data;
-    const updateTransactionForm: UpdateTransactionForm =
+    const tempUpdateTransactionForm: UpdateTransactionForm =
       image && image[0]
         ? { date, time, paymentMethod, location, transferImage: image[0] }
         : { date, time, paymentMethod, location };
+    setHandleSave(() => () => {
+      props.onUpdateTransaction(tempUpdateTransactionForm).then(props.onUpdated);
+    });
+    setDialogOpen(true);
+  };
 
-    props.onUpdateTransaction(updateTransactionForm).then(props.onUpdated);
+  const handleDialogClose = () => {
+    setDialogOpen(false);
   };
 
   const diffDateFromNow = (date: Date) => {
@@ -159,7 +173,7 @@ const TransactionForm = (props: TransactionFormProps) => {
     <>
       <Paper className={classes.summary} elevation={3}>
         <Grid direction="column" container>
-          <form onSubmit={handleSubmit(handleSave)}>
+          <form onSubmit={handleSubmit(handleDialogOpen)}>
             <span className={classes.timeoutLabel}>Timeout:</span>{" "}
             <span className={classes.timeoutValue}>{diffTime}</span>
             <Dropdown
@@ -191,7 +205,9 @@ const TransactionForm = (props: TransactionFormProps) => {
               Save
             </Button>
             <Button
-              onClick={props.onCancelTransaction}
+              onClick={() => {
+                setCancelDialog(true);
+              }}
               className={classes.cancelButton}
               fullWidth
               variant="outlined"
@@ -202,6 +218,20 @@ const TransactionForm = (props: TransactionFormProps) => {
           </form>
         </Grid>
       </Paper>
+      <ConfirmationDialog
+        title={confirmTitle}
+        text={confirmText}
+        open={dialogOpen}
+        onClose={handleDialogClose}
+        onConfirm={handleSave}
+      />
+      <ConfirmationDialog
+        title={cancelTitle}
+        text={cancelText}
+        open={cancelDialog}
+        onClose={handleDialogClose}
+        onConfirm={props.onCancelTransaction}
+      />
     </>
   );
 };
