@@ -1,11 +1,8 @@
 import React from "react";
-import { Drawer as DrawerMUI, Button, ListItem, ListItemIcon, ListItemText, Icon } from "@material-ui/core";
+import { Icon } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Grid, { GridSpacing } from "@material-ui/core/Grid";
-import InputText from "../components/forms/InputText";
+import Grid from "@material-ui/core/Grid";
 import { useForm } from "react-hook-form";
-import clsx from "clsx";
 import { isMobile } from "react-device-detect";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -86,7 +83,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Contacts = () => {
+const ContactPage = () => {
   const { handleSubmit, ...form } = useForm();
   const classes = useStyles();
   return (
@@ -112,7 +109,7 @@ const Contacts = () => {
               </a>
             </Grid>
           </Grid>
-          <Grid className={classes.email} container direction="row" justify="center" alignItems="center">
+          <Grid container direction="row" justify="center" alignItems="center">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" height={25} alt="" />
             <Grid className={classes.email}>
               <a href="https://api.whatsapp.com/send?phone=+628561793835" style={{ color: "#000000" }}>
@@ -128,30 +125,15 @@ const Contacts = () => {
               alt=""
             />
             <Grid className={classes.email}>
-              <a href="line://nv/recommendOA/@natadanus" style={{ color: "#000000" }}>
+              <a href="line://ti/p/@natadanus" style={{ color: "#000000" }}>
                 @natadanus
               </a>
             </Grid>
           </Grid>
-          <Grid></Grid>
         </Grid>
-        {/* <form>
-          <InputText form={form} name="name" className={classes.paddingv} fullWidth label="Name" />
-          <InputText form={form} name="email" className={classes.paddingv} fullWidth label="Email" />
-          <InputText form={form} name="message" className={classes.paddingv} fullWidth label="Message" />
-          <Button
-            className={clsx([classes.marginv, classes.paddingh])}
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="inherit"
-          >
-            Send Message
-          </Button>
-        </form> */}
       </Grid>
     </>
   );
 };
 
-export default Contacts;
+export default ContactPage;
