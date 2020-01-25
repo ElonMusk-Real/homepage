@@ -3,8 +3,8 @@ export const SHOW_TOAST = "SHOW_TOAST";
 export const HIDE_TOAST = "HIDE_TOAST";
 
 export enum ToastType {
-  SUCCESS,
-  ERROR
+  SUCCESS = "success",
+  ERROR = "error"
 }
 
 interface ShowToastAction {
