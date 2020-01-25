@@ -17,6 +17,7 @@ import {
 } from "../modules/api/transactionAPI";
 import { BASE_API } from "../modules/api/http";
 import ConfirmationDialog from "./ConfirmationDialog";
+import InputText from "./forms/InputText";
 
 const useStyle = makeStyles({
   summary: {
@@ -63,6 +64,12 @@ const useStyle = makeStyles({
   timeoutValue: {
     color: red[500],
     fontWeight: "bold"
+  },
+  norek: {
+    fontSize: 15,
+    fontWeight: "bold",
+    marginTop: 10,
+    marginBottom: 15
   }
 });
 
@@ -173,6 +180,27 @@ const TransactionForm = (props: TransactionFormProps) => {
       }, {});
   };
 
+  const values = form.getValues();
+  const paymentMethod = values.paymentMethod;
+  const norek = {
+    gopay: "Gopay 082215151500",
+    ovo: "OVO 082215151500",
+    "bank bca": (
+      <>
+        BNI 0496518845
+        <br />
+        a.n. Muhammad Dzulkarnaen
+      </>
+    ),
+    "bank bni": (
+      <>
+        BCA 8691493547
+        <br />
+        a.n. Muhammad Dzulkarnaen Abdul Aziz
+      </>
+    )
+  };
+
   return (
     <>
       <Paper className={classes.summary} elevation={3}>
@@ -183,14 +211,19 @@ const TransactionForm = (props: TransactionFormProps) => {
             <Dropdown
               name="paymentMethod"
               listMenu={{
-                gopay: "Gopay 082215151500",
-                ovo: "Ovo 082215151500",
-                "bank bca": "0496518845 BNI a.n. Muhammad Dzulkarnaen",
-                "bank bni": "BCA 8691493547 A.n. Muhammad Dzulkarnaen Abdul Aziz"
+                gopay: "Gopay",
+                ovo: "OVO",
+                "bank bca": "Bank BNI",
+                "bank bni": "Bank BCA"
               }}
-              label="Transfer to"
+              label="Transfer Method"
               form={form}
             ></Dropdown>
+            {paymentMethod && (
+              <>
+                <InputLabel>Transfer to</InputLabel> <div className={classes.norek}>{norek[paymentMethod]}</div>
+              </>
+            )}
             <Dropdown name="date" listMenu={getNext7Days()} label="Order Date" form={form} />
             <Dropdown
               name="time"
