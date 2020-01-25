@@ -107,8 +107,8 @@ const Contacts = () => {
           <Grid container direction="row" justify="center" alignItems="center">
             <Icon>email</Icon>
             <Grid className={classes.email}>
-              <a href="mailto:me@example.com" style={{ color: "#000000" }}>
-                nataeventplatform@gmail.com
+              <a href="mailto:cs@natadanus.com" style={{ color: "#000000" }}>
+                cs@natadanus.com
               </a>
             </Grid>
           </Grid>
