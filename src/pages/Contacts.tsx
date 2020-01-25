@@ -6,6 +6,7 @@ import Grid, { GridSpacing } from "@material-ui/core/Grid";
 import InputText from "../components/forms/InputText";
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
+import { isMobile } from "react-device-detect";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,49 +38,50 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     pinkbox: {
       paddingTop: 50,
+      paddingBottom: 50,
       width: "100%",
       minHeight: "35vh",
       background: "linear-gradient(90deg, #E73361 0%, #9A1675 100%)"
     },
     contactus: {
       marginBottom: 20,
-      textAlign: "center",
-      marginLeft: "10vw",
       fontFamily: "Rounded Mplus 1c Bold",
       fontStyle: "normal",
       fontWeight: "bold",
-      fontSize: "24px",
-      lineHeight: "36px",
+      fontSize: "48px",
       color: "#FFFFFF"
     },
     address: {
-      marginLeft: 20,
-      marginRight: 20,
+      textAlign: "center",
+      marginTop: "1vh",
+      marginLeft: "10vw",
+      marginRight: "10vw",
+      marginBottom: 20,
       fontFamily: "Rounded Mplus 1c Bold",
       fontStyle: "normal",
       fontWeight: "bold",
-      fontSize: "12px",
-      lineHeight: "18px",
-      textAlign: "center",
+      fontSize: "18px",
       color: "#FFFFFF"
     },
     pesan: {
+      marginTop: 25,
+      marginBottom: 15,
       fontFamily: "Rounded Mplus 1c Bold",
       fontStyle: "normal",
       fontWeight: "bold",
-      fontSize: "14px",
-      lineHeight: "21px",
-      textAlign: "center",
-      color: "#FFFFFF"
+      fontSize: "32px",
+      textAlign: "center"
     },
     email: {
+      marginLeft: 15,
+      marginTop: 12,
+      marginBottom: 12,
       fontFamily: "Rounded Mplus 1c Bold",
       fontStyle: "normal",
       fontWeight: "bold",
-      fontSize: "12px",
-      lineHeight: "18px",
+      fontSize: isMobile ? "16px" : "26px",
       textAlign: "center",
-      color: "#FFFFFF"
+      color: "#000000"
     }
   })
 );
@@ -90,25 +92,50 @@ const Contacts = () => {
   return (
     <>
       <Grid className={classes.pinkbox}>
-        <Grid>
-          <Grid className={classes.contactus}>Contact Us</Grid>
+        <Grid container direction="row" justify="center" alignItems="center" className={classes.contactus}>
+          Contact Us
         </Grid>
-        <Grid>
-          <Grid className={classes.address}>
-            Jl Kompos, No.19, RT 11/RW 08, Lenteng Agung Jagakarsa, Jakarta Selatan 12630{" "}
-          </Grid>
-
-          <Grid className={classes.pesan}>Tinggalkan Pesan</Grid>
-
-          <Grid container direction="row" justify="center" alignItems="center">
-            <Icon>mailoutline</Icon>
-            <Grid className={classes.email}>nataeventplatform@gmail.com</Grid>
-          </Grid>
+        <Grid className={classes.address}>
+          Jl. Masjid Al - Farouq No 45, Kukusan, Kecamatan Beji, Kota Depok, Jawa Barat 16425
         </Grid>
       </Grid>
 
       <Grid>
-        <form>
+        <Grid>
+          <Grid className={classes.pesan}>Tinggalkan Pesan</Grid>
+
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Icon>email</Icon>
+            <Grid className={classes.email}>
+              <a href="mailto:me@example.com" style={{ color: "#000000" }}>
+                nataeventplatform@gmail.com
+              </a>
+            </Grid>
+          </Grid>
+          <Grid className={classes.email} container direction="row" justify="center" alignItems="center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" height={25} alt="" />
+            <Grid className={classes.email}>
+              <a href="https://api.whatsapp.com/send?phone=+628561793835" style={{ color: "#000000" }}>
+                08561793835
+              </a>
+            </Grid>
+          </Grid>
+
+          <Grid container direction="row" justify="center" alignItems="center">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/LINE_logo.svg/1200px-LINE_logo.svg.png"
+              height={25}
+              alt=""
+            />
+            <Grid className={classes.email}>
+              <a href="line://nv/recommendOA/@natadanus" style={{ color: "#000000" }}>
+                @natadanus
+              </a>
+            </Grid>
+          </Grid>
+          <Grid></Grid>
+        </Grid>
+        {/* <form>
           <InputText form={form} name="name" className={classes.paddingv} fullWidth label="Name" />
           <InputText form={form} name="email" className={classes.paddingv} fullWidth label="Email" />
           <InputText form={form} name="message" className={classes.paddingv} fullWidth label="Message" />
@@ -121,7 +148,7 @@ const Contacts = () => {
           >
             Send Message
           </Button>
-        </form>
+        </form> */}
       </Grid>
     </>
   );
