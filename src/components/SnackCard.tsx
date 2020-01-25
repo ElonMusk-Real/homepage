@@ -71,18 +71,20 @@ const SnackCard = (props: SnackCardProps) => {
             <Typography color="primary" variant="h6">
               <b>{onFetch ? <Skeleton variant="text" /> : <>Rp. {price.toLocaleString()}</>}</b>
             </Typography>
-            <Grid className={classes.font15}>
-              {onFetch ? <Skeleton variant="text" width={80} /> : <>{quantity} / box</>}
-            </Grid>
             <Grid container direction="row" justify="space-between" alignItems="center">
-              <Grid className={classes.desc}>
-                {onFetch ? <Skeleton variant="text" width={80} /> : <>Stock: {stock}</>}
+              <Grid className={classes.font15}>
+                {onFetch ? <Skeleton variant="text" width={80} /> : <>{quantity} / box</>}
               </Grid>
               <Grid>
                 {onFetch ? (
                   <Skeleton variant="text" width={40} />
                 ) : (
-                  <QuantityButton snackId={props.snack.id} name={props.snack.name} price={props.snack.price} />
+                  <QuantityButton
+                    maxStock={stock}
+                    snackId={props.snack.id}
+                    name={props.snack.name}
+                    price={props.snack.price}
+                  />
                 )}
               </Grid>
             </Grid>

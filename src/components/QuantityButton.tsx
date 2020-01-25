@@ -30,11 +30,12 @@ export interface QuantityButtonProps {
   name: string;
   price: number;
   quantity: number;
+  maxStock: number;
   onUpdateCart: (cartSnack: CartSnack) => void;
 }
 
 const QuantityButton = (props: QuantityButtonProps) => {
-  const { snackId, name, price, quantity, onUpdateCart } = props;
+  const { snackId, name, price, quantity, onUpdateCart, maxStock } = props;
   const classes = useStyles();
 
   const handleIncrease = () => {
@@ -61,7 +62,12 @@ const QuantityButton = (props: QuantityButtonProps) => {
           <Button disabled>
             <span className={classes.quantityText}>{quantity}</span>
           </Button>
-          <Button size="small" className={classes.quantityButton} onClick={handleIncrease}>
+          <Button
+            size="small"
+            className={classes.quantityButton}
+            onClick={handleIncrease}
+            disabled={quantity >= maxStock}
+          >
             <Icon>add</Icon>
           </Button>
         </ButtonGroup>
