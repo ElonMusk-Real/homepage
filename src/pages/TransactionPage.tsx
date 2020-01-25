@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import { Grid, makeStyles, Typography, CircularProgress, Button, Divider, Paper } from "@material-ui/core";
 import { connect } from "react-redux";
 
@@ -20,7 +20,8 @@ import { green } from "@material-ui/core/colors";
 
 const useStyle = makeStyles({
   status: {
-    margin: 20
+    margin: 20,
+    textAlign: "center"
   },
   divider: {
     marginTop: 20,
@@ -47,6 +48,18 @@ const useStyle = makeStyles({
   snackDetails: {
     margin: 10,
     fontSize: 14
+  },
+  paperInfo: {
+    marginTop: 50,
+    padding: 20
+  },
+  confirmPickUp: {
+    backgroundColor: green[700],
+    "&:hover": {
+      backgroundColor: green[900]
+    },
+    color: "white",
+    fontWeight: "bold"
   }
 });
 
@@ -93,17 +106,13 @@ const TransactionPage = (props: TransactionPageProps) => {
     }
   }, [status, updatedData]);
 
-  const renderCard = () => {
-    console.log(snackList);
+  const renderCard = (statusComponent: JSX.Element) => {
     return (
       <>
-        <br />
-        <Paper elevation={3}>
+        <Paper elevation={3} className={classes.paperInfo}>
           <Grid direction="column" container>
             <Grid container justify="center">
-              <Typography className={classes.status} variant="h5">
-                Transaction Status: {status}
-              </Typography>
+              {statusComponent}
             </Grid>
             <Divider className={classes.divider} />
 
@@ -119,7 +128,6 @@ const TransactionPage = (props: TransactionPageProps) => {
                     <Grid className={classes.snackDetails}>Rp. {(snack.price * snack.quantity).toLocaleString()}</Grid>
                   </Grid>
                 </Grid>
-                <Divider className={classes.divider} />
               </>
             ))}
           </Grid>
@@ -145,34 +153,41 @@ const TransactionPage = (props: TransactionPageProps) => {
     </Typography>
   );
 
-  const renderConfirmed = () => (
-    <Typography className={classes.info} variant="h6">
-      <div>
-        Your transaction has been <span className={classes.greenText}>confirmed</span>
-      </div>
-      <div>Please wait until the snack box is delivered</div>
-      {renderCard()}
-    </Typography>
-  );
-
-  const renderInDelivery = () => (
-    <Typography className={classes.info} variant="h6">
-      Your snack box is <span className={classes.greenText}>being delivered</span>
-      {renderCard()}
-    </Typography>
-  );
-
-  const renderWaitToPickUp = () => (
-    <>
-      <Typography className={classes.info} variant="h6">
-        Your snack box has <span className={classes.greenText}>arrived</span>
+  const renderConfirmed = () =>
+    renderCard(
+      <Typography className={classes.status} variant="h5">
+        <div>
+          Your transaction has been <span className={classes.greenText}>confirmed</span>
+        </div>
+        <div>Please wait until the snack box is delivered</div>
       </Typography>
-      <Button onClick={handleConfirm} type="submit" fullWidth variant="contained" color="inherit">
-        Confirm Pick Up
-      </Button>
-      {renderCard()}
-    </>
-  );
+    );
+
+  const renderInDelivery = () =>
+    renderCard(
+      <Typography className={classes.status} variant="h5">
+        Your snack box is <span className={classes.greenText}>being delivered</span>
+      </Typography>
+    );
+
+  const renderWaitToPickUp = () =>
+    renderCard(
+      <>
+        <Typography className={classes.status} variant="h6">
+          Your snack box has <span className={classes.greenText}>arrived</span>
+        </Typography>
+        <Button
+          onClick={handleConfirm}
+          className={classes.confirmPickUp}
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="inherit"
+        >
+          Confirm Pick Up
+        </Button>
+      </>
+    );
 
   const renderDone = () => (
     <Typography className={classes.info} variant="h6">
