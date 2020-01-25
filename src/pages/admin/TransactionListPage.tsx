@@ -18,6 +18,8 @@ import { Pagination } from "../../modules/api/pagination";
 import { BASE_API } from "../../modules/api/http";
 import { fetchTransaction, TransactionWithUser, TransactionStatuses } from "../../modules/api/transactionAPI";
 import UpdateTransactionStatusDialog from "../../components/UpdateTransactionStatusDialog";
+import { CartSnack, fecthCartById } from "../../modules/api/cartAPI";
+import CartSnackDialog from "../../components/CartSnackDialog";
 
 const useStyles = makeStyles({
   table: {
@@ -33,16 +35,19 @@ const useStyles = makeStyles({
 
 interface TransactionListPageProps {
   onFetchTransaction: (rowsPerPage?: number, page?: number) => Promise<Pagination<TransactionWithUser>>;
+  onFetchCartById: (cartId: number) => Promise<CartSnack[]>;
 }
 
 const TransactionListPage = (props: TransactionListPageProps) => {
-  const { onFetchTransaction } = props;
+  const { onFetchTransaction, onFetchCartById } = props;
   const [data, setData] = useState<TransactionWithUser[]>([]);
   const [total, setTotal] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [page, setPage] = useState(0);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogId, setDialogId] = useState(0);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [cart, setCart] = useState<CartSnack[]>([]);
   const classes = useStyles();
 
   const handleUpdateData = () =>
@@ -75,6 +80,21 @@ const TransactionListPage = (props: TransactionListPageProps) => {
 
   const handleDialogClose = () => {
     setDialogOpen(false);
+    handleUpdateData();
+  };
+
+  const handleCartDialogOpen = (cartId: number) => {
+    setCartOpen(true);
+    console.log("Cart id: " + cartId);
+    onFetchCartById(cartId).then((cartSnack) => {
+      console.log("============================");
+      console.log(cartSnack);
+      setCart(cartSnack);
+    });
+  };
+
+  const handleCartDialogClose = () => {
+    setCartOpen(false);
     handleUpdateData();
   };
 
@@ -125,6 +145,7 @@ const TransactionListPage = (props: TransactionListPageProps) => {
                     {row.status !== TransactionStatuses.Done && (
                       <Button onClick={() => handleDialogOpen(row.id)}>Update</Button>
                     )}
+                    <Button onClick={() => handleCartDialogOpen(row.cartId)}>View Cart</Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -150,12 +171,14 @@ const TransactionListPage = (props: TransactionListPageProps) => {
         </Grid>
       </Grid>
       <UpdateTransactionStatusDialog id={dialogId} open={dialogOpen} onClose={handleDialogClose} />
+      <CartSnackDialog cartSnack={cart} open={cartOpen} onClose={handleCartDialogClose} />
     </>
   );
 };
 
 const mapDispatchToProps = {
-  onFetchTransaction: fetchTransaction
+  onFetchTransaction: fetchTransaction,
+  onFetchCartById: fecthCartById
 };
 
 export default connect(undefined, mapDispatchToProps)(TransactionListPage);
