@@ -24,6 +24,13 @@ export interface UpsertCartForm {
   quantity: number;
 }
 
+export const fecthCartById = (cartId: number) => async (dispatch, getState) => {
+  const token = selectToken(getState());
+  const url = `${BASE_API}/carts/${cartId}`;
+  const cart: CartSnack[] = await get(url, token);
+  return cart;
+};
+
 export const fetchCart = () => async (dispatch, getState) => {
   const token = selectToken(getState());
   const url = `${BASE_API}/carts/`;
