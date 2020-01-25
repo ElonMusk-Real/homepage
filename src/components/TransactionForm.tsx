@@ -104,6 +104,10 @@ const TransactionForm = (props: TransactionFormProps) => {
     setDialogOpen(false);
   };
 
+  const handleCancelClose = () => {
+    setCancelDialog(false);
+  };
+
   const diffDateFromNow = (date: Date) => {
     const dateNow = new Date();
     const diff = Math.abs(Math.floor(date.getTime() - dateNow.getTime()) / 1000);
@@ -187,7 +191,7 @@ const TransactionForm = (props: TransactionFormProps) => {
               label="Transfer to"
               form={form}
             ></Dropdown>
-            <Dropdown name="date" listMenu={getNext7Days()} label="Date" form={form} />
+            <Dropdown name="date" listMenu={getNext7Days()} label="Order Date" form={form} />
             <Dropdown
               name="time"
               listMenu={{
@@ -196,10 +200,10 @@ const TransactionForm = (props: TransactionFormProps) => {
                 "10 am - 12 pm": "10 am - 12 pm",
                 "12 pm - 2 pm": "12 pm - 2 pm"
               }}
-              label="Time"
+              label="Delivery Time"
               form={form}
             />
-            <Dropdown name="location" listMenu={facultyList} label="Location" form={form} />
+            <Dropdown name="location" listMenu={facultyList} label="Destination Point" form={form} />
             <InputFile name="image" fullWidth label="Receipt of transfer" form={form} />
             <Button type="submit" className={classes.saveButton} fullWidth variant="contained" color="inherit">
               Save
@@ -229,7 +233,7 @@ const TransactionForm = (props: TransactionFormProps) => {
         title={cancelTitle}
         text={cancelText}
         open={cancelDialog}
-        onClose={handleDialogClose}
+        onClose={handleCancelClose}
         onConfirm={props.onCancelTransaction}
       />
     </>
