@@ -49,7 +49,7 @@ export interface Transaction {
   date: string | null;
   time: string | null;
   location: string | null;
-  startedDateTime: string | null;
+  startedDateTime: string;
   transferImage: string | null;
   uploadedDateTime: string | null;
   status: TransactionStatuses;

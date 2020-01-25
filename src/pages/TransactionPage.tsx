@@ -76,7 +76,6 @@ const TransactionPage = (props: TransactionPageProps) => {
   const [snackList, setSnackList] = useState<CartSnack[]>([]);
   const [transaction, setTransaction] = useState<Transaction>();
   const [updatedData, setUpdatedData] = useState(0);
-  const [fixSnackList, setfixSnackList] = useState<CartSnack[]>([]);
 
   const handleUpdateStatus = () => props.onGetTransactionStatus().then(setStatus);
 
@@ -90,15 +89,9 @@ const TransactionPage = (props: TransactionPageProps) => {
   }, [props.cart.status]);
 
   useEffect(() => {
-    props.onGetTransactionDetail().then(({ cartSnackList }) => {
-      setfixSnackList(cartSnackList.filter((cartSnack) => cartSnack.quantity > 0));
-    });
-  }, []);
-
-  useEffect(() => {
     setSnackList([]);
     setTransaction(undefined);
-    if (status === TransactionStatuses.Process) {
+    if (status && status !== TransactionStatuses.Done && status !== TransactionStatuses.NotFound) {
       props.onGetTransactionDetail().then(({ transaction, cartSnackList }) => {
         setStatus(transaction.status);
         setSnackList(cartSnackList.filter((cartSnack) => cartSnack.quantity > 0));
@@ -117,7 +110,7 @@ const TransactionPage = (props: TransactionPageProps) => {
             </Grid>
             <Divider className={classes.divider} />
 
-            {fixSnackList.map((snack) => (
+            {snackList.map((snack) => (
               <>
                 <Grid>
                   <Grid container justify="space-between" className={classes.item}>

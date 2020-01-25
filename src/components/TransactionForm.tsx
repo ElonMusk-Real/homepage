@@ -55,6 +55,13 @@ const useStyle = makeStyles({
   },
   editButton: {
     marginTop: 15
+  },
+  timeoutLabel: {
+    fontWeight: "bold"
+  },
+  timeoutValue: {
+    color: red[500],
+    fontWeight: "bold"
   }
 });
 
@@ -69,6 +76,7 @@ const TransactionForm = (props: TransactionFormProps) => {
   const classes = useStyle();
   const { transaction } = props;
   const { handleSubmit, ...form } = useForm();
+  const [diffTime, setDiffTime] = useState("");
 
   form.watch();
 
@@ -81,6 +89,32 @@ const TransactionForm = (props: TransactionFormProps) => {
 
     props.onUpdateTransaction(updateTransactionForm).then(props.onUpdated);
   };
+
+  const diffDateFromNow = (date: Date) => {
+    const dateNow = new Date();
+    const diff = Math.abs(Math.floor(date.getTime() - dateNow.getTime()) / 1000);
+
+    const days = Math.floor(diff / (24 * 60 * 60));
+    let leftSec = diff - days * 24 * 60 * 60;
+
+    const hrs = Math.floor(leftSec / (60 * 60));
+    leftSec = leftSec - hrs * 60 * 60;
+
+    const min = Math.floor(leftSec / 60);
+    leftSec = leftSec - min * 60;
+
+    return hrs + ":" + min + ":" + Math.round(leftSec);
+  };
+
+  const updateTimout = () => {
+    if (transaction) {
+      const timeoutMinutes = 120;
+      const date = new Date(new Date(transaction.startedDateTime).getTime() + timeoutMinutes * 60000);
+      setDiffTime(diffDateFromNow(date));
+    }
+  };
+
+  setTimeout(updateTimout, 1000);
 
   useEffect(() => {
     if (transaction) {
@@ -126,6 +160,8 @@ const TransactionForm = (props: TransactionFormProps) => {
       <Paper className={classes.summary} elevation={3}>
         <Grid direction="column" container>
           <form onSubmit={handleSubmit(handleSave)}>
+            <span className={classes.timeoutLabel}>Timeout:</span>{" "}
+            <span className={classes.timeoutValue}>{diffTime}</span>
             <Dropdown
               name="paymentMethod"
               listMenu={{
@@ -150,7 +186,7 @@ const TransactionForm = (props: TransactionFormProps) => {
               form={form}
             />
             <Dropdown name="location" listMenu={facultyList} label="Location" form={form} />
-            <InputFile name="image" fullWidth label="Receipt of transfer" form={form} required={false} />
+            <InputFile name="image" fullWidth label="Receipt of transfer" form={form} />
             <Button type="submit" className={classes.saveButton} fullWidth variant="contained" color="inherit">
               Save
             </Button>

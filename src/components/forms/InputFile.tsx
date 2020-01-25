@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, makeStyles } from "@material-ui/core";
+import { TextField, makeStyles, FormHelperText } from "@material-ui/core";
 import clsx from "clsx";
 
 const useStyles = makeStyles({
@@ -54,6 +54,7 @@ const InputFile = (props: InputFileProps) => {
           }
         }}
       />
+      <FormHelperText>{form.errors[name] && form.errors[name].message}</FormHelperText>
     </>
   );
 };
