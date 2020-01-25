@@ -23,6 +23,7 @@ import TransactionPage from "./TransactionPage";
 import AboutPage from "./AboutPage";
 import TransactionListPage from "./admin/TransactionListPage";
 import Contacts from "./Contacts";
+import { isMobile } from "react-device-detect";
 
 export enum MenuGroup {
   ADMIN,
@@ -106,7 +107,7 @@ const menus = [
 const useStyles = makeStyles({
   container: {
     minHeight: "100vh",
-    paddingTop: 64
+    paddingTop: isMobile ? 55 : 64
   }
 });
 
