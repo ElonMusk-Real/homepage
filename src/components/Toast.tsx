@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Snackbar, Theme, SnackbarContent } from "@material-ui/core";
+import { Snackbar, Theme, SnackbarContent, Button } from "@material-ui/core";
 import { CheckCircle as CheckCircleIcon, Error as ErrorIcon } from "@material-ui/icons";
 import { green } from "@material-ui/core/colors";
 import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
+import CloseIcon from "@material-ui/icons/Close";
 
 import { AppState } from "../modules/store";
 import { ToastType } from "../modules/toast/toastActions";
@@ -32,6 +33,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   message: {
     display: "flex",
     alignItems: "center"
+  },
+  closeButton: {
+    color: "white"
   }
 }));
 
@@ -59,6 +63,11 @@ const Toast = (props: ToastProps) => {
             <Icon className={clsx(classes.icon, classes.iconVariant)} />
             {props.message}
           </span>
+        }
+        action={
+          <Button size="small">
+            <CloseIcon onClick={props.hideToast} className={classes.closeButton} />
+          </Button>
         }
       />
     </Snackbar>
