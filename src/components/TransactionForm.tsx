@@ -16,6 +16,7 @@ import {
   PaymentMethods
 } from "../modules/api/transactionAPI";
 import { BASE_API } from "../modules/api/http";
+import ConfirmationDialog from "./ConfirmationDialog";
 
 const useStyle = makeStyles({
   summary: {
@@ -74,20 +75,37 @@ interface TransactionFormProps {
 
 const TransactionForm = (props: TransactionFormProps) => {
   const classes = useStyle();
+  const confirmTitle = "Confirm Transaction";
+  const confirmText = "Are you sure you want to confirm your transaction?";
+  const cancelTitle = "Cancel";
+  const cancelText = "Are you sure you want to cancel transaction?";
   const { transaction } = props;
   const { handleSubmit, ...form } = useForm();
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [cancelDialog, setCancelDialog] = useState(false);
+  const [handleSave, setHandleSave] = useState<() => void>();
   const [diffTime, setDiffTime] = useState("");
 
   form.watch();
 
-  const handleSave = (data) => {
+  const handleDialogOpen = (data) => {
     const { date, paymentMethod, time, location, image } = data;
-    const updateTransactionForm: UpdateTransactionForm =
+    const tempUpdateTransactionForm: UpdateTransactionForm =
       image && image[0]
         ? { date, time, paymentMethod, location, transferImage: image[0] }
         : { date, time, paymentMethod, location };
+    setHandleSave(() => () => {
+      props.onUpdateTransaction(tempUpdateTransactionForm).then(props.onUpdated);
+    });
+    setDialogOpen(true);
+  };
 
-    props.onUpdateTransaction(updateTransactionForm).then(props.onUpdated);
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const handleCancelClose = () => {
+    setCancelDialog(false);
   };
 
   const diffDateFromNow = (date: Date) => {
@@ -159,7 +177,7 @@ const TransactionForm = (props: TransactionFormProps) => {
     <>
       <Paper className={classes.summary} elevation={3}>
         <Grid direction="column" container>
-          <form onSubmit={handleSubmit(handleSave)}>
+          <form onSubmit={handleSubmit(handleDialogOpen)}>
             <span className={classes.timeoutLabel}>Timeout:</span>{" "}
             <span className={classes.timeoutValue}>{diffTime}</span>
             <Dropdown
@@ -173,7 +191,7 @@ const TransactionForm = (props: TransactionFormProps) => {
               label="Transfer to"
               form={form}
             ></Dropdown>
-            <Dropdown name="date" listMenu={getNext7Days()} label="Date" form={form} />
+            <Dropdown name="date" listMenu={getNext7Days()} label="Order Date" form={form} />
             <Dropdown
               name="time"
               listMenu={{
@@ -182,16 +200,18 @@ const TransactionForm = (props: TransactionFormProps) => {
                 "10 am - 12 pm": "10 am - 12 pm",
                 "12 pm - 2 pm": "12 pm - 2 pm"
               }}
-              label="Time"
+              label="Delivery Time"
               form={form}
             />
-            <Dropdown name="location" listMenu={facultyList} label="Location" form={form} />
+            <Dropdown name="location" listMenu={facultyList} label="Destination Point" form={form} />
             <InputFile name="image" fullWidth label="Receipt of transfer" form={form} />
             <Button type="submit" className={classes.saveButton} fullWidth variant="contained" color="inherit">
               Save
             </Button>
             <Button
-              onClick={props.onCancelTransaction}
+              onClick={() => {
+                setCancelDialog(true);
+              }}
               className={classes.cancelButton}
               fullWidth
               variant="outlined"
@@ -202,6 +222,20 @@ const TransactionForm = (props: TransactionFormProps) => {
           </form>
         </Grid>
       </Paper>
+      <ConfirmationDialog
+        title={confirmTitle}
+        text={confirmText}
+        open={dialogOpen}
+        onClose={handleDialogClose}
+        onConfirm={handleSave}
+      />
+      <ConfirmationDialog
+        title={cancelTitle}
+        text={cancelText}
+        open={cancelDialog}
+        onClose={handleCancelClose}
+        onConfirm={props.onCancelTransaction}
+      />
     </>
   );
 };

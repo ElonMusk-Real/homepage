@@ -87,8 +87,6 @@ const TransactionListPage = (props: TransactionListPageProps) => {
     setCartOpen(true);
     console.log("Cart id: " + cartId);
     onFetchCartById(cartId).then((cartSnack) => {
-      console.log("============================");
-      console.log(cartSnack);
       setCart(cartSnack);
     });
   };

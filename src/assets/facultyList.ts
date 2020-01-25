@@ -12,7 +12,8 @@ const facultyList = {
   "Fakultas Ilmu Pengetahuan Budaya": "Fakultas Ilmu Pengetahuan Budaya",
   "Fakultas Psikologi": "Fakultas Psikologi",
   "Fakultas Ilmu Sosial dan Ilmu Politik": "Fakultas Ilmu Sosial dan Ilmu Politik",
-  "Fakultas Ilmu Administrasi": "Fakultas Ilmu Administrasi"
+  "Fakultas Ilmu Administrasi": "Fakultas Ilmu Administrasi",
+  Vokasi: "Vokasi"
 };
 
 export default facultyList;
