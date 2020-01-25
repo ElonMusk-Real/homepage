@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, makeStyles, Typography, CircularProgress, Button } from "@material-ui/core";
+import { Grid, makeStyles, Typography, CircularProgress, Button, Divider, Paper } from "@material-ui/core";
 import { connect } from "react-redux";
 
 import TransactionForm from "../components/TransactionForm";
@@ -19,6 +19,13 @@ import { CartSnack } from "../modules/api/cartAPI";
 import { green } from "@material-ui/core/colors";
 
 const useStyle = makeStyles({
+  status: {
+    margin: 20
+  },
+  divider: {
+    marginTop: 20,
+    marginBottom: 20
+  },
   container: {
     margin: 24
   },
@@ -29,6 +36,17 @@ const useStyle = makeStyles({
   greenText: {
     fontWeight: "bold",
     color: green[600]
+  },
+  item: {
+    marginBottom: 10
+  },
+  snackName: {
+    fontWeight: "bold",
+    fontSize: 16
+  },
+  snackDetails: {
+    margin: 10,
+    fontSize: 14
   }
 });
 
@@ -45,6 +63,7 @@ const TransactionPage = (props: TransactionPageProps) => {
   const [snackList, setSnackList] = useState<CartSnack[]>([]);
   const [transaction, setTransaction] = useState<Transaction>();
   const [updatedData, setUpdatedData] = useState(0);
+  const [fixSnackList, setfixSnackList] = useState<CartSnack[]>([]);
 
   const handleUpdateStatus = () => props.onGetTransactionStatus().then(setStatus);
 
@@ -58,6 +77,12 @@ const TransactionPage = (props: TransactionPageProps) => {
   }, [props.cart.status]);
 
   useEffect(() => {
+    props.onGetTransactionDetail().then(({ transaction, cartSnackList }) => {
+      setfixSnackList(cartSnackList.filter((cartSnack) => cartSnack.quantity > 0));
+    });
+  }, []);
+
+  useEffect(() => {
     setSnackList([]);
     setTransaction(undefined);
     if (status === TransactionStatuses.Process) {
@@ -67,6 +92,41 @@ const TransactionPage = (props: TransactionPageProps) => {
       });
     }
   }, [status, updatedData]);
+
+  const renderCard = () => {
+    console.log(snackList);
+    return (
+      <>
+        <br />
+        <Paper elevation={3}>
+          <Grid direction="column" container>
+            <Grid container justify="center">
+              <Typography className={classes.status} variant="h5">
+                Transaction Status: {status}
+              </Typography>
+            </Grid>
+            <Divider className={classes.divider} />
+
+            {fixSnackList.map((snack) => (
+              <>
+                <Grid>
+                  <Grid container justify="space-between" className={classes.item}>
+                    <Grid>
+                      <Grid className={classes.snackName}>{snack.name}</Grid>
+                      <Grid className={classes.snackDetails}>Price: Rp. {snack.price.toLocaleString()}</Grid>
+                      <Grid className={classes.snackDetails}>Quantity: {snack.quantity}</Grid>
+                    </Grid>
+                    <Grid className={classes.snackDetails}>Rp. {(snack.price * snack.quantity).toLocaleString()}</Grid>
+                  </Grid>
+                </Grid>
+                <Divider className={classes.divider} />
+              </>
+            ))}
+          </Grid>
+        </Paper>
+      </>
+    );
+  };
 
   const renderLoading = () => (
     <Grid container direction="column" justify="center" alignItems="center" className={classes.info}>
@@ -91,12 +151,14 @@ const TransactionPage = (props: TransactionPageProps) => {
         Your transaction has been <span className={classes.greenText}>confirmed</span>
       </div>
       <div>Please wait until the snack box is delivered</div>
+      {renderCard()}
     </Typography>
   );
 
   const renderInDelivery = () => (
     <Typography className={classes.info} variant="h6">
       Your snack box is <span className={classes.greenText}>being delivered</span>
+      {renderCard()}
     </Typography>
   );
 
@@ -108,6 +170,7 @@ const TransactionPage = (props: TransactionPageProps) => {
       <Button onClick={handleConfirm} type="submit" fullWidth variant="contained" color="inherit">
         Confirm Pick Up
       </Button>
+      {renderCard()}
     </>
   );
 
