@@ -3,8 +3,9 @@ import { makeStyles, Grid, Button, ButtonGroup } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Icon from '@material-ui/core/Icon';
 
-const bgImgUrl =
+const bgImgUrl1 =
   "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80";
+
 
 const useStyles = makeStyles({
   marginv: {
@@ -14,8 +15,8 @@ const useStyles = makeStyles({
   hero: {
     height: 400
   },
-  bgImage: {
-    backgroundImage: "url(" + bgImgUrl + ")",
+  bgImage1: {
+    backgroundImage: "url(" + bgImgUrl1 + ")",
     backgroundSize: "cover",
     overflow: "hidden"
   },
@@ -31,7 +32,7 @@ const HomePage = () => {
   return (
     <Grid item xs={12} md={12}>
       <Grid container justify="center">
-        <div className={classes.bgImage}>
+        <div className={classes.bgImage1}>
           <section className={classes.hero}>
             <Box
               display="flex"
@@ -66,7 +67,7 @@ const HomePage = () => {
       <Grid container justify="center">
         <section>
           <Grid item>
-            <h2>How to order</h2>
+            <h2>How to Order</h2>
           </Grid>
           <Box>
             <Grid container>
@@ -104,6 +105,61 @@ const HomePage = () => {
           </Box>
         </section>
       </Grid>
+
+      <Grid container justify="center">
+        <section>
+          <Grid item>
+            <h2>Best Features</h2>
+          </Grid>
+          <Box>
+            <Grid container>
+              <Grid item xs={4}>
+                <Icon>cake_outlined</Icon>
+                <h5>Various Snack</h5>
+              </Grid>
+              <Grid item xs={4}>
+                <Icon>store_mall_directory_outlined</Icon>
+                <h5>Star Seller</h5>
+              </Grid>
+              <Grid item xs={4}>
+                <Icon>schedule_outlined</Icon>
+                <h5>Real Time Order</h5>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid item xs={4}>
+                <Icon>loyalty_outlined</Icon>
+                <h5>Discounts and Points</h5>
+              </Grid>
+              <Grid item xs={4}>
+                <Icon>room_outlined</Icon>
+                <h5>Near Me Seller</h5>
+              </Grid>
+              <Grid item xs={4}>
+                <Icon>account_balance_wallet_outlined</Icon>
+                <h5>Easy to Pay</h5>
+              </Grid>
+            </Grid>
+            <Grid item xs={4}>
+              <Icon>tab_outlined</Icon>
+              <h5>Big Data-base</h5>
+            </Grid>
+          </Box>
+        </section>
+      </Grid>
+
+      <Grid container justify="center">
+        <section>
+          <Grid container xs={9}>
+            <p>
+              "Berkat nata danus omzet saya stonk, meningkat tajim"
+            </p>
+            <p>Bapak Ngatemin, Penjual Basreng</p>
+          </Grid>
+          <Grid item xs={3}></Grid>
+        </section>
+      </Grid>
+
     </Grid>
   );
 };
