@@ -17,6 +17,7 @@ import { getCart } from "../modules/cart/cartSelectors";
 import { CartState } from "../modules/cart/cartActions";
 import { CartSnack } from "../modules/api/cartAPI";
 import { green } from "@material-ui/core/colors";
+import ConfirmationDialog from "../components/ConfirmationDialog";
 
 const useStyle = makeStyles({
   status: {
@@ -72,15 +73,26 @@ interface TransactionPageProps {
 
 const TransactionPage = (props: TransactionPageProps) => {
   const classes = useStyle();
+  const pickupTitle = "Confirm Pickup";
+  const pickupText = "Confirm that you have picked up your snack box?";
   const [status, setStatus] = useState<TransactionStatuses | null>(null);
   const [snackList, setSnackList] = useState<CartSnack[]>([]);
   const [transaction, setTransaction] = useState<Transaction>();
   const [updatedData, setUpdatedData] = useState(0);
+  const [pickupOpen, setPickupOpen] = useState(false);
+  const [handlePickup, setHandlePickup] = useState<() => void>();
 
   const handleUpdateStatus = () => props.onGetTransactionStatus().then(setStatus);
 
-  const handleConfirm = () => {
-    props.confirmPickUp().then(handleUpdateStatus);
+  const handleDialogOpen = () => {
+    setPickupOpen(true);
+    setHandlePickup(() => () => {
+      props.confirmPickUp().then(handleUpdateStatus);
+    });
+  };
+
+  const handleClose = () => {
+    setPickupOpen(false);
   };
 
   useEffect(() => {
@@ -179,7 +191,7 @@ const TransactionPage = (props: TransactionPageProps) => {
           Your snack box has <span className={classes.greenText}>arrived</span>
         </Typography>
         <Button
-          onClick={handleConfirm}
+          onClick={handleDialogOpen}
           className={classes.confirmPickUp}
           type="submit"
           fullWidth
@@ -188,6 +200,13 @@ const TransactionPage = (props: TransactionPageProps) => {
         >
           Confirm Pick Up
         </Button>
+        <ConfirmationDialog
+          title={pickupTitle}
+          text={pickupText}
+          onConfirm={handlePickup}
+          open={pickupOpen}
+          onClose={handleClose}
+        />
       </>
     );
 
