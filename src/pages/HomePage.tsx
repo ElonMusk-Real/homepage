@@ -195,11 +195,6 @@ const HomePage = () => {
           </Grid>
         </Grid>
       </Grid>
-
-      <Grid container justify="center">
-        <Grid>"Berkat nata danus omzet saya stonks, meningkat tajim"</Grid>
-        <Grid>Bapak Ngatemin, Penjual Basreng</Grid>
-      </Grid>
     </>
   );
 };
