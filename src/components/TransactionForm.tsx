@@ -140,7 +140,7 @@ const TransactionForm = (props: TransactionFormProps) => {
 
   const updateTimout = () => {
     if (transaction) {
-      const timeoutMinutes = 120;
+      const timeoutMinutes = 60;
       const date = new Date(new Date(transaction.startedDateTime).getTime() + timeoutMinutes * 60000);
       setDiffTime(diffDateFromNow(date));
     }
