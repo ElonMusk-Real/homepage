@@ -8,6 +8,7 @@ import ld from "lodash";
 import Dropdown from "../components/forms/Dropdown";
 import InputFile from "../components/forms/InputFile";
 import facultyList from "../assets/facultyList";
+
 import {
   cancelTransaction,
   updateTransaction,
@@ -18,6 +19,7 @@ import {
 import { BASE_API } from "../modules/api/http";
 import ConfirmationDialog from "./ConfirmationDialog";
 import InputText from "./forms/InputText";
+import SeeLocationDialog from "./SeeLocationDialog";
 
 const useStyle = makeStyles({
   summary: {
@@ -90,10 +92,15 @@ const TransactionForm = (props: TransactionFormProps) => {
   const { handleSubmit, ...form } = useForm();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [cancelDialog, setCancelDialog] = useState(false);
+  const [seeImg, setSeeImg] = useState(false);
   const [handleSave, setHandleSave] = useState<() => void>();
   const [diffTime, setDiffTime] = useState("");
 
   form.watch();
+
+  const handleImgClose = () => {
+    setSeeImg(false);
+  };
 
   const handleDialogOpen = (data) => {
     const { date, paymentMethod, time, location, image } = data;
@@ -133,7 +140,7 @@ const TransactionForm = (props: TransactionFormProps) => {
 
   const updateTimout = () => {
     if (transaction) {
-      const timeoutMinutes = 120;
+      const timeoutMinutes = 60;
       const date = new Date(new Date(transaction.startedDateTime).getTime() + timeoutMinutes * 60000);
       setDiffTime(diffDateFromNow(date));
     }
@@ -182,6 +189,8 @@ const TransactionForm = (props: TransactionFormProps) => {
 
   const values = form.getValues();
   const paymentMethod = values.paymentMethod;
+  const location: string | undefined = values.location;
+
   const norek = {
     gopay: "Gopay 082215151500",
     ovo: "OVO 082215151500",
@@ -237,6 +246,19 @@ const TransactionForm = (props: TransactionFormProps) => {
               form={form}
             />
             <Dropdown name="location" listMenu={facultyList} label="Destination Point" form={form} />
+            {location && (
+              <>
+                <Button
+                  onClick={() => {
+                    setSeeImg(true);
+                  }}
+                  variant="contained"
+                  color="primary"
+                >
+                  View Destination Point
+                </Button>
+              </>
+            )}
             <InputFile name="image" fullWidth label="Receipt of transfer" form={form} />
             <Button type="submit" className={classes.saveButton} fullWidth variant="contained" color="inherit">
               Save
@@ -269,6 +291,7 @@ const TransactionForm = (props: TransactionFormProps) => {
         onClose={handleCancelClose}
         onConfirm={props.onCancelTransaction}
       />
+      <SeeLocationDialog location={location} open={seeImg} onClose={handleImgClose} />
     </>
   );
 };
