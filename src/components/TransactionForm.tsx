@@ -140,7 +140,7 @@ const TransactionForm = (props: TransactionFormProps) => {
 
   const updateTimout = () => {
     if (transaction) {
-      const timeoutMinutes = 60;
+      const timeoutMinutes = 120;
       const date = new Date(new Date(transaction.startedDateTime).getTime() + timeoutMinutes * 60000);
       setDiffTime(diffDateFromNow(date));
     }
@@ -237,10 +237,13 @@ const TransactionForm = (props: TransactionFormProps) => {
             <Dropdown
               name="time"
               listMenu={{
-                "6 am - 8 am": "6 am - 8 am",
-                "8 am - 10 am": "8 am - 10 am",
-                "10 am - 12 pm": "10 am - 12 pm",
-                "12 pm - 2 pm": "12 pm - 2 pm"
+                "7 am - 8 am": "7 am - 8 am",
+                "8 am - 9 am": "8 am - 9 am",
+                "9 am - 10 am": "9 am - 10 am",
+                "10 am - 11 am": "10 am - 11 am",
+                "11 am - 12 pm": "11 am - 12 pm",
+                "12 pm - 1 pm": "12 pm - 1 pm",
+                "1 pm - 2 pm": "1 pm - 2 pm"
               }}
               label="Delivery Time"
               form={form}

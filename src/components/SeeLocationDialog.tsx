@@ -45,7 +45,7 @@ const SeeLocationDialog = (props: SeeLocationDialogProps) => {
     "FH : Meja Kantin Lantai 2 ": fhmejakantin,
     "FEB : Koperasi": febkoperasi,
     "FEB : Fotokopi": febfotokopi,
-    "FIB : Kopma Kantek": fibkopma,
+    "FIB : Kopma": fibkopma,
     "F.Psi : Atk Gedung H": fpsiatkgdh,
     "FISIP : PAU FISIP UI": fisippau,
     "FIA : PAU FISIP UI": fisippau,
