@@ -44,6 +44,7 @@ export interface NavMenu {
 const menus = [
   { icon: "home", text: "Home", url: "/", component: HomePage, exact: true },
   { icon: "view_module", text: "Snacks", url: "/snacks", component: SnacksPage },
+  { icon: "view_module", text: "Merchandise (Soon!)", url: "#" },  
   {
     icon: "person",
     text: "My Profile",

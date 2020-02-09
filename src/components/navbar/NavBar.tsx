@@ -118,7 +118,7 @@ const Navbar = (props: NavBarProps) => {
 
   return (
     <div>
-      <AppBar color="inherit" className={classes.appBar}>
+      <AppBar color="default" className={classes.appBar}>
         <Toolbar>
           {isMobile && (
             <IconButton edge="start" onClick={toggle}>
@@ -127,8 +127,8 @@ const Navbar = (props: NavBarProps) => {
           )}
           {!onSearch && (
             <Link className={classes.link} to="/">
-              <img src={logogram} height="32" alt="NataDanus Logo" />
-              <img src={logotype} height="26" className={classes.logotype} alt="NataDanus" />
+              <img src={logogram} height="28" alt="NataDanus Logo" />
+              <img src={logotype} height="22" className={classes.logotype} alt="NataDanus" />
             </Link>
           )}
           {(isBrowser || onSearch) && <SearchBox onClose={() => setOnSearch(false)} />}
