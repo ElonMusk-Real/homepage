@@ -100,7 +100,7 @@ const ProfilePage = (props: ProfilePageProps) => {
               validators={[minLength(0), maxLength(20)]}
               defaultValue="Loading..."
               readOnly={!editMode}
-              required={false}
+              required={true}
             />
             <InputText
               name="phoneNumber"
@@ -110,7 +110,7 @@ const ProfilePage = (props: ProfilePageProps) => {
               validators={[minLength(0), maxLength(20)]}
               defaultValue="Loading..."
               readOnly={!editMode}
-              required={false}
+              required={true}
             />
             <Dropdown
               name="university"

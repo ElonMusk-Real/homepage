@@ -45,8 +45,16 @@ const RegisterPage = (props: RegisterPageProps) => {
   const classes = useStyles();
 
   const handleRegister = (data) => {
-    const { email, name, password, university, faculty } = data;
-    const userRegistrationForm: UserRegistrationForm = { email, name, password, university, faculty };
+    const { email, name, password, university, faculty, lineId, phoneNumber } = data;
+    const userRegistrationForm: UserRegistrationForm = {
+      email,
+      name,
+      password,
+      university,
+      faculty,
+      lineId,
+      phoneNumber
+    };
     props.registerUser(userRegistrationForm);
   };
 
@@ -72,6 +80,14 @@ const RegisterPage = (props: RegisterPageProps) => {
             password
             form={form}
             validators={[minLength(8), maxLength(16)]}
+          />
+          <InputText name="lineId" fullWidth label="Line ID" form={form} validators={[minLength(0), maxLength(20)]} />
+          <InputText
+            name="phoneNumber"
+            fullWidth
+            label="Phone Number"
+            form={form}
+            validators={[minLength(0), maxLength(20)]}
           />
           <Dropdown
             name="university"

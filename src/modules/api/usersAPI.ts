@@ -30,6 +30,8 @@ export interface UserRegistrationForm {
   email: string;
   password: string;
   name: string;
+  lineId: string;
+  phoneNumber: string;
   university: string;
   faculty: string;
 }

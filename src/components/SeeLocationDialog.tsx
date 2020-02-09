@@ -36,18 +36,18 @@ const SeeLocationDialog = (props: SeeLocationDialogProps) => {
   const { location, open, onClose } = props;
   const classes = useStyle();
   const images = {
-    "Rumpun Ilmu Kesehatan : Pos Satpam": fksatpam,
-    "Rumpun Ilmu Kesehatan : Pos Satpam Gedung C": fksatpamgdc,
-    "Fakultas Matematika dan Ilmu Pengetahuan Alam : Kantin": mipa,
-    "Fakultas Ilmu Komputer Gedung Lama : Meja Danus": pacillama,
-    "Fakultas Ilmu Komputer Gedung Baru : Satpam Aula": pacilbarusatpam2,
-    "Fakultas Hukum : Meja Kantin Lantai 2 ": fhmejakantin,
-    "Fakultas Ekonomi dan Bisnis : Koperasi": febkoperasi,
-    "Fakultas Ekonomi dan Bisnis : Fotokopi": febfotokopi,
-    "Fakultas Ilmu Pengetahuan Budaya : Kopma": fibkopma,
-    "Fakultas Psikologi : Atk Gedung H": fpsiatkgdh,
-    "Fakultas Ilmu Sosial dan Ilmu Politik : PAU FISIP UI": fisippau,
-    "Fakultas Ilmu Administrasi : PAU FISIP UI": fisippau
+    "RIK : Pos Satpam": fksatpam,
+    "RIK : Pos Satpam Gedung C": fksatpamgdc,
+    "FMIPA : Kantin": mipa,
+    "Fasilkom Gedung Lama : Meja Danus": pacillama,
+    "Fasilkom Gedung Baru : Satpam Aula": pacilbarusatpam2,
+    "FH : Meja Kantin Lantai 2 ": fhmejakantin,
+    "FEB : Koperasi": febkoperasi,
+    "FEB : Fotokopi": febfotokopi,
+    "FIB : Kopma": fibkopma,
+    "F.Psi : Atk Gedung H": fpsiatkgdh,
+    "FISIP : PAU FISIP UI": fisippau,
+    "FIA : PAU FISIP UI": fisippau
   };
   return (
     <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
