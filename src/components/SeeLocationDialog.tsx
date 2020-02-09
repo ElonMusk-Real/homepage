@@ -19,6 +19,7 @@ import mipa from "../assets/mipa.jpg";
 import pacilbarusatpam from "../assets/pacilbarusatpam.jpg";
 import pacilbarusatpam2 from "../assets/pacilbarusatpam2.jpg";
 import pacillama from "../assets/pacillama.jpg";
+import vokasibc from "../assets/vokasibc.jpg";
 
 interface SeeLocationDialogProps {
   location: string | undefined;
@@ -44,10 +45,11 @@ const SeeLocationDialog = (props: SeeLocationDialogProps) => {
     "FH : Meja Kantin Lantai 2 ": fhmejakantin,
     "FEB : Koperasi": febkoperasi,
     "FEB : Fotokopi": febfotokopi,
-    "FIB : Kopma": fibkopma,
+    "FIB : Kopma Kantek": fibkopma,
     "F.Psi : Atk Gedung H": fpsiatkgdh,
     "FISIP : PAU FISIP UI": fisippau,
-    "FIA : PAU FISIP UI": fisippau
+    "FIA : PAU FISIP UI": fisippau,
+    "Vokasi: Business Center": vokasibc
   };
   return (
     <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">

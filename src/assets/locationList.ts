@@ -8,11 +8,11 @@ const locationList = {
   "FH : Meja Kantin Lantai 2 ": "FH : Meja Kantin Lantai 2",
   "FEB : Koperasi": "FEB : Koperasi",
   "FEB : Fotokopi": "FEB : Fotokopi",
-  "FIB : Kopma": "FIB : Kopma",
+  "FIB : Kopma Kantek": "FIB : Kopma Kantek",
   "F.Psi : Atk Gedung H": "F.Psi : Atk Gedung H",
   "FISIP : PAU FISIP UI": "FISIP : PAU FISIP UI",
   "FIA : PAU FISIP UI": "FIA : PAU FISIP UI",
-  Vokasi: "Vokasi"
+  "Vokasi: Business Center": "Vokasi: Business Center"
 };
 
 export default locationList;
