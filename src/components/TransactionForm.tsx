@@ -7,7 +7,7 @@ import ld from "lodash";
 
 import Dropdown from "../components/forms/Dropdown";
 import InputFile from "../components/forms/InputFile";
-import facultyList from "../assets/facultyList";
+import locationList from "../assets/locationList";
 
 import {
   cancelTransaction,
@@ -192,8 +192,8 @@ const TransactionForm = (props: TransactionFormProps) => {
   const location: string | undefined = values.location;
 
   const norek = {
-    gopay: "Gopay 082215151500",
-    ovo: "OVO 082215151500",
+    gopay: "Gopay A.n. Nafiys Ismail 089656031508",
+    ovo: "OVO A.n. Nafiys Ismail 089656031508",
     "bank bca": (
       <>
         BNI 0496518845
@@ -245,7 +245,7 @@ const TransactionForm = (props: TransactionFormProps) => {
               label="Delivery Time"
               form={form}
             />
-            <Dropdown name="location" listMenu={facultyList} label="Destination Point" form={form} />
+            <Dropdown name="location" listMenu={locationList} label="Destination Point" form={form} />
             {location && (
               <>
                 <Button

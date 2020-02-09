@@ -13,6 +13,7 @@ import fksatpam from "../assets/fksatpam.jpg";
 import fksatpamgdc from "../assets/fksatpamgdc.jpg";
 import fhmejakantin from "../assets/fhmejakantin.jpg";
 import fisippau from "../assets/fisippau.jpg";
+import fibkopma from "../assets/fibkopma.jpg";
 import fpsiatkgdh from "../assets/fpsiatkgdh.jpg";
 import mipa from "../assets/mipa.jpg";
 import pacilbarusatpam from "../assets/pacilbarusatpam.jpg";
@@ -35,17 +36,18 @@ const SeeLocationDialog = (props: SeeLocationDialogProps) => {
   const { location, open, onClose } = props;
   const classes = useStyle();
   const images = {
-    "Fakultas Ekonomi dan Bisnis Fotokopi": febfotokopi,
-    "Fakultas Ekonomi dan Bisnis Koperasi": febkoperasi,
-    "Rumpun Ilmu Kesehatan Pos Satpam": fksatpam,
-    "Rumpun Ilmu Kesehatan Pos Satpam Gedung C": fksatpamgdc,
-    "Fakultas Psikologi Atk Gedung H": fpsiatkgdh,
-    "Fakultas Matematika dan Ilmu Pengetahuan Alam": mipa,
-    "Fakultas Ilmu Komputer Gedung Baru": pacilbarusatpam2,
-    "Fakultas Ilmu Komputer Gedung Lama": pacillama,
-    "Fakultas Hukum": fhmejakantin,
-    "Fakultas Ilmu Sosial dan Ilmu Politik": fisippau,
-    "Fakultas Ilmu Administrasi": fisippau
+    "Rumpun Ilmu Kesehatan : Pos Satpam": fksatpam,
+    "Rumpun Ilmu Kesehatan : Pos Satpam Gedung C": fksatpamgdc,
+    "Fakultas Matematika dan Ilmu Pengetahuan Alam : Kantin": mipa,
+    "Fakultas Ilmu Komputer Gedung Lama : Meja Danus": pacillama,
+    "Fakultas Ilmu Komputer Gedung Baru : Satpam Aula": pacilbarusatpam2,
+    "Fakultas Hukum : Meja Kantin Lantai 2 ": fhmejakantin,
+    "Fakultas Ekonomi dan Bisnis : Koperasi": febkoperasi,
+    "Fakultas Ekonomi dan Bisnis : Fotokopi": febfotokopi,
+    "Fakultas Ilmu Pengetahuan Budaya : Kopma": fibkopma,
+    "Fakultas Psikologi : Atk Gedung H": fpsiatkgdh,
+    "Fakultas Ilmu Sosial dan Ilmu Politik : PAU FISIP UI": fisippau,
+    "Fakultas Ilmu Administrasi : PAU FISIP UI": fisippau
   };
   return (
     <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
