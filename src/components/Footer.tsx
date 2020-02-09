@@ -10,7 +10,8 @@ const useStyle = makeStyles({
     color: "white",
     width: "100%",
     padding: 12,
-    textAlign: "center"
+    textAlign: "center",
+    marginTop: 20
   },
   linkMenu: {
     fontSize: "1rem",
