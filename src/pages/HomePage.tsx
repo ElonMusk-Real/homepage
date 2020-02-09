@@ -151,6 +151,7 @@ const useStyles = makeStyles({
     fontWeight: 800,
     color: "black",
     textAlign: "center",
+    margin: "1.25rem auto .5rem"
     // "&::after": {
     //   content: `''`,
     //   position: "absolute",
@@ -203,8 +204,9 @@ const useStyles = makeStyles({
     backgroundColor: "white"
   },
   info: {
-    color: "black",
-    margin: "0 2rem"
+    color: "#000000bf",
+    margin: "0 2rem",
+    textAlign: "center"
   },
   wrapperFeatures: {
     margin: "1rem 2rem"
@@ -212,7 +214,8 @@ const useStyles = makeStyles({
   iconTitle: {
     margin: 0,
     padding: 0,
-    textAlign: "center"
+    textAlign: "center",
+    color: "#000000ba"
   },
   iconFeatures: {
     display: "flex",
@@ -309,7 +312,7 @@ const HomePage = () => {
             <img className={classes.iconFoods} src={produk8} height={64} alt="" />              
             </Grid>          
           </Grid>
-          <Button variant="outlined" className={classes.buttonMore}>More</Button>
+          <Button variant="outlined" className={classes.buttonMore} href="/snacks">More</Button>
         </Grid>
       </Grid>
 
@@ -341,7 +344,7 @@ const HomePage = () => {
           </Grid>
           <Grid item xs={4}>
             <img className={classes.iconFeatures} src={database} height={40} alt="" />
-            <h5 className={classes.iconTitle}>Big Data-base</h5>
+            <h5 className={classes.iconTitle}>Big Database</h5>
           </Grid>
           <Grid item xs={4}>
             <img className={classes.iconFeatures} src={like} height={40} alt="" />
