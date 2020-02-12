@@ -91,7 +91,6 @@ const TransactionListPage = (props: TransactionListPageProps) => {
 
   const handleCartDialogOpen = (cartId: number) => {
     setCartOpen(true);
-    console.log("Cart id: " + cartId);
     onFetchCartById(cartId).then((cartSnack) => {
       setCart(cartSnack);
     });

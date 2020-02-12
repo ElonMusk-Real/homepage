@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { makeStyles, Table, TableHead, TableRow, TableCell, TableBody, Grid } from "@material-ui/core";
+import {
+  makeStyles,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Grid,
+  TableFooter,
+  TablePagination
+} from "@material-ui/core";
+import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
 
 import { fetchAllProfile, Profile } from "../../modules/api/usersAPI";
 import { Pagination } from "../../modules/api/pagination";
@@ -21,13 +32,27 @@ interface ProfileListPageProps {
 const ProfileListPage = (props: ProfileListPageProps) => {
   const { fetchAllProfile } = props;
   const [data, setData] = useState<Profile[]>([]);
+  const [total, setTotal] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(0);
+
   const classes = useStyles();
+
+  const handleChangePage = (event, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   useEffect(() => {
     fetchAllProfile().then((pagedData) => {
       setData(pagedData.data);
+      setTotal(pagedData.total);
     });
-  }, []);
+  }, [page, rowsPerPage]);
 
   return (
     <Grid direction="column">
@@ -59,7 +84,26 @@ const ProfileListPage = (props: ProfileListPageProps) => {
               </TableRow>
             ))}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 20]}
+                count={total}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                SelectProps={{
+                  inputProps: { "aria-label": "rows per page" },
+                  native: true
+                }}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
         </Table>
+
+        <Table className={classes.table} aria-label="simple table"></Table>
       </Grid>
     </Grid>
   );
