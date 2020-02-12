@@ -53,7 +53,8 @@ const useStyle = makeStyles({
   },
   paperInfo: {
     marginTop: 50,
-    padding: 20
+    padding: 20,
+    maxWidth: 700
   },
   confirmPickUp: {
     backgroundColor: green[700],
@@ -61,7 +62,8 @@ const useStyle = makeStyles({
       backgroundColor: green[900]
     },
     color: "white",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    maxWidth: 200
   }
 });
 
