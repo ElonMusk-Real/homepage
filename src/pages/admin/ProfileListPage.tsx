@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 });
 
 interface ProfileListPageProps {
-  fetchAllProfile: () => Promise<Pagination<Profile>>;
+  fetchAllProfile: (rowsPerPage?: number, page?: number) => Promise<Pagination<Profile>>;
 }
 
 const ProfileListPage = (props: ProfileListPageProps) => {
@@ -48,7 +48,7 @@ const ProfileListPage = (props: ProfileListPageProps) => {
   };
 
   useEffect(() => {
-    fetchAllProfile().then((pagedData) => {
+    fetchAllProfile(rowsPerPage, page).then((pagedData) => {
       setData(pagedData.data);
       setTotal(pagedData.total);
     });
@@ -102,8 +102,6 @@ const ProfileListPage = (props: ProfileListPageProps) => {
             </TableRow>
           </TableFooter>
         </Table>
-
-        <Table className={classes.table} aria-label="simple table"></Table>
       </Grid>
     </Grid>
   );

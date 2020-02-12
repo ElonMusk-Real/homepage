@@ -77,9 +77,9 @@ export const updateProfile = (userUpdateForm: UserUpdateForm) => async (dispatch
   dispatch(showToast(response.message));
 };
 
-export const fetchAllProfile = () => async (dispatch, getState) => {
+export const fetchAllProfile = (rows: number = 10, page: number = 0) => async (dispatch, getState) => {
   const token = selectToken(getState());
-  const url = `${BASE_API}/users`;
+  const url = `${BASE_API}/users/?skip=${rows * page}&take=${rows}`;
   const profiles: Pagination<Profile> = await get(url, token);
 
   return profiles;
