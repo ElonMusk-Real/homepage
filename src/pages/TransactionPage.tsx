@@ -18,6 +18,7 @@ import { CartState } from "../modules/cart/cartActions";
 import { CartSnack } from "../modules/api/cartAPI";
 import { green } from "@material-ui/core/colors";
 import ConfirmationDialog from "../components/ConfirmationDialog";
+import HorizontalLabelPositionBelowStepper from "../components/HorizontalLabelPositionBelowStepper";
 
 const useStyle = makeStyles({
   status: {
@@ -163,24 +164,21 @@ const TransactionPage = (props: TransactionPageProps) => {
     renderCard(
       <Typography className={classes.status} variant="h5">
         <div>Thank you for your purchase 😊</div>
-        <div>Please wait for confirmation</div>
+        <HorizontalLabelPositionBelowStepper stepToActivate={0} />
       </Typography>
     );
 
   const renderConfirmed = () =>
     renderCard(
       <Typography className={classes.status} variant="h5">
-        <div>
-          Your transaction has been <span className={classes.greenText}>confirmed</span>
-        </div>
-        <div>Please wait until the snack box is delivered</div>
+        <HorizontalLabelPositionBelowStepper stepToActivate={1} />
       </Typography>
     );
 
   const renderInDelivery = () =>
     renderCard(
       <Typography className={classes.status} variant="h5">
-        Your snack box is <span className={classes.greenText}>being delivered</span>
+        <HorizontalLabelPositionBelowStepper stepToActivate={2} />
       </Typography>
     );
 
@@ -188,7 +186,7 @@ const TransactionPage = (props: TransactionPageProps) => {
     renderCard(
       <>
         <Typography className={classes.status} variant="h6">
-          Your snack box has <span className={classes.greenText}>arrived</span>
+          <HorizontalLabelPositionBelowStepper stepToActivate={3} />
         </Typography>
         <Button
           onClick={handleDialogOpen}
