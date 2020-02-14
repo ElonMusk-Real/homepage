@@ -55,7 +55,7 @@ const useStyle = makeStyles({
     fontSize: 14
   },
   paperInfo: {
-    padding: 10,
+    padding: 25,
     marginTop: isMobile ? 10 : 50,
     maxWidth: isMobile ? "80vw" : 700
   },
