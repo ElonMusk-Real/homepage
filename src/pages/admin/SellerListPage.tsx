@@ -15,7 +15,7 @@ import {
 import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
 import { Link } from "react-router-dom";
 
-import { fetchSellers, Seller } from "../../modules/api/sellersAPI";
+import { fetchSellers, Seller } from "../../modules/api/sellerAPI";
 import { Pagination } from "../../modules/api/pagination";
 
 const useStyles = makeStyles({

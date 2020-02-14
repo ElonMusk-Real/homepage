@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 import InputText from "../../components/forms/InputText";
 import { minLength, maxLength } from "../../modules/validation";
-import { addSeller, InsertSellerForm } from "../../modules/api/sellersAPI";
+import { addSeller, SellerInsertForm } from "../../modules/api/sellerAPI";
 
 const useStyles = makeStyles({
   text: {
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 });
 
 interface AddSellerPageProps {
-  addSeller: (insertSellerForm: InsertSellerForm) => Promise<void>;
+  addSeller: (insertSellerForm: SellerInsertForm) => Promise<void>;
 }
 
 const AddSellerPage = (props: AddSellerPageProps) => {
@@ -32,7 +32,7 @@ const AddSellerPage = (props: AddSellerPageProps) => {
 
   const handleCreate = (data) => {
     const { name, phoneNumber, address } = data;
-    const insertSellerForm: InsertSellerForm = { name, phoneNumber, address };
+    const insertSellerForm: SellerInsertForm = { name, phoneNumber, address };
     props.addSeller(insertSellerForm);
   };
 

@@ -6,7 +6,7 @@ import delay from "delay";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { isArray } from "util";
 
-import { fetchSnacks, Snack } from "../modules/api/snacksAPI";
+import { fetchSnacks, Snack } from "../modules/api/snackAPI";
 import SnackCard from "../components/SnackCard";
 import { Pagination } from "../modules/api/pagination";
 import PaginationControl from "../components/PaginationControl";

@@ -6,7 +6,7 @@ import { red } from "@material-ui/core/colors";
 import { Link } from "react-router-dom";
 
 import InputText from "../components/forms/InputText";
-import { loginUser } from "../modules/api/usersAPI";
+import { loginUser } from "../modules/api/userAPI";
 
 const useStyles = makeStyles({
   text: {

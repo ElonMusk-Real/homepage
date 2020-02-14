@@ -5,7 +5,7 @@ import { selectToken } from "../session/sessionSelectors";
 import { showToast } from "../toast/toastActions";
 import { Pagination } from "./pagination";
 
-export interface InsertSnackForm {
+export interface SnackInsertForm {
   sellerId: number;
   name: string;
   price: number;
@@ -15,7 +15,7 @@ export interface InsertSnackForm {
   image?: any;
 }
 
-export interface UpdateSnackForm {
+export interface SnackUpdateForm {
   sellerId: number;
   name: string;
   price: number;
@@ -57,10 +57,10 @@ export const fetchSnacks = (rows: number = 10, page: number = 0, q: string = "")
   return snacks;
 };
 
-export const addSnack = (insertSnackForm: InsertSnackForm) => async (dispatch, getState) => {
+export const addSnack = (snackInsertForm: SnackInsertForm) => async (dispatch, getState) => {
   const token = selectToken(getState());
   const url = `${BASE_API}/snacks/`;
-  const body: Message = await postMultipart(url, token, insertSnackForm);
+  const body: Message = await postMultipart(url, token, snackInsertForm);
 
   dispatch(showToast(body.message));
   dispatch(push("/admin/snacks"));
@@ -74,10 +74,10 @@ export const getSnack = (id: number) => async (dispatch, getState) => {
   return snack;
 };
 
-export const updateSnack = (id: number, updateSnackForm: UpdateSnackForm) => async (dispatch, getState) => {
+export const updateSnack = (id: number, snackUpdateForm: SnackUpdateForm) => async (dispatch, getState) => {
   const token = selectToken(getState());
   const url = `${BASE_API}/snacks/${id}`;
-  const body: Message = await putMultipart(url, token, updateSnackForm);
+  const body: Message = await putMultipart(url, token, snackUpdateForm);
 
   dispatch(showToast(body.message));
   dispatch(push("/admin/snacks"));

@@ -6,7 +6,7 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 
 import InputText from "../../components/forms/InputText";
 import { minLength, maxLength } from "../../modules/validation";
-import { getSeller, Seller, updateSeller, UpdateSellerForm } from "../../modules/api/sellersAPI";
+import { getSeller, Seller, updateSeller, SellerUpdateForm } from "../../modules/api/sellerAPI";
 
 const useStyles = makeStyles({
   text: {
@@ -28,7 +28,7 @@ interface ParamMatch {
 
 interface EditSellerPageProps extends RouteComponentProps<ParamMatch> {
   getSeller: (id: number) => Promise<Seller>;
-  updateSeller: (id: number, updateSellerForm: UpdateSellerForm) => Promise<void>;
+  updateSeller: (id: number, updateSellerForm: SellerUpdateForm) => Promise<void>;
 }
 
 const EditSellerPage = (props: EditSellerPageProps) => {
@@ -39,7 +39,7 @@ const EditSellerPage = (props: EditSellerPageProps) => {
 
   const handleUpdate = (data) => {
     const { name, phoneNumber, address } = data;
-    const updateSellerForm: UpdateSellerForm = { name, phoneNumber, address };
+    const updateSellerForm: SellerUpdateForm = { name, phoneNumber, address };
     props.updateSeller(id, updateSellerForm);
   };
 

@@ -6,7 +6,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 
 import QuantityButton from "./QuantityButton";
 import { BASE_API } from "../modules/api/http";
-import { Snack } from "../modules/api/snacksAPI";
+import { Snack } from "../modules/api/snackAPI";
 import LazyCardMediaImage from "./LazyCardMediaImage";
 
 const useStyles = makeStyles({

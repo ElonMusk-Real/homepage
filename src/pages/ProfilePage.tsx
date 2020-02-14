@@ -4,7 +4,7 @@ import { green } from "@material-ui/core/colors";
 import { connect } from "react-redux";
 import { useForm } from "react-hook-form";
 
-import { getMyProfile, Profile, updateProfile, UserUpdateForm } from "../modules/api/usersAPI";
+import { getMyProfile, Profile, updateProfile, UserUpdateForm } from "../modules/api/userAPI";
 import InputText from "../components/forms/InputText";
 import { minLength, maxLength, isEmail } from "../modules/validation";
 import Dropdown from "../components/forms/Dropdown";

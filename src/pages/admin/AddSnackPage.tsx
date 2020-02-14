@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 
 import InputText from "../../components/forms/InputText";
 import { minLength, maxLength, isNumber } from "../../modules/validation";
-import { addSnack, InsertSnackForm } from "../../modules/api/snacksAPI";
-import { fetchAllSellers, IdToName } from "../../modules/api/sellersAPI";
+import { addSnack, SnackInsertForm } from "../../modules/api/snackAPI";
+import { fetchAllSellers, IdToName } from "../../modules/api/sellerAPI";
 import Dropdown from "../../components/forms/Dropdown";
 import InputFile from "../../components/forms/InputFile";
 
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 });
 
 interface AddSnackPageProps {
-  addSnack: (insertSnackForm: InsertSnackForm) => Promise<void>;
+  addSnack: (insertSnackForm: SnackInsertForm) => Promise<void>;
   fetchAllSellers: () => Promise<IdToName[]>;
 }
 
@@ -47,7 +47,7 @@ const AddSnackPage = (props: AddSnackPageProps) => {
 
   const handleCreate = (data) => {
     const { sellerId, name, price, quantity, stock, sellingPrice, image } = data;
-    const insertSnackForm: InsertSnackForm = image[0]
+    const insertSnackForm: SnackInsertForm = image[0]
       ? {
           sellerId,
           name,

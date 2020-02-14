@@ -6,8 +6,8 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 
 import InputText from "../../components/forms/InputText";
 import { minLength, maxLength, isNumber } from "../../modules/validation";
-import { updateSnack, RawSnack, getSnack, UpdateSnackForm } from "../../modules/api/snacksAPI";
-import { fetchAllSellers, IdToName } from "../../modules/api/sellersAPI";
+import { updateSnack, RawSnack, getSnack, SnackUpdateForm } from "../../modules/api/snackAPI";
+import { fetchAllSellers, IdToName } from "../../modules/api/sellerAPI";
 import Dropdown from "../../components/forms/Dropdown";
 import InputFile from "../../components/forms/InputFile";
 
@@ -30,7 +30,7 @@ interface ParamMatch {
 }
 
 interface EditSnackPageProps extends RouteComponentProps<ParamMatch> {
-  updateSnack: (id: number, updateSnackForm: UpdateSnackForm) => Promise<void>;
+  updateSnack: (id: number, updateSnackForm: SnackUpdateForm) => Promise<void>;
   fetchAllSellers: () => Promise<IdToName[]>;
   getSnack: (id: number) => Promise<RawSnack>;
 }
@@ -68,7 +68,7 @@ const EditSnackPage = (props: EditSnackPageProps) => {
 
   const handleUpdate = (data) => {
     const { sellerId, name, price, quantity, stock, sellingPrice, image } = data;
-    const updateSnackForm: UpdateSnackForm = image[0]
+    const updateSnackForm: SnackUpdateForm = image[0]
       ? {
           sellerId,
           name,

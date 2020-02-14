@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { red } from "@material-ui/core/colors";
 
 import InputText from "../components/forms/InputText";
-import { registerUser, UserRegistrationForm } from "../modules/api/usersAPI";
+import { registerUser, UserRegistrationForm } from "../modules/api/userAPI";
 import { minLength, maxLength, isEmail } from "../modules/validation";
 import Dropdown from "../components/forms/Dropdown";
 import facultyList from "../assets/facultyList";

@@ -5,13 +5,13 @@ import { selectToken } from "../session/sessionSelectors";
 import { Pagination } from "./pagination";
 import { showToast } from "../toast/toastActions";
 
-export interface InsertSellerForm {
+export interface SellerInsertForm {
   name: string;
   phoneNumber: string;
   address: string;
 }
 
-export interface UpdateSellerForm {
+export interface SellerUpdateForm {
   name: string;
   phoneNumber: string;
   address: string;
@@ -37,10 +37,10 @@ export const fetchSellers = (rowsPerPage: number = 10, page: number = 0) => asyn
   return sellers;
 };
 
-export const addSeller = (insertSellerForm: UpdateSellerForm) => async (dispatch, getState) => {
+export const addSeller = (sellerUpdateForm: SellerUpdateForm) => async (dispatch, getState) => {
   const token = selectToken(getState());
   const url = `${BASE_API}/sellers/`;
-  const body: Message = await post(url, token, insertSellerForm);
+  const body: Message = await post(url, token, sellerUpdateForm);
 
   dispatch(showToast(body.message));
   dispatch(push("/admin/sellers"));
@@ -62,10 +62,10 @@ export const fetchAllSellers = () => async (dispatch, getState) => {
   return sellers;
 };
 
-export const updateSeller = (id: number, updateSellerForm: UpdateSellerForm) => async (dispatch, getState) => {
+export const updateSeller = (id: number, sellerUpdateForm: SellerUpdateForm) => async (dispatch, getState) => {
   const token = selectToken(getState());
   const url = `${BASE_API}/sellers/${id}`;
-  const body: Message = await put(url, token, updateSellerForm);
+  const body: Message = await put(url, token, sellerUpdateForm);
 
   dispatch(showToast(body.message));
   dispatch(push("/admin/sellers"));

@@ -15,7 +15,7 @@ import {
 import { Link } from "react-router-dom";
 import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
 
-import { fetchSnacks, Snack } from "../../modules/api/snacksAPI";
+import { fetchSnacks, Snack } from "../../modules/api/snackAPI";
 import { Pagination } from "../../modules/api/pagination";
 import { BASE_API } from "../../modules/api/http";
 

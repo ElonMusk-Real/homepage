@@ -19,10 +19,13 @@ import { CartSnack } from "../modules/api/cartAPI";
 import { green } from "@material-ui/core/colors";
 import ConfirmationDialog from "../components/ConfirmationDialog";
 import HorizontalLabelPositionBelowStepper from "../components/HorizontalLabelPositionBelowStepper";
+import { isMobile } from "react-device-detect";
 
 const useStyle = makeStyles({
   status: {
-    margin: 20,
+    marginTop: 20,
+    marginBottom: 20,
+    width: "100%",
     textAlign: "center"
   },
   divider: {
@@ -30,7 +33,7 @@ const useStyle = makeStyles({
     marginBottom: 20
   },
   container: {
-    margin: 24
+    marginTop: 24
   },
   info: {
     marginTop: 200,
@@ -52,9 +55,9 @@ const useStyle = makeStyles({
     fontSize: 14
   },
   paperInfo: {
-    marginTop: 50,
-    padding: 20,
-    maxWidth: 700
+    padding: 10,
+    marginTop: isMobile ? 10 : 50,
+    maxWidth: isMobile ? "80vw" : 700
   },
   confirmPickUp: {
     backgroundColor: green[700],
@@ -164,10 +167,12 @@ const TransactionPage = (props: TransactionPageProps) => {
 
   const renderPaid = () =>
     renderCard(
-      <Typography className={classes.status} variant="h5">
-        <div>Thank you for your purchase 😊</div>
+      <>
+        <Typography className={classes.status} variant="h5">
+          Thank you for your purchase 😊
+        </Typography>
         <HorizontalLabelPositionBelowStepper stepToActivate={0} />
-      </Typography>
+      </>
     );
 
   const renderConfirmed = () =>

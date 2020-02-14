@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
 
-import { fetchAllProfile, Profile } from "../../modules/api/usersAPI";
+import { fetchAllProfile, Profile } from "../../modules/api/userAPI";
 import { Pagination } from "../../modules/api/pagination";
 
 const useStyles = makeStyles({
