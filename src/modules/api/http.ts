@@ -43,7 +43,12 @@ async function request(method: string, url: string, token?: string, headers?: an
   const init: RequestInit = {
     method,
     mode: "cors",
-    headers: { ...headers, ...authHeader },
+    headers: {
+      ...headers,
+      ...authHeader,
+      pragma: "no-cache",
+      "cache-control": "no-cache"
+    },
     body
   };
 
