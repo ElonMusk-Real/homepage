@@ -24,6 +24,9 @@ import AboutPage from "./AboutPage";
 import TransactionListPage from "./admin/TransactionListPage";
 import ContactPage from "./ContactPage";
 import { isMobile } from "react-device-detect";
+import VoucherListPage from "./admin/VoucherListPage";
+import AddVoucherPage from "./admin/AddVoucherPage";
+import EditVoucherPage from "./admin/EditVoucherPage";
 
 export enum MenuGroup {
   ADMIN,
@@ -44,7 +47,7 @@ export interface NavMenu {
 const menus = [
   { icon: "home", text: "Home", url: "/", component: HomePage, exact: true },
   { icon: "view_module", text: "Snacks", url: "/snacks", component: SnacksPage },
-  { icon: "view_module", text: "Merchandise (Soon!)", url: "#" },  
+  { icon: "view_module", text: "Merchandise (Soon!)", url: "#" },
   {
     icon: "person",
     text: "My Profile",
@@ -86,6 +89,16 @@ const menus = [
     text: "Transaction List",
     url: "/admin/transaction",
     component: TransactionListPage,
+    adminOnly: true,
+    group: MenuGroup.ADMIN
+  },
+  { text: "Add new Voucher", url: "/admin/vouchers/add", component: AddVoucherPage, hideFromMenu: true },
+  { text: "Edit Voucher", url: "/admin/vouchers/edit/:id", component: EditVoucherPage, hideFromMenu: true },
+  {
+    icon: "confirmation_number",
+    text: "Voucher List",
+    url: "/admin/vouchers",
+    component: VoucherListPage,
     adminOnly: true,
     group: MenuGroup.ADMIN
   },
